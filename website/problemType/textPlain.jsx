@@ -9,15 +9,50 @@ var problemType_textPlain = {
 			},
 			render: function() {
 				var data = problem;
+				var elemTitle = (!data.title) ? null :
+					<div className="row">
+						<div className="col-md-2 text-right">
+							<strong>Title:</strong>
+						</div>
+						<div className="col-md-10">
+							{data.title}
+						</div>
+					</div>;
+				var elemDescription = (!data.description) ? null :
+					<div className="row">
+						<div className="col-md-2 text-right">
+							<strong>Description:</strong>
+						</div>
+						<div className="col-md-10">
+							{data.description}
+						</div>
+					</div>;
+				var elemQuestion = (!data.question) ? null :
+					<div className="row">
+						<div className="col-md-2 text-right">
+							<strong>Question:</strong>
+						</div>
+						<div className="col-md-10">
+							{data.question}
+						</div>
+					</div>;
 				return (
 					<div>
-						<div>
-							Question: {data.question}
+						{elemTitle}
+						{elemDescription}
+						{elemQuestion}
+						<div className="row">
+							<div className="col-md-2 text-right">
+								<strong>Your answer:</strong>
+							</div>
+							<div className="col-md-10">
+								<input type="text" value={this.state.answer} onChange={this.handleAnswerChange}/>
+							</div>
 						</div>
-						<div>
-							Your answer:
-							<input type="text" value={this.state.answer} onChange={this.handleAnswerChange}/>
-							<button onClick={this.handleSubmit}>Submit</button>
+						<div className="row">
+							<div className="col-md-2 col-md-offset-2">
+								<button onClick={this.handleSubmit}>Submit</button>
+							</div>
 						</div>
 					</div>
 				);
