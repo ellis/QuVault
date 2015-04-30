@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>On Top Of Things</title>
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="main.css">
+	<script src="bower_components/jquery/dist/jquery.js"></script>
+	<script src="bower_components/react/react-with-addons.js"></script>
+	<script src="bower_components/react/JSXTransformer.js"></script>
+	<script src="bower_components/director/build/director.js"></script>
+	<script src="bower_components/underscore/underscore.js"></script>
+	<script src="bower_components/moment/moment.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="bower_components/string.startsWith/src/string.startsWith.js" type="text/javascript"></script>
+	<script src="bower_components/query-string/query-string.js"></script>
+
+	<script type="text/jsx" src="problemType/textPlain.jsx"></script>
+</head>
+<body>
+<section id="app" class="container"></section>
+
+<script>
+var q1 = {
+  renderer: "text",
+  title: "An awesome question",
+  question: "1 + 3 = ...",
+  given: "nothing",
+  answer: "4"
+};
+
+// See http://quvault.appspot.com/hw/ee/OhmsLawAndPower/
+var q2 = {
+  renderer: "electronics",
+  instructions: "Helpful instructions are elsewhere, I'm sure.",
+  title: "Ohm's Law and the Power Law",
+  figures: [
+    {
+      type: "circuit",
+      content: "..."
+    }
+  ],
+  symbols: [
+    {symbol: "E", description: "voltage drop across \\[R\\]"}
+  ],
+  description: "Consider the four quantities E, I, R, and P. When you know two of those quantities, the other two can be calculated by application of Ohm's law and the power law.",
+  questions: [
+    {
+      given: ["E", "I"],
+      find: [
+        {symbol: "R", answer: "R = E / I"},
+        {symbol: "P", answer: "P = I * E"}
+      ]
+    },
+    {
+      given: ["E", "R"],
+      find: [
+        {symbol: "I", answer: "I = E / R"},
+        {symbol: "P", answer: "P = E^2 / R"}
+      ]
+    }
+  ]
+};
+
+// Vim questions
+var q3 = {
+  renderer: "text2",
+  side1: "Action: Enter into insert mode after the character your cursor is on.",
+  side2: "Command: a"
+};
+
+var q4 = {
+  renderer: "vim",
+  action: "Enter into insert mode after the character your cursor is on.",
+  commands: [
+    {mode: "normal", command: "a"}
+  ]
+};
+
+/*
+Q: How to reference an individual question?
+A: via a list.  The first element is a UUID for a problem, the second element is a major version, and anything after that consists of further internal indexes for that problem.
+    `[UUID, VERMAJ, (context indexes), (subquestion indexes)]`
+
+Let's call the top unit a problem.  This contains JSON-format data.
+Each problem should ultimately have one or more questions.
+
+A problem can undergo various transformations.  A transformation is a JavaScript function that takes a JSON object as input and outputs another JSON object.
+How shall transformations be stored and loaded?  If stored as JSON, there are major security risks (but see 'Caja' for guaranteeing a safe subset).
+I guess for now transformations will need to be javascript that's explicitly included in the main source code.
+However, there should special types of transformations that can be stored as JSON: for example, a JSON object whos values are all passed through underscore's templating system.
+I would like to be able to handle all Anki-like card customization through such a standarized tranformation.
+*/
+
+/*
+A problem type provides the following functions, each of which accepts a problem as input:
+- indexes for all questions that are to be used as flashcards
+- question renderer
+- answer renderer
+- optional autograded answer result (true or false)
+- summary renderer
+- maybe extract other properties, like tags or topic keywords
+- will also need some list of dependencies to pull in CSS and javascript code
+The renderers should be ReactJS classes.
+*/
+
+
+/*
+Problems can have "contexts" that simply presents the context of the sub-questions.
+The context could potentially be programmable, accepting a "context index" that it uses to generate the concrete context.
+One reason for this is that we might want to have a large/infinite supply of basically similar problems.
+Then we may have sub-contexts that in turn have questions?
+Questions may have multiple parts.
+
+What about the hierarchy of organization?
+We might have somethign like a series of courses, an individual course, a particular topic, and then questions about that topic.
+*/
+
+</script>
+
+<script type="text/jsx">
+
+var App = React.createClass({
+	render: function() {
+		var elem = null;
+		switch (q1.renderer) {
+			case "text":
+				elem = React.createElement(problemType_textPlain.getQuestionRenderer(q1, [0], this.handleShowAnswer), {});
+				// elem = <TextRenderer data={q1}/>
+				break;
+		}
+		return <div>
+			{elem}
+		</div>;
+	},
+	handleSubmit: function(e) {
+		//this.props.onSubmitAnswer(e.target.value);
+		this.setState({mode: "answer"});
+	},
+	handleShowAnswer: function(answer) {
+		console.log("answer: "+JSON.stringify(answer));
+	}
+});
+
+/*
+ * mode: ["question", "answer", "summary"]
+ * onSubmitAnswer: callback function accepting the answer string
+ */
+var TextRenderer = React.createClass({
+  getInitialState: function() {
+		return {
+			answer: "",
+      mode: "question"
+		};
+	},
+  render: function() {
+    switch (this.state.mode) {
+      case "question": return this.renderQuestion();
+      case "answer": return this.renderAnswer();
+    }
+  },
+  renderQuestion: function() {
+    var data = this.props.data;
+    return <div>
+      <div>
+        Question: {data.question}
+      </div>
+      <div>
+        Your answer:
+        <input type="text" value={this.state.answer} onChange={this.handleAnswerChange}/>;
+        <button onClick={this.handleSubmit}>Submit</button>
+      </div>
+    </div>;
+  },
+  renderAnswer: function() {
+    var data = this.props.data;
+    return <div>
+      <table>
+        <tr>
+          <th>Question:</th>
+          <td>{data.question}</td>
+        </tr>
+        <tr>
+          <th>Your answer:</th>
+          <td>{this.state.answer}</td>
+        </tr>
+        <tr>
+          <th>Correct answer:</th>
+          <td>{data.answer}</td>
+        </tr>
+      </table>
+    </div>;
+  },
+  handleAnswerChange: function(e) {
+    var answer = e.target.value;
+    this.setState({answer: answer});
+  },
+  handleSubmit: function(e) {
+    //this.props.onSubmitAnswer(e.target.value);
+    this.setState({mode: "answer"});
+  }
+});
+
+React.render(
+	<App/>,
+	document.getElementById("app")
+);
+</script>
+</body>
+</html>
