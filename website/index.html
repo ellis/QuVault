@@ -8,7 +8,9 @@
 	<script src="bower_components/jquery/dist/jquery.js"></script>
 	<script src="bower_components/react/react-with-addons.js"></script>
 	<script src="bower_components/react/JSXTransformer.js"></script>
-	<script src="bower_components/director/build/director.js"></script>
+	<!--script src="bower_components/director/build/director.js"></script-->
+	<!--script src="bower_components/react-router/build/umd/ReactRouter.js"></script-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react-router/0.11.6/react-router.js"></script>
 	<script src="bower_components/underscore/underscore.js"></script>
 	<script src="bower_components/moment/moment.js"></script>
 	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
@@ -96,10 +98,12 @@ I would like to be able to handle all Anki-like card customization through such 
 /*
 A problem type provides the following functions, each of which accepts a problem as input:
 - indexes for all questions that are to be used as flashcards
-- question renderer
-- answer renderer
+- renders:
+	- question renderer
+	- answer field renderer where user enters answer (optionally null)
+	- solution renderer
+	- summary renderer
 - optional autograded answer result (true or false)
-- summary renderer
 - maybe extract other properties, like tags or topic keywords
 - will also need some list of dependencies to pull in CSS and javascript code
 The renderers should be ReactJS classes.
@@ -201,11 +205,79 @@ var TextRenderer = React.createClass({
     this.setState({mode: "answer"});
   }
 });
-
+/*
 React.render(
 	<App/>,
 	document.getElementById("app")
 );
-</script>
+*/
+var Router = ReactRouter;
+
+var DefaultRoute = Router.DefaultRoute;
+var Link = Router.Link;
+var Route = Router.Route;
+var RouteHandler = Router.RouteHandler;
+
+var App = React.createClass({
+  render: function () {
+    return (
+      <div>
+        <header>
+          <ul>
+            <li><Link to="app">Dashboard</Link></li>
+            <li><Link to="inbox">Inbox</Link></li>
+            <li><Link to="calendar">Calendar</Link></li>
+          </ul>
+          Logged in as Jane
+        </header>
+
+        {/* this is the important part */}
+        <RouteHandler/>
+      </div>
+    );
+  }
+});
+
+var Calendar = React.createClass({
+  render: function () {
+    return (
+      <div>
+		Calendar
+      </div>
+    );
+  }
+});
+
+var Inbox = React.createClass({
+  render: function () {
+    return (
+      <div>
+		Inbox
+      </div>
+    );
+  }
+});
+
+var Dashboard = React.createClass({
+  render: function () {
+    return (
+      <div>
+		Dashboard
+      </div>
+    );
+  }
+});
+
+var routes = (
+  <Route name="app" path="/" handler={App}>
+    <Route name="inbox" handler={Inbox}/>
+    <Route name="calendar" handler={Calendar}/>
+    <DefaultRoute handler={Dashboard}/>
+  </Route>
+);
+
+Router.run(routes, function (Handler) {
+  React.render(<Handler/>, document.body);
+});</script>
 </body>
 </html>
