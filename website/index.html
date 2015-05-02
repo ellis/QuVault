@@ -126,159 +126,7 @@ We might have somethign like a series of courses, an individual course, a partic
 
 <script type="text/jsx">
 
-var App = React.createClass({
-	render: function() {
-		var elem = null;
-		switch (q1.renderer) {
-			case "text":
-				elem = React.createElement(problemType_textPlain.getQuestionRenderer(q1, [0], this.handleShowAnswer), {});
-				// elem = <TextRenderer data={q1}/>
-				break;
-		}
-		return <div>
-			{elem}
-		</div>;
-	},
-	handleSubmit: function(e) {
-		//this.props.onSubmitAnswer(e.target.value);
-		this.setState({mode: "answer"});
-	},
-	handleShowAnswer: function(answer) {
-		console.log("answer: "+JSON.stringify(answer));
-	}
-});
-
-/*
- * mode: ["question", "answer", "summary"]
- * onSubmitAnswer: callback function accepting the answer string
- */
-var TextRenderer = React.createClass({
-  getInitialState: function() {
-		return {
-			answer: "",
-      mode: "question"
-		};
-	},
-  render: function() {
-    switch (this.state.mode) {
-      case "question": return this.renderQuestion();
-      case "answer": return this.renderAnswer();
-    }
-  },
-  renderQuestion: function() {
-    var data = this.props.data;
-    return <div>
-      <div>
-        Question: {data.question}
-      </div>
-      <div>
-        Your answer:
-        <input type="text" value={this.state.answer} onChange={this.handleAnswerChange}/>;
-        <button onClick={this.handleSubmit}>Submit</button>
-      </div>
-    </div>;
-  },
-  renderAnswer: function() {
-    var data = this.props.data;
-    return <div>
-      <table>
-        <tr>
-          <th>Question:</th>
-          <td>{data.question}</td>
-        </tr>
-        <tr>
-          <th>Your answer:</th>
-          <td>{this.state.answer}</td>
-        </tr>
-        <tr>
-          <th>Correct answer:</th>
-          <td>{data.answer}</td>
-        </tr>
-      </table>
-    </div>;
-  },
-  handleAnswerChange: function(e) {
-    var answer = e.target.value;
-    this.setState({answer: answer});
-  },
-  handleSubmit: function(e) {
-    //this.props.onSubmitAnswer(e.target.value);
-    this.setState({mode: "answer"});
-  }
-});
-/*
-React.render(
-	<App/>,
-	document.getElementById("app")
-);
-*/
-
 /* Build stuff using Reflux */
-
-// Creating an Action
-var textUpdate = Reflux.createAction();
-var statusUpdate = Reflux.createAction();
-
-// Creating a Data Store - Listening to textUpdate action
-var textStore = Reflux.createStore({
-    init: function() {
-        this.listenTo(textUpdate, this.output);
-    },
-    output: function() {
-        var i, args = Array.prototype.slice.call(arguments, 0);
-        for (i = 0; i < args.length; i++) {
-            this.writeOut(args[i]);
-        }
-    },
-    writeOut: function(text) {
-        this.trigger(text);
-    }
-});
-
-// Creating a DataStore
-var statusStore = Reflux.createStore({
-    init: function() {
-        this.listenTo(statusUpdate, this.output);
-    },
-    output: function(flag) {
-        var status = flag ? 'ONLINE' : 'OFFLINE';
-        this.trigger(status);
-    }
-});
-
-// Creating an aggregate DataStore that is listening to textStore and statusStore
-var storyStore = Reflux.createStore({
-    init: function() {
-        this.listenTo(statusStore, this.statusChanged);
-        this.listenTo(textStore, this.textUpdated);
-        this.storyArr = [];
-    },
-    statusChanged: function(flag) {
-        if (flag === 'OFFLINE') {
-            this.trigger('Once upon a time the user did the following: ' + this.storyArr.join(', '));
-            // empty storyArr
-            this.storyArr.splice(0, this.storyArr.length);
-        }
-    },
-    textUpdated: function(text) {
-        this.storyArr.push(text);
-    }
-});
-
-// Fairly simple view component that outputs to console
-function ConsoleComponent() {
-    textStore.listen(function(text) {
-        console.log('text: ', text);
-    });
-    statusStore.listen(function(status) {
-        console.log('status: ', status);
-    });
-    storyStore.listen(function(story) {
-        console.log('story: ', story);
-    });
-}
-
-
 
 // Creating an Action
 var incUnreadAction = Reflux.createAction();
@@ -298,8 +146,13 @@ var inboxStore = Reflux.createStore({
 	}
 });
 
-
-
+var appStateStore = Reflux.createStore({
+	init: function() {
+		this.data = {
+			current: q1
+		};
+	}
+})
 
 
 /* Build router using ReactRouter */
@@ -311,14 +164,14 @@ var Link = Router.Link;
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
-var App = React.createClass({
+var QuVaultApp = React.createClass({
   render: function () {
     return (
       <div>
         <header>
           <ul>
             <li><Link to="app">Dashboard</Link></li>
-            <li><Link to="inbox">Inbox</Link></li>
+            <li><Link to="problem">Problem</Link></li>
             <li><Link to="calendar">Calendar</Link></li>
           </ul>
           Logged in as Jane
@@ -326,16 +179,6 @@ var App = React.createClass({
 
         {/* this is the important part */}
         <RouteHandler/>
-      </div>
-    );
-  }
-});
-
-var Calendar = React.createClass({
-  render: function () {
-    return (
-      <div>
-				Calendar
       </div>
     );
   }
@@ -372,13 +215,21 @@ var Calendar = React.createClass({
 	}
 });
 
-var Inbox = React.createClass({
-  render: function () {
-    return (
-      <div>
-				Inbox
-      </div>
-    );
+var ProblemView = React.createClass({
+  render: function() {
+		var elem = null;
+		switch (q1.renderer) {
+			case "text":
+				elem = React.createElement(problemType_textPlain.getQuestionRenderer(q1, [0], this.handleShowAnswer), {});
+				// elem = <TextRenderer data={q1}/>
+				break;
+		}
+		return <div>
+			{elem}
+		</div>;
+	},
+	handleShowAnswer: function(answer) {
+		console.log("answer: "+JSON.stringify(answer));
   }
 });
 
@@ -393,8 +244,8 @@ var Dashboard = React.createClass({
 });
 
 var routes = (
-  <Route name="app" path="/" handler={App}>
-    <Route name="inbox" handler={Inbox}/>
+  <Route name="app" path="/" handler={QuVaultApp}>
+    <Route name="problem" handler={ProblemView}/>
     <Route name="calendar" handler={Calendar}/>
     <DefaultRoute handler={Dashboard}/>
   </Route>
