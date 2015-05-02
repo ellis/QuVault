@@ -10,6 +10,7 @@
     "moment": "~2.8.4",
     "string.startsWith": "*",
     "query-string": "~1.0.0",
-    "react-router": "~0.13.3"
+    "react-router": "~0.13.3",
+    "reflux": "~0.2.7"
   }
 }
