@@ -1,4 +1,5 @@
 - [x] router URL for specific flashcard
+- [ ] create github repository
 - [ ] create nicer looking website header
 - [ ] put problems in their own separate files, filename is UUID of problem
 - [ ] create view for list of problems
