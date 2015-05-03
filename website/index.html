@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>On Top Of Things</title>
+	<title>QuVault</title>
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="main.css">
 	<script src="bower_components/jquery/dist/jquery.js"></script>
@@ -26,8 +26,9 @@
 <script>
 var q1 = {
 	renderer: "text",
+	instructions: "Please enter the answer",
 	title: "An awesome question",
-	description: "Please enter the answer",
+	description: "You have one apple and three oranges.",
 	question: "1 + 3 = ...",
 	given: "nothing",
 	answer: "4"
@@ -79,6 +80,14 @@ var q4 = {
   commands: [
     {mode: "normal", command: "a"}
   ]
+};
+
+var problems = {
+	"p1": q1,
+	"p2": {
+		question: "What does it mean for a graph to be strongly connected?",
+		answer: "(I think) there is a path from every node to every other node"
+	}
 };
 
 /*
@@ -152,7 +161,7 @@ var appStateStore = Reflux.createStore({
 			current: q1
 		};
 	}
-})
+});
 
 
 /* Build router using ReactRouter */
@@ -167,7 +176,7 @@ var RouteHandler = Router.RouteHandler;
 var QuVaultApp = React.createClass({
   render: function () {
     return (
-      <div>
+      <div className="container">
         <header>
           <ul>
             <li><Link to="app">Dashboard</Link></li>
@@ -178,7 +187,7 @@ var QuVaultApp = React.createClass({
         </header>
 
         {/* this is the important part */}
-        <RouteHandler/>
+        <RouteHandler {...this.props}/>
       </div>
     );
   }
@@ -218,10 +227,48 @@ var Calendar = React.createClass({
 var ProblemView = React.createClass({
   render: function() {
 		var elem = null;
-		switch (q1.renderer) {
+		var rendererId = q1.renderer || "text";
+		switch (rendererId) {
 			case "text":
 				elem = React.createElement(problemType_textPlain.getQuestionRenderer(q1, [0], this.handleShowAnswer), {});
 				// elem = <TextRenderer data={q1}/>
+				break;
+		}
+		return <div>
+			{elem}
+		</div>;
+	},
+	handleShowAnswer: function(answer) {
+		console.log("answer: "+JSON.stringify(answer));
+  }
+});
+
+var FlashcardView = React.createClass({
+  render: function() {
+		console.log("this.props.params: "+JSON.stringify(this.props.params));
+		console.log("this.props: "+JSON.stringify(this.props));
+		var flashcardId_l = this.props.params.flashcardId.split(",");
+		var problemId = _.first(flashcardId_l);
+		var index = _.rest(flashcardId_l);
+		var problem = problems[problemId];
+		console.log("problem: "+JSON.stringify(problem));
+
+		if (!problem) {
+			return "Unknown problem ID "+problemId;
+		}
+
+		var elem = null;
+		var rendererId = problem.renderer || "text";
+		switch (rendererId) {
+			case "text":
+				elem = React.createElement(
+					problemType_textPlain.getQuestionRenderer(
+						problem,
+						index,
+						this.handleShowAnswer
+					),
+					{}
+				);
 				break;
 		}
 		return <div>
@@ -240,19 +287,24 @@ var Dashboard = React.createClass({
 				Dashboard
       </div>
     );
-  }
+	}
 });
 
 var routes = (
   <Route name="app" path="/" handler={QuVaultApp}>
     <Route name="problem" handler={ProblemView}/>
+		<Route name="flashcard" path="/flashcard/:flashcardId" handler={FlashcardView}/>
     <Route name="calendar" handler={Calendar}/>
     <DefaultRoute handler={Dashboard}/>
   </Route>
 );
 
-Router.run(routes, function (Handler) {
-  React.render(<Handler/>, document.body);
-});</script>
+// I probably want to try to use Router.HistoryLocation, since it looks nicer, getting rid of the # stuff
+// but, Ctrl-R refreshing didn't work then.
+//Router.run(routes, Router.HistoryLocation, function (Handler) {
+Router.run(routes, function (Handler, state) {
+  React.render(<Handler {...state}/>, document.body);
+});
+</script>
 </body>
 </html>

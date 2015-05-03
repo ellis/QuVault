@@ -1,0 +1,15 @@
+- [x] router URL for specific flashcard
+- [ ] create nicer looking website header
+- [ ] put problems in their own separate files, filename is UUID of problem
+- [ ] create view for list of problems
+- [ ] problem flag for prompting for answer
+- [ ] create a sample text problem with multiple flashcards
+- [ ] create a transformer
+- [ ] write server code to provide the list of problems
+- [ ] for answers, save score, date to hide question till, and something about the status of the card so that we'll know how long to hide it next time
+- [ ] for scheduling flashcard review, sort past answer data appropriately
+- [ ] create way to organize deck of cards
+- [ ] the default UUID of a problem is it's HASH
+- [ ] what about storing multiple problems in a single file?
+- [ ] figure out way to handle UUID clashes when importing problems
+- [ ] figure out how to create flashcards for Jeromin's french
