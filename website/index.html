@@ -140,6 +140,38 @@ We might have somethign like a series of courses, an individual course, a partic
 // Creating an Action
 var incUnreadAction = Reflux.createAction();
 
+var actions = Reflux.createActions([
+	"loadQuestion",
+	"storeQuestion",
+	"showQuestion"
+]);
+
+actions.loadQuestion.listen(function(id) {
+	$.ajax({
+		url: "/"+id+".json",
+		dataType: 'json',
+		success: function(data) {
+			console.log("loadQuestion.ajax.success: "+JSON.stringify(data));
+			actions.storeQuestion(data);
+		}.bind(this),
+		error: function(xhr, status, err) {
+			console.error(status, err.toString());
+		}.bind(this)
+	});
+});
+
+var store = Reflux.createStore({
+	listenables: [actions],
+	getInitialState: function() {
+		return {};
+	},
+	onStoreQuestion: function(data) {
+		console.log("store.onStoreQuestion: "+JSON.stringify(data));
+		actions.showQuestion(data);
+		this.trigger();
+	}
+})
+
 // Creating a Data Store
 var inboxStore = Reflux.createStore({
   init: function() {
@@ -174,6 +206,7 @@ var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
 var QuVaultApp = React.createClass({
+	mixins: [Reflux.connect(store)],
   render: function () {
     return (
       <div className="container">
@@ -198,7 +231,7 @@ var QuVaultApp = React.createClass({
 				        <li className="dropdown">
 				          <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span className="caret"></span></a>
 				          <ul className="dropdown-menu" role="menu">
-				            <li><a href="#">Action</a></li>
+				            <li><a href="#" onClick={this.handleLoadQuestion}>Action</a></li>
 				            <li><a href="#">Another action</a></li>
 				            <li><a href="#">Something else here</a></li>
 				            <li className="divider"></li>
@@ -243,7 +276,10 @@ var QuVaultApp = React.createClass({
         <RouteHandler {...this.props}/>
       </div>
     );
-  }
+  },
+	handleLoadQuestion: function() {
+		actions.loadQuestion("q1");
+	}
 });
 
 var Calendar = React.createClass({

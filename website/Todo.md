@@ -1,6 +1,8 @@
 - [x] router URL for specific flashcard
 - [x] create github repository
 - [x] create nicer looking website header
+- [ ] work through http://www.sitepoint.com/creating-note-taking-app-react-flux/
+- [ ] look at http://learnreact.robbestad.com/#/home
 - [ ] put problems in their own separate files, filename is UUID of problem
 - [ ] create view for list of problems
 - [ ] problem flag for prompting for answer
