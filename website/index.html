@@ -152,7 +152,7 @@ actions.loadQuestion.listen(function(id) {
 		dataType: 'json',
 		success: function(data) {
 			console.log("loadQuestion.ajax.success: "+JSON.stringify(data));
-			actions.storeQuestion(data);
+			actions.storeQuestion(id, data);
 		}.bind(this),
 		error: function(xhr, status, err) {
 			console.error(status, err.toString());
@@ -160,15 +160,20 @@ actions.loadQuestion.listen(function(id) {
 	});
 });
 
+var _question_m = {};
+
 var store = Reflux.createStore({
 	listenables: [actions],
 	getInitialState: function() {
 		return {};
 	},
-	onStoreQuestion: function(data) {
-		console.log("store.onStoreQuestion: "+JSON.stringify(data));
-		actions.showQuestion(data);
+	onStoreQuestion: function(id, data) {
+		console.log("store.onStoreQuestion: id "+id+" = "+JSON.stringify(data));
+		_question_m[id] = data;
 		this.trigger();
+	},
+	getQuestions: function() {
+		return _question_m;
 	}
 })
 
