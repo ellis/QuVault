@@ -1,0 +1,61 @@
+---
+question: What is the asymptotic worst-case running time of MergeSort, as a function of the input array length n?
+answer: $\Theta(n \log n)$
+---
+question: What is the running time of depth-ﬁrst search, as a function of n and m, if the input graph $G=(V,E)$ is represented by an adjacency list?  As an adjacency matrix?
+answer: $\Theta(n + m), \Theta(n^2)$
+---
+question: What is the asymptotic running time of the Insert and Extract-Min operations, respectively, for a heap with n objects?
+answer: $\Theta(\log n)$ and $\Theta(\log n)$
+---
+question: What is the asymptotic running time of Randomized QuickSort on arrays of length n, in expectation (over the choice of random pivots) and in the worst case, respectively?
+---
+question: two sided flash card: $x^{a\,b} = (x^a)^b$
+---
+question: Recall the Master Method ($T(n) = a T(n/b) + O(n^d)$) and its three parameters $a,b,d$. Which of the following is the best interpretation of $bd$, in the context of divide-and-conquer algorithms?
+answer: The rate at which the work-per-subproblem is shrinking (per level of recursion).
+---
+question: What does it mean for a graph to be strongly connected?
+answer: (I think) there is a path from every node to every other node
+---
+question: Describe the single-source shortest paths problem.
+answer: |
+  Find the shortest paths from a single source $s$ to all other nodes in a graph $G$.
+
+  *Input*: Directed graph $G = (V, E), edge lengths $c_e$ (possibly negative), source vertex $s \in V$.
+  
+  *Goal*: either
+    
+    A) For all destinations $v \in V$, compute the length of a shortest $s-v$ path, or
+    B) Output a negative cycle
+---
+question: Describe the Bellman-Ford algorithm.
+answer: |
+  A dynamic programming algorithm for solving the single-shource shortest paths problem.
+  ```scala
+  for (i <- 1 to n) {
+     A(0, i) = if (i == s) 0 else Int.MaxValue
+  }
+
+  for (i <- 1 until n) {
+     for (v <- V) {
+        val minUsingV = E.filter(x => x._2 == v).map({ case (w, _, cwv) => A(i - 1)(w) + cwv }).min
+        A(i, v) = math.min(A(i - 1, v), minUsingV)
+     }
+  }
+  ```
+---
+question: Describe the Floyd-Warshall algorithm.
+answer: |
+  This is dynamic programming algorithm to solve the all-pairs shortest paths problem.
+  Recurrence A[i,j,k] = min{A[i,j,k-1], A[i,k,k-1] + A[k,j,k-1]}
+
+  ```scala
+  for {
+     k <- 1 to n
+     i <- 1 to n
+     j <- 1 to n
+  } {
+     A(i)(j)(k) = math.min(A(i)(j)(k-1), A(i)(k)(k-1) + A(k)(j)(k-1))
+  }
+  ```
