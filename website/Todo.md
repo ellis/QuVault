@@ -4,7 +4,7 @@
 - [ ] work through http://www.sitepoint.com/creating-note-taking-app-react-flux/
 - [ ] look at http://learnreact.robbestad.com/#/home
 - [ ] put problems in their own separate files, filename is UUID of problem
-- [ ] consider using Web Components instead of React
+- [ ] consider using Web Components instead of React for rending questions, in order to be able to integrate CSS and JavaScript better
 - [ ] create view for list of problems
 - [ ] add flag to problem that indicates whether user should be prompting to type in the answer
 - [ ] create a sample text problem with multiple flashcards
@@ -22,7 +22,6 @@
     - [ ] how to distinguish problems from decks?
 - [ ] support multiple users
 - [ ] in JSON files, allow for pragmas that define default values for all following items in a list
-- [ ] how to create an index of problems and decks?
 
 # Future todos
 
