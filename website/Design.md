@@ -77,4 +77,6 @@ These should be obligatory for shared questions.
 
 ## Scoring answers
 
-CONTINUE, consider also problems with multiple questions.
+CONTINUE, consider also problems with multiple questions and
+problems with many similar variants (e.g. a story problem
+that can display different concrete values for its variables).
