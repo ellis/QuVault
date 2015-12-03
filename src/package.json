@@ -1,0 +1,29 @@
+{
+  "name": "qtest",
+  "version": "0.0.1",
+  "description": "Spaced repetition flashcard system",
+  "main": "lib/cli.js",
+  "dependencies": {
+    "babel": "^5.8.23",
+    "jsonfile": "^2.2.2",
+    "lodash": "~3.9.3",
+    "mathjs": "~1.7.0",
+    "nomnom": "~1.8.1",
+    "yamljs": "~0.2.3"
+  },
+  "devDependencies": {
+    "ink-docstrap": "~0.5.2",
+    "jsdoc": "git+https://github.com/jsdoc3/jsdoc.git",
+    "mocha": "~2.2.5",
+    "pegjs": "~0.8.0",
+    "should": "~7.0.1"
+  },
+  "scripts": {
+    "test": "mocha --compilers js:babel/register --recursive tests/",
+    "pegjs": "pegjs --allowed-start-rules start,startOne parsers/wellsParser0.pegjs",
+    "jsdoc": "jsdoc -r -c jsdoc.json --readme README.md --tutorials tutorials",
+    "cli": "babel-node -- lib/cli.js"
+  },
+  "author": "Ellis Whitehead",
+  "license": "GPL-3.0"
+}

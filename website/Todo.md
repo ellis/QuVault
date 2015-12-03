@@ -3,7 +3,7 @@
 - [x] create nicer looking website header
 - [ ] work through http://www.sitepoint.com/creating-note-taking-app-react-flux/
 - [ ] look at http://learnreact.robbestad.com/#/home
-- [ ] put problems in their own separate files, filename is UUID of problem
+- [ ] when importing, put problems in their own separate files, filename is UUID of problem
 - [ ] consider using Web Components instead of React for rending questions, in order to be able to integrate CSS and JavaScript better
 - [ ] create view for list of problems
 - [ ] add flag to problem that indicates whether user should be prompting to type in the answer
@@ -21,7 +21,7 @@
     - [ ] allow for a file to contain multiple problems and decks
     - [ ] how to distinguish problems from decks?
 - [ ] support multiple users
-- [ ] in JSON files, allow for pragmas that define default values for all following items in a list
+- [ ] in JSON files, allow for pragmas that define default values for all following items in a list (e.g. 'DEFAULTS')
 
 # Future todos
 

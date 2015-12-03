@@ -41,7 +41,7 @@ A list of questions:
   "questions": [
     {
       "question": "What does it mean for a graph to be strongly connected?",
-  		"answer": "(I think) there is a path from every node to every other node"
+      "answer": "(I think) there is a path from every node to every other node"
     }
   ]
 }
@@ -63,7 +63,7 @@ items.
 
 ## Indexes
 
-How to create an index of problems and decks?  Consider that some problems may have numerous variations, and we only want to list the main problem template, not all the variations.  For the sake of performance, we should probably maintain this list, rather than generating it from directory contents all the time.
+How to create a database index of problems and decks?  Consider that some problems may have numerous variations, and we only want to list the main problem template, not all the variations.  For the sake of performance, we should probably maintain this list, rather than generating it from directory contents all the time.
 
 ## Showing a problem
 
