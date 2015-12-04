@@ -1,3 +1,19 @@
+* [ ] cli: handle loading of a YAML problem set
+* [ ] cli: command to add UUIDs to problems in problem set and write it back to disk
+* [ ] cli: handle importing of problem sets, creating a file for each problem
+* [ ] cli: specify a question with UUID/index
+* [ ] allow for several modes: flashcard, exam, exam with answers, compact list, compact list with answers
+* [ ] allow for rendering to markdown, HTML, and interactive HTML
+* [ ] try creating a simple chemistry problem
+* [ ] try creating a complex chemistry problem
+* [ ] try scoring an answer
+* [ ] save question scores
+* [ ] generate spaced repetition plan
+* [ ] handle media, hashed filenames
+
+
+Old:
+
 - [x] router URL for specific flashcard
 - [x] create github repository
 - [x] create nicer looking website header

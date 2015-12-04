@@ -43,14 +43,15 @@ if (opts.debug) {
 
 if (!_.isEmpty(opts.uuid)) {
 	const filenameJson = path.join("data", opts.uuid+".json");
-	console.log(filenameJson);
+	//console.log(filenameJson);
 	if (fs.existsSync(filenameJson)) {
 		const data = jsonfile.readFileSync(filenameJson);
-		console.log(JSON.stringify(data, null, "  "));
+		//console.log(JSON.stringify(data, null, "  "));
 
 		if (opts.question) {
-			const problemType = require('./problemTypes/default.js');
+			const problemType = require('../problemTypes/default.js');
 			const renderer = problemType.getQuestionRenderer(data, 0);
+			//console.log(renderer)
 			if (_.isPlainObject(renderer)) {
 				console.log(renderer.data);
 			}

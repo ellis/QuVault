@@ -5,6 +5,7 @@ const problemType = {
 		return [0];
 	},
 	getQuestionRenderer: function(problem, index) {
+		//console.log(problem.question)
 		const instructions = (problem.instructions)
 			? `*${problem.instructions}*`
 			: undefined;
@@ -15,8 +16,11 @@ const problemType = {
 			? problem.description
 			: undefined;
 		const question = (problem.question)
-			? `**Question:**\n\n${problem.question}`;
-		const list = _.compact(instructions, title, description, question);
+			? `**Question:**\n\n${problem.question}`
+			: undefined;
+		//console.log(question)
+		const list = _.compact([instructions, title, description, question]);
+		//console.log(list)
 		return {
 			format: "markdown",
 			data: list.join("\n\n")
