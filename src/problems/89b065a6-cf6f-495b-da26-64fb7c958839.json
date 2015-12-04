@@ -1,0 +1,5 @@
+{
+	"question": "Describe the Bellman-Ford algorithm.",
+	"answer": "A dynamic programming algorithm for solving the single-shource shortest paths problem.\n```scala\nfor (i <- 1 to n) {\n\n   A(0, i) = if (i == s) 0 else Int.MaxValue\n\n}\n\n\nfor (i <- 1 until n) {\n\n   for (v <- V) {\n\n      val minUsingV = E.filter(x => x._2 == v).map({ case (w, _, cwv) => A(i\n- 1)(w) + cwv }).min\n\n      A(i, v) = math.min(A(i - 1, v), minUsingV)\n\n   }\n\n}\n```\n",
+	"uuid": "89b065a6-cf6f-495b-da26-64fb7c958839"
+}

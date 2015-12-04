@@ -1,61 +1,99 @@
+question: 'What is the asymptotic worst-case running time of MergeSort, as a function of the input array length n?'
+answer: "$\\Theta(n \\log n)$"
+uuid: fab70f16-7332-438e-c9e0-928fcfaef8c8
+
 ---
-question: What is the asymptotic worst-case running time of MergeSort, as a function of the input array length n?
-answer: $\Theta(n \log n)$
+question: 'What is the running time of depth-ﬁrst search, as a function of n and m, if the input graph $G=(V,E)$ is represented by an adjacency list?  As an adjacency matrix?'
+answer: "$\\Theta(n + m), \\Theta(n^2)$"
+uuid: d815415b-8bc7-48ca-bcea-bbf7c53da0d9
+
 ---
-question: What is the running time of depth-ﬁrst search, as a function of n and m, if the input graph $G=(V,E)$ is represented by an adjacency list?  As an adjacency matrix?
-answer: $\Theta(n + m), \Theta(n^2)$
+question: 'What is the asymptotic running time of the Insert and Extract-Min operations, respectively, for a heap with n objects?'
+answer: "$\\Theta(\\log n)$ and $\\Theta(\\log n)$"
+uuid: 40b7916e-d2a7-4ac7-de31-fc27ff9ff189
+
 ---
-question: What is the asymptotic running time of the Insert and Extract-Min operations, respectively, for a heap with n objects?
-answer: $\Theta(\log n)$ and $\Theta(\log n)$
----
-question: What is the asymptotic running time of Randomized QuickSort on arrays of length n, in expectation (over the choice of random pivots) and in the worst case, respectively?
+question: 'What is the asymptotic running time of Randomized QuickSort on arrays of length n, in expectation (over the choice of random pivots) and in the worst case, respectively?'
+uuid: e9bbeead-29ef-44be-8569-946ae1e84c1e
+
 ---
 question: "two sided flash card: $x^{a\\,b} = (x^a)^b$"
+uuid: 1310ac03-dde7-4e21-8456-ca49099cc1fc
+
 ---
-question: Recall the Master Method ($T(n) = a T(n/b) + O(n^d)$) and its three parameters $a,b,d$. Which of the following is the best interpretation of $bd$, in the context of divide-and-conquer algorithms?
+question: 'Recall the Master Method ($T(n) = a T(n/b) + O(n^d)$) and its three parameters $a,b,d$. Which of the following is the best interpretation of $bd$, in the context of divide-and-conquer algorithms?'
 answer: The rate at which the work-per-subproblem is shrinking (per level of recursion).
+uuid: d984be74-50d9-4fa4-daae-2fc7e3835717
+
 ---
 question: What does it mean for a graph to be strongly connected?
 answer: (I think) there is a path from every node to every other node
+uuid: 24aaed60-b8b6-48f0-c14e-c185efd8e7e1
+
 ---
 question: Describe the single-source shortest paths problem.
-answer: |
-  Find the shortest paths from a single source $s$ to all other nodes in a graph $G$.
+answer: "Find the shortest paths from a single source $s$ to all other nodes in a graph $G$.\n\n*Input*: Directed graph $G = (V, E), edge lengths $c_e$ (possibly negative), source vertex $s \\in V$.\n\n*Goal*: either\n  \n  A) For all destinations $v \\in V$, compute the length of a shortest $s-v$ path, or\n  B) Output a negative cycle\n"
+uuid: ceeee6fe-2725-473e-bf9a-7f285df767c8
 
-  *Input*: Directed graph $G = (V, E), edge lengths $c_e$ (possibly negative), source vertex $s \in V$.
-  
-  *Goal*: either
-    
-    A) For all destinations $v \in V$, compute the length of a shortest $s-v$ path, or
-    B) Output a negative cycle
 ---
 question: Describe the Bellman-Ford algorithm.
-answer: |
-  A dynamic programming algorithm for solving the single-shource shortest paths problem.
+answer: >
+  A dynamic programming algorithm for solving the single-shource shortest paths
+  problem.
+
   ```scala
+
   for (i <- 1 to n) {
+
      A(0, i) = if (i == s) 0 else Int.MaxValue
+
   }
+
+
 
   for (i <- 1 until n) {
+
      for (v <- V) {
-        val minUsingV = E.filter(x => x._2 == v).map({ case (w, _, cwv) => A(i - 1)(w) + cwv }).min
+
+        val minUsingV = E.filter(x => x._2 == v).map({ case (w, _, cwv) => A(i
+  - 1)(w) + cwv }).min
+
         A(i, v) = math.min(A(i - 1, v), minUsingV)
+
      }
+
   }
+
   ```
+uuid: 89b065a6-cf6f-495b-da26-64fb7c958839
+
 ---
 question: Describe the Floyd-Warshall algorithm.
-answer: |
-  This is dynamic programming algorithm to solve the all-pairs shortest paths problem.
+answer: >
+  This is dynamic programming algorithm to solve the all-pairs shortest paths
+  problem.
+
   Recurrence A[i,j,k] = min{A[i,j,k-1], A[i,k,k-1] + A[k,j,k-1]}
 
+
+
   ```scala
+
   for {
+
      k <- 1 to n
+
      i <- 1 to n
+
      j <- 1 to n
+
   } {
+
      A(i)(j)(k) = math.min(A(i)(j)(k-1), A(i)(k)(k-1) + A(k)(j)(k-1))
+
   }
+
   ```
+uuid: 44cebdb3-a8e5-41d1-8b71-af6a63f4001a
+
+---

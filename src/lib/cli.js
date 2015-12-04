@@ -61,29 +61,55 @@ if (opts.debug) {
 	console.log(opts);
 }
 
-if (opts.import) {
+function doImport() {
 	const filename = opts.import;
 	const documents = [];
 	console.log(path.extname(filename));
 	if (path.extname(filename) === ".yaml") {
 		const content = fs.readFileSync(filename, 'utf8');
 		console.log(content);
-		yaml.safeLoadAll(content, doc => documents.push(doc));
+		yaml.safeLoadAll(content, doc => {
+			if (!_.isEmpty(doc))
+				documents.push(doc)
+		});
+	}
+	if (opts.debug) {
+		console.log(`documents: ${JSON.stringify(documents, null, '  ')}`);
 	}
 	const documentsMissingUuid = _.filter(documents, doc => _.isEmpty(doc.uuid));
 	if (!_.isEmpty(documentsMissingUuid)) {
 		if (opts.addUuid) {
 			for (const problem of documentsMissingUuid) {
 				problem.uuid = generateUuid();
-				console.log(yaml.safeDump(documents));
-				console.log("---");
+				if (opts.debug) {
+					console.log(yaml.safeDump(problem));
+					console.log("---");
+				}
+			}
+			fs.writeFileSync(filename, "", "utf8", err => {});
+			for (const problem of documents) {
+				const content2 = yaml.safeDump(problem) + "\n---\n";
+				fs.appendFileSync(filename, content2, "utf8", err => {});
 			}
 		}
 		else {
 			console.log("These problems are missing UUIDs:");
 			console.log(documentsMissingUuid);
+			return;
 		}
 	}
+
+	// Create problem files
+	fs.mkdir("problems");
+	for (const problem of documents) {
+		const filename = path.join("problems", problem.uuid+".json");
+		const content2 = JSON.stringify(problem, null, "\t");
+		fs.writeFileSync(filename, content2, "utf8", err => {});
+	}
+}
+
+if (opts.import) {
+	doImport();
 }
 
 else if (!_.isEmpty(opts.uuid)) {

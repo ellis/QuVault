@@ -1,0 +1,5 @@
+{
+	"question": "Describe the single-source shortest paths problem.",
+	"answer": "Find the shortest paths from a single source $s$ to all other nodes in a graph $G$.\n\n*Input*: Directed graph $G = (V, E), edge lengths $c_e$ (possibly negative), source vertex $s \\in V$.\n\n*Goal*: either\n  \n  A) For all destinations $v \\in V$, compute the length of a shortest $s-v$ path, or\n  B) Output a negative cycle\n",
+	"uuid": "ceeee6fe-2725-473e-bf9a-7f285df767c8"
+}
