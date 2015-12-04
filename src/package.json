@@ -5,11 +5,11 @@
   "main": "lib/cli.js",
   "dependencies": {
     "babel": "^5.8.23",
+    "js-yaml": "^3.4.6",
     "jsonfile": "^2.2.2",
     "lodash": "~3.9.3",
     "mathjs": "~1.7.0",
-    "nomnom": "~1.8.1",
-    "yamljs": "~0.2.3"
+    "nomnom": "~1.8.1"
   },
   "devDependencies": {
     "ink-docstrap": "~0.5.2",

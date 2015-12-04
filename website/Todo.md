@@ -1,4 +1,5 @@
-* [ ] cli: handle loading of a YAML problem set
+* [x] cli: handle loading of a YAML problem set
+    Test with `npm run cli -- --import ../website/Algorithms1.yaml -d`
 * [ ] cli: command to add UUIDs to problems in problem set and write it back to disk
 * [ ] cli: handle importing of problem sets, creating a file for each problem
 * [ ] cli: specify a question with UUID/index

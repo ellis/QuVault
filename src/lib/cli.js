@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import fs from 'fs';
-import path from 'path';
 import jsonfile from 'jsonfile';
+import path from 'path';
+import yaml from 'js-yaml';
 
 const version = "0.1";
 
@@ -31,6 +32,9 @@ const nomnom = require('nomnom').options({
 			return "version "+version;
 		}
 	},
+	import: {
+		help: "import a problem set"
+	}
 });
 
 const argv = process.argv;
@@ -41,8 +45,22 @@ if (opts.debug) {
 	console.log(opts);
 }
 
-if (!_.isEmpty(opts.uuid)) {
+if (opts.import) {
+	const filename = opts.import;
+	const documents = [];
+	console.log(path.extname(filename));
+	if (path.extname(filename) === ".yaml") {
+		const content = fs.readFileSync(filename, 'utf8');
+		console.log(content);
+		yaml.safeLoadAll(content, doc => documents.push(doc));
+	}
+	console.log(documents);
+}
+
+else if (!_.isEmpty(opts.uuid)) {
 	const filenameJson = path.join("data", opts.uuid+".json");
+	const filenameYaml = path.join("data", opts.uuid+".yaml");
+
 	//console.log(filenameJson);
 	if (fs.existsSync(filenameJson)) {
 		const data = jsonfile.readFileSync(filenameJson);
