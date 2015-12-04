@@ -34,8 +34,24 @@ const nomnom = require('nomnom').options({
 	},
 	import: {
 		help: "import a problem set"
+	},
+	addUuid: {
+		abbr: 'u',
+		flag: true,
+		help: "Add missing UUID to imported problems"
 	}
 });
+
+
+function generateUuid() {
+	var d = new Date().getTime();
+	var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+		var r = (d + Math.random()*16)%16 | 0;
+		d = Math.floor(d/16);
+		return (c=='x' ? r : (r&0x7|0x8)).toString(16);
+	});
+	return uuid;
+}
 
 const argv = process.argv;
 const opts = nomnom.parse(argv);
@@ -54,7 +70,20 @@ if (opts.import) {
 		console.log(content);
 		yaml.safeLoadAll(content, doc => documents.push(doc));
 	}
-	console.log(documents);
+	const documentsMissingUuid = _.filter(documents, doc => _.isEmpty(doc.uuid));
+	if (!_.isEmpty(documentsMissingUuid)) {
+		if (opts.addUuid) {
+			for (const problem of documentsMissingUuid) {
+				problem.uuid = generateUuid();
+				console.log(yaml.safeDump(documents));
+				console.log("---");
+			}
+		}
+		else {
+			console.log("These problems are missing UUIDs:");
+			console.log(documentsMissingUuid);
+		}
+	}
 }
 
 else if (!_.isEmpty(opts.uuid)) {
