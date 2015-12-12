@@ -113,8 +113,11 @@ if (opts.import) {
 }
 
 else if (!_.isEmpty(opts.uuid)) {
-	const filenameJson = path.join("data", opts.uuid+".json");
-	const filenameYaml = path.join("data", opts.uuid+".yaml");
+	const slashPos = opts.uuid.indexOf("/");
+	const uuid = (slashPos > 0) ? opts.uuid.substring(0, slashPos) : opts.uuid;
+	const index = (slashPos > 0) ? parseInt(opts.uuid.substring(slashPos + 1)) : 0;
+	const filenameJson = path.join("problems", uuid+".json");
+	const filenameYaml = path.join("problems", uuid+".yaml");
 
 	//console.log(filenameJson);
 	if (fs.existsSync(filenameJson)) {
@@ -123,7 +126,7 @@ else if (!_.isEmpty(opts.uuid)) {
 
 		if (opts.question) {
 			const problemType = require('../problemTypes/default.js');
-			const renderer = problemType.getQuestionRenderer(data, 0);
+			const renderer = problemType.getQuestionRenderer(data, index);
 			//console.log(renderer)
 			if (_.isPlainObject(renderer)) {
 				console.log(renderer.data);
