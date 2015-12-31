@@ -2,14 +2,14 @@
 * [x] cli: command to add UUIDs to problems in problem set and write it back to disk: `npm run cli -- --import problemSets/Algorithms1.yaml -d -u`
 * [x] cli: handle importing of problem sets, creating a file for each problem
 * [x] cli: specify a question with `UUID/index`
-* [ ] allow for several modes: flashcard, exam, exam with answers, compact list, compact list with answers
-* [ ] allow for rendering to markdown, HTML, and interactive HTML
+* [ ] score a response
 * [ ] try creating a simple chemistry problem
 * [ ] try creating a complex chemistry problem
 * [ ] try creating a simple 2-way vocabulary problem
 * [ ] try creating a native/spoken/written vocabulary problem
 * [ ] try creating a complex vocabulary problem (i.e. multiple translations possible)
-* [ ] try scoring an answer
+* [ ] implement several modes: flashcard, exam, exam with answers, compact list, compact list with answers
+* [ ] implement rendering to markdown, HTML, and interactive HTML
 * [ ] save question scores
 * [ ] generate spaced repetition plan
 * [ ] handle media, hashed filenames

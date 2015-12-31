@@ -20,10 +20,25 @@ const nomnom = require('nomnom').options({
 		flag: true,
 		help: 'Print debugging info'
 	},
+	mode: {
+		abbr: "m",
+		help: "operation mode (flashcard, exam, exam-with-answers, list, list-with-answers)",
+		default: "flashcard"
+	},
+	format: {
+		abbr: "f",
+		help: "render format (markdown, html, html-interactive)",
+		default: "markdown"
+	},
 	question: {
 		abbr: 'q',
 		flag: true,
 		help: 'Print question'
+	},
+	answer: {
+		abbr: "a",
+		flag: true,
+		help: "Print answer"
 	},
 	version: {
 		flag: true,
@@ -126,10 +141,10 @@ else if (!_.isEmpty(opts.uuid)) {
 
 		if (opts.question) {
 			const problemType = require('../problemTypes/default.js');
-			const renderer = problemType.getQuestionRenderer(data, index);
+			const renderer = problemType.getQuestionFlashcardRenderer(opts.format, data, index);
 			//console.log(renderer)
 			if (_.isPlainObject(renderer)) {
-				console.log(renderer.data);
+				console.log(renderer.data.trim());
 			}
 		}
 	}

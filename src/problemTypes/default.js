@@ -1,10 +1,31 @@
 import _ from 'lodash';
+import mustache from 'mustache';
+
+const template =
+`{{#problem.instructions}}
+{{problem.instructions}}
+
+{{/problem.instructions}}
+{{#problem.title}}
+**{{problem.title}}**
+
+{{/problem.title}}
+{{#problem.description}}
+**{{problem.description}}**
+
+{{/problem.description}}
+{{problem.question}}
+`;
 
 const problemType = {
 	getFlashcardQuestionIndexes: function(problem) {
 		return [0];
 	},
-	getQuestionRenderer: function(problem, index) {
+	getQuestionFlashcardRenderer: function(format, problem, index) {
+		return {
+			format: "markdown",
+			data: mustache.render(template, {problem})
+		};/*
 		//console.log(problem.question)
 		const instructions = (problem.instructions)
 			? `*${problem.instructions}*`
@@ -24,7 +45,7 @@ const problemType = {
 		return {
 			format: "markdown",
 			data: list.join("\n\n")
-		};
+		};*/
 	},
 	/*getAnswerRenderer: function(prolem, index, answer) {
 		return null;
