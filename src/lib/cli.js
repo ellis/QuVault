@@ -9,11 +9,7 @@ const version = "0.1";
 const nomnom = require('nomnom').options({
 	uuid: {
 		position: 2,
-		help: 'UUID of problem',
-	},
-	index: {
-		position: 3,
-		help: 'question index',
+		help: 'UUID/index of problem/question',
 	},
 	debug: {
 		abbr: 'd',
@@ -30,10 +26,19 @@ const nomnom = require('nomnom').options({
 		help: "render format (markdown, html, html-interactive)",
 		default: "markdown"
 	},
-	question: {
-		abbr: 'q',
+	interactive: {
+		abbr: "i",
+		help: "interactive mode",
+		flag: true
+	},
+	response: {
+		abbr: "r",
+		help: "User's response to the question"
+	},
+	score: {
+		abbr: "s",
 		flag: true,
-		help: 'Print question'
+		help: "try to autoscore the user's response",
 	},
 	answer: {
 		abbr: "a",
@@ -136,15 +141,25 @@ else if (!_.isEmpty(opts.uuid)) {
 
 	//console.log(filenameJson);
 	if (fs.existsSync(filenameJson)) {
-		const data = jsonfile.readFileSync(filenameJson);
+		const problem = jsonfile.readFileSync(filenameJson);
 		//console.log(JSON.stringify(data, null, "  "));
 
-		if (opts.question) {
-			const problemType = require('../problemTypes/default.js');
-			const renderer = problemType.getQuestionFlashcardRenderer(opts.format, data, index);
+		const problemType = require('../problemTypes/default.js');
+		if (opts.interactive) {
+			
+		}
+		else {
+			const renderer = problemType.getQuestionFlashcardRenderer(opts.format, problem, index, opts.response, opts.answer);
 			//console.log(renderer)
 			if (_.isPlainObject(renderer)) {
-				console.log(renderer.data.trim());
+				console.log(renderer.data);
+			}
+			if (opts.score && !_.isUndefined(opts.response)) {
+				const scorer = problemType.getResponseScorer(opts.format, problem, index, opts.response);
+				console.log(scorer);
+				if (_.isPlainObject(scorer)) {
+					console.log(scorer.data);
+				}
 			}
 		}
 	}

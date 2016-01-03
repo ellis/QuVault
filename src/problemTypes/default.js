@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Diff from 'text-diff';
 import mustache from 'mustache';
 
 const template =
@@ -15,37 +16,39 @@ const template =
 
 {{/problem.description}}
 {{problem.question}}
+{{#response}}
+
+Your response:
+{{response}}
+{{/response}}
+{{#answer}}
+
+Answer:
+{{answer}}
+{{/answer}}
 `;
 
 const problemType = {
 	getFlashcardQuestionIndexes: function(problem) {
 		return [0];
 	},
-	getQuestionFlashcardRenderer: function(format, problem, index) {
+	getQuestionFlashcardRenderer: function(format, problem, index, response, showAnswer) {
+		const answer
+			= (showAnswer && problem.answerExact) ? problem.answerExact
+			: (showAnswer && problem.answer) ? problem.answer
+			: undefined;
 		return {
 			format: "markdown",
-			data: mustache.render(template, {problem})
-		};/*
-		//console.log(problem.question)
-		const instructions = (problem.instructions)
-			? `*${problem.instructions}*`
-			: undefined;
-		const title = (problem.title)
-			? `**${problem.title}**`
-			: undefined;
-		const description = (problem.description)
-			? problem.description
-			: undefined;
-		const question = (problem.question)
-			? `**Question:**\n\n${problem.question}`
-			: undefined;
-		//console.log(question)
-		const list = _.compact([instructions, title, description, question]);
-		//console.log(list)
+			data: mustache.render(template, {problem, response, answer}).trim()
+		};
+	},
+	getResponseScorer: function(format, problem, index, response) {
+		const diff = new Diff();
+		const diff1 = diff.main(problem.answer, response);
 		return {
-			format: "markdown",
-			data: list.join("\n\n")
-		};*/
+			format: "html",
+			data: diff.prettyHtml(diff1)
+		};
 	},
 	/*getAnswerRenderer: function(prolem, index, answer) {
 		return null;

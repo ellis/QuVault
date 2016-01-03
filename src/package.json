@@ -10,7 +10,8 @@
     "lodash": "~3.9.3",
     "mathjs": "~1.7.0",
     "mustache": "^2.2.1",
-    "nomnom": "~1.8.1"
+    "nomnom": "~1.8.1",
+    "text-diff": "^1.0.1"
   },
   "devDependencies": {
     "ink-docstrap": "~0.5.2",

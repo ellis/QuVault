@@ -23,7 +23,7 @@ Problems and decks should be specified in JSON format.
 Perhaps we can also permit other data formats that
 convert easily to JSON, such as YAML and MsgPack.
 
-## Data format
+## Data format for problems
 
 A single question:
 
@@ -60,6 +60,51 @@ items.
 - question: "1+4"
   answer": "5"
 ```
+
+## Data format for responses
+
+For each question, we store the response scores.
+Scores on the integer scale 0-5, where 0 means completely forgotten
+and 5 indicates immediate and correct recall.
+These scores help determine the duration till the next review.
+
+Starting off, we assume that there's a 50% chance of forgetting the answer in one day.
+For the next review, calculate the probability of remembering as follows:
+
+$$r = 2^{-t/T}$$
+
+where $r$ is the probability of remembering,
+$t$ is the time in days since the last review,
+and $T$ is the estimated "half-life" of memory
+(the number of days until we expect a 50% chance of remembering).
+
+The expected score is drawn from this table:
+
+   y  score
+----  -----
+  90      5
+  70      4
+  50      3
+  30      2
+  10      1
+   0      0
+----  -----
+
+# Adjust tau as follows:
+#  If the actual score is higher than the expected score, tau *= (actual - expected + 1)
+#  If the actual score is lower than the expected score, tau /= (actual - expected + 1)
+
+# d: half-life in days
+
+ts = c(0)
+ds = c(1)
+taus = ds/0.693
+actuals = c(0)
+exp(-(1:10)/taus)
+
+# [date, UUID/IDX, score, double-check-period, optional forced-half-life]
+# ["2016-01-02T12:03:23.02+01:00", "1234125-12345-1245-125233/1", 5, -1, 1]
+
 
 ## Indexes
 
