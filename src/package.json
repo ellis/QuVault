@@ -5,6 +5,7 @@
   "main": "lib/cli.js",
   "dependencies": {
     "babel": "^5.8.23",
+    "inquirer": "^0.11.1",
     "js-yaml": "^3.4.6",
     "jsonfile": "^2.2.2",
     "lodash": "~3.9.3",
