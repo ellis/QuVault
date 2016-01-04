@@ -10,6 +10,8 @@
     "jsonfile": "^2.2.2",
     "lodash": "~3.9.3",
     "mathjs": "~1.7.0",
+    "mkdirp": "^0.5.1",
+    "moment": "^2.11.0",
     "mustache": "^2.2.1",
     "nomnom": "~1.8.1",
     "text-diff": "^1.0.1"

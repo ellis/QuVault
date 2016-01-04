@@ -3,6 +3,8 @@
 * [x] cli: handle importing of problem sets, creating a file for each problem
 * [x] cli: specify a question with `UUID/index`
 * [ ] score a response
+* [ ] cli: start for interactive shell
+* [ ] cli: create session file and write scores to it (userdata/$USERNAME/2016-01-04T12:00:00-as9d0fn4340.json)
 * [ ] try creating a simple chemistry problem
 * [ ] try creating a complex chemistry problem
 * [ ] try creating a simple 2-way vocabulary problem

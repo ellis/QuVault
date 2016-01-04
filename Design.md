@@ -1,13 +1,17 @@
 # Design
 
-## Problems, questions, decks
+This file contains informations about QuVault's design.
+
+# Problems, questions, decks
 
 The basic item is called a "problem".
 This is something that can be displayed to the user for testing.
 A problem normally has a single "question" for the user to answer,
 but it might have many nested questions, such as an entire exam.
 
-## Files
+# Problems
+
+## Problem files
 
 Filenames should be UUIDs.
 A file can contain various different types of content:
@@ -61,6 +65,13 @@ items.
   answer": "5"
 ```
 
+# Responses
+
+## Files
+
+User responses are stored named something like this:
+`userdata/${USERNAME}/${DATE_AND_TIME}-${RANDOMHASH}.rec1`
+
 ## Data format for responses
 
 For each question, we store the response scores.
@@ -104,6 +115,7 @@ Adjust $T$ as follows:
 ["2016-01-02T12:03:23.02+01:00", "1234125-12345-1245-125233/1", 5, -1, 1]
 ```
 
+#
 
 ## Indexes
 

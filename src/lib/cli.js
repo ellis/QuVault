@@ -2,6 +2,8 @@ import _ from 'lodash';
 import fs from 'fs';
 import inquirer from 'inquirer';
 import jsonfile from 'jsonfile';
+import mkdirp from 'mkdirp';
+import moment from 'moment';
 import path from 'path';
 import yaml from 'js-yaml';
 
@@ -129,7 +131,40 @@ function doImport() {
 	}
 }
 
-function doInteractive(problemType, problem, index) {
+const username = "default";
+
+/*
+function generateUUID() {
+	var d = new Date().getTime();
+	var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+		var r = (d + Math.random()*16)%16 | 0;
+		d = Math.floor(d/16);
+		return (c=='x' ? r : (r&0x7|0x8)).toString(16);
+	});
+	return uuid;
+}
+*/
+/**
+ * Create a session filename of the format `${DATE_AND_TIME}-${RANDOMHASH}.rec1`
+ * @return {string} filename
+ */
+function generateSessionFilename() {
+	let d = new Date().getTime();
+	const hash = 'xxxxxxxx'.replace(/[xy]/g, function(c) {
+		const r = (d + Math.random()*16)%16 | 0;
+		d = Math.floor(d/16);
+		return (c=='x' ? r : (r&0x7|0x8)).toString(16);
+	});
+
+	const date = moment().utc().format("YYYYMMDD_HHmmss");
+	return `${date}-${hash}.rec1`;
+}
+
+function doInteractive(uuidx, problemType, problem, index) {
+	const userdir = path.join("userdata", username);
+	mkdirp.sync(userdir);
+	const userfile = path.join(userdir, generateSessionFilename());
+
 	const format = "markdown";
 	const renderer = problemType.getQuestionFlashcardRenderer(format, problem, index, undefined, false);
 	//console.log(renderer)
@@ -140,18 +175,18 @@ function doInteractive(problemType, problem, index) {
 	}
 
 	const prompt1 = {type: "input", name: "response", message: "Your reponse: "};
-	const prompt2 = {type: "list", name: "score", message: "Your score (0=no idea, 2=wrong, 3=acceptable, 4=good, 5=easy): ", choices: ["0", "1", "2", "3", "4", "5"], filter: (s) => parseInt(s)};
-	inquirer.prompt(prompt1, (replies1) => {
-		console.log("RESPONSE: "+JSON.stringify(replies1));
-		const response = replies1.response;
+	const prompt2 = {type: "input", name: "score", message: "Your score (0=no idea, 2=wrong, 3=acceptable, 4=good, 5=easy): ", filter: (s) => parseInt(s)};
+	inquirer.prompt(prompt1, ({response}) => {
+		console.log("RESPONSE: "+JSON.stringify(response));
 		console.log("ANSWER:");
 		const answer = problemType.renderFlashcardAnswer(format, problem, index, response).data;
 		console.log(answer);
 		console.log();
 
-
-		inquirer.prompt(prompt2, (replies2) => {
-			console.log(replies2);
+		inquirer.prompt(prompt2, ({score}) => {
+			console.log(score);
+			const data = [moment().format(), uuidx, score];
+			console.log(JSON.stringify(data));
 		});
 	});
 
@@ -176,7 +211,7 @@ else if (!_.isEmpty(opts.uuid)) {
 		const problemType = require('../problemTypes/default.js');
 
 		if (opts.interactive) {
-			doInteractive(problemType, problem, index);
+			doInteractive(opts.uuid, problemType, problem, index);
 		}
 		else {
 			const renderer = problemType.getQuestionFlashcardRenderer(opts.format, problem, index, opts.response, opts.answer);
