@@ -6,6 +6,7 @@
 * [x] cli: initial code for interactive shell
 * [x] cli: create session file and write scores to it (userdata/$USERNAME/2016-01-04T12:00:00-as9d0fn4340.json)
 * [ ] cli: load in all userdata
+	* continue with userdata.js:processFile
 * [ ] cli: calculate question half-lives for all questions
 * [ ] cli: calculate weighted, randomized order to present questions
 * [ ] repl: support top-level commands (e.g. 'start')
