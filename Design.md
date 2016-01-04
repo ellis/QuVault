@@ -109,10 +109,10 @@ Adjust $T$ as follows:
     * Otherwise, leave $T$ unchanged
 * Otherwise the actual score is <= 2:
 
-``[date, UUID/IDX, score, optional double-check-period, optional forced-half-life]``
+``[UUID, index, date, score, optional response, optional double-check-period, optional forced-half-life]``
 
 ```{json}
-["2016-01-02T12:03:23.02+01:00", "1234125-12345-1245-125233/1", 5, -1, 1]
+["1234125-12345-1245-125233", 1, "2016-01-02T12:03:23+01:00", 5, null, null, 1]
 ```
 
 #

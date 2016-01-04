@@ -160,6 +160,10 @@ function generateSessionFilename() {
 	return `${date}-${hash}.rec1`;
 }
 
+function isInteger(s) {
+	return /^\+?(0|[1-9]\d*)$/.test(s);
+}
+
 function doInteractive(uuid, index, problemType, problem) {
 	const userdir = path.join("userdata", username);
 	mkdirp.sync(userdir);
@@ -176,7 +180,7 @@ function doInteractive(uuid, index, problemType, problem) {
 	}
 
 	const prompt1 = {type: "input", name: "response", message: "Your reponse: "};
-	const prompt2 = {type: "input", name: "score", message: "Your score (0=no idea, 2=wrong, 3=acceptable, 4=good, 5=easy): ", filter: (s) => parseInt(s)};
+	const prompt2 = {type: "input", name: "score", message: "Your score (0=no idea, 2=wrong, 3=acceptable, 4=good, 5=easy): ", filter: (s) => parseInt(s), validate: isInteger};
 	inquirer.prompt(prompt1, ({response}) => {
 		console.log("RESPONSE: "+JSON.stringify(response));
 		console.log("ANSWER:");
@@ -186,7 +190,8 @@ function doInteractive(uuid, index, problemType, problem) {
 
 		inquirer.prompt(prompt2, ({score}) => {
 			console.log(score);
-			const data = [uuid, index, moment().format(), score];
+			const response1 = (_.isEmpty(response)) ? null : response;
+			const data = [uuid, index, moment().format(), score, response1];
 			const text = JSON.stringify(data);
 			console.log(text);
 			if (!isUserfileOpen) {
