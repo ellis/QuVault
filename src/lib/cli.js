@@ -160,10 +160,11 @@ function generateSessionFilename() {
 	return `${date}-${hash}.rec1`;
 }
 
-function doInteractive(uuidx, problemType, problem, index) {
+function doInteractive(uuid, index, problemType, problem) {
 	const userdir = path.join("userdata", username);
 	mkdirp.sync(userdir);
 	const userfile = path.join(userdir, generateSessionFilename());
+	let isUserfileOpen = false;
 
 	const format = "markdown";
 	const renderer = problemType.getQuestionFlashcardRenderer(format, problem, index, undefined, false);
@@ -185,8 +186,14 @@ function doInteractive(uuidx, problemType, problem, index) {
 
 		inquirer.prompt(prompt2, ({score}) => {
 			console.log(score);
-			const data = [moment().format(), uuidx, score];
-			console.log(JSON.stringify(data));
+			const data = [uuid, index, moment().format(), score];
+			const text = JSON.stringify(data);
+			console.log(text);
+			if (!isUserfileOpen) {
+				fs.writeFileSync(userfile, "", "utf8", err => {});
+				isUserfileOpen = true;
+			}
+			fs.appendFileSync(userfile, text, "utf8", err => {});
 		});
 	});
 
@@ -211,7 +218,7 @@ else if (!_.isEmpty(opts.uuid)) {
 		const problemType = require('../problemTypes/default.js');
 
 		if (opts.interactive) {
-			doInteractive(opts.uuid, problemType, problem, index);
+			doInteractive(uuid, index, problemType, problem);
 		}
 		else {
 			const renderer = problemType.getQuestionFlashcardRenderer(opts.format, problem, index, opts.response, opts.answer);

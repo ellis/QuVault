@@ -2,9 +2,13 @@
 * [x] cli: command to add UUIDs to problems in problem set and write it back to disk: `npm run cli -- --import problemSets/Algorithms1.yaml -d -u`
 * [x] cli: handle importing of problem sets, creating a file for each problem
 * [x] cli: specify a question with `UUID/index`
-* [ ] score a response
-* [ ] cli: start for interactive shell
-* [ ] cli: create session file and write scores to it (userdata/$USERNAME/2016-01-04T12:00:00-as9d0fn4340.json)
+* [x] score a response
+* [x] cli: initial code for interactive shell
+* [x] cli: create session file and write scores to it (userdata/$USERNAME/2016-01-04T12:00:00-as9d0fn4340.json)
+* [ ] cli: load in all userdata
+* [ ] cli: calculate question half-lives for all questions
+* [ ] cli: calculate weighted, randomized order to present questions
+* [ ] repl: support top-level commands (e.g. 'start')
 * [ ] try creating a simple chemistry problem
 * [ ] try creating a complex chemistry problem
 * [ ] try creating a simple 2-way vocabulary problem
