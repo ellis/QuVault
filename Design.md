@@ -90,20 +90,19 @@ The expected score is drawn from this table:
    0      0
 ----  -----
 
-# Adjust tau as follows:
-#  If the actual score is higher than the expected score, tau *= (actual - expected + 1)
-#  If the actual score is lower than the expected score, tau /= (actual - expected + 1)
+Adjust $T$ as follows:
+* If the actual score is >= 3:
+    * If the actual score is higher than the expected score:
+        * $T = T \cdot (actual - expected + 1)$
+    * If the actual score is lower than the expected score, $T /= (actual - expected + 1)$
+    * Otherwise, leave $T$ unchanged
+* Otherwise the actual score is <= 2:
 
-# d: half-life in days
+``[date, UUID/IDX, score, optional double-check-period, optional forced-half-life]``
 
-ts = c(0)
-ds = c(1)
-taus = ds/0.693
-actuals = c(0)
-exp(-(1:10)/taus)
-
-# [date, UUID/IDX, score, double-check-period, optional forced-half-life]
-# ["2016-01-02T12:03:23.02+01:00", "1234125-12345-1245-125233/1", 5, -1, 1]
+```{json}
+["2016-01-02T12:03:23.02+01:00", "1234125-12345-1245-125233/1", 5, -1, 1]
+```
 
 
 ## Indexes

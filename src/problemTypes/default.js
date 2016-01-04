@@ -42,6 +42,17 @@ const problemType = {
 			data: mustache.render(template, {problem, response, answer}).trim()
 		};
 	},
+	renderFlashcardAnswer: function(format, problem, index, response) {
+		if (problem.answerExact) {
+
+		}
+		else if (problem.answer) {
+			return {
+				format: "markdown",
+				data: problem.answer
+			};
+		}
+	},
 	getResponseScorer: function(format, problem, index, response) {
 		const diff = new Diff();
 		const diff1 = diff.main(problem.answer, response);
