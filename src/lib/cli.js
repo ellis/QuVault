@@ -6,6 +6,7 @@ import mkdirp from 'mkdirp';
 import moment from 'moment';
 import path from 'path';
 import yaml from 'js-yaml';
+import * as userdata from './userdata.js';
 
 const version = "0.1";
 
@@ -169,6 +170,9 @@ function doInteractive(uuid, index, problemType, problem) {
 	mkdirp.sync(userdir);
 	const userfile = path.join(userdir, generateSessionFilename());
 	let isUserfileOpen = false;
+
+	const udata = userdata.loadUserdata(username);
+	console.log(JSON.stringify(udata, null, '\t'))
 
 	const format = "markdown";
 	const renderer = problemType.getQuestionFlashcardRenderer(format, problem, index, undefined, false);

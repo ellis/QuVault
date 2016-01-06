@@ -1,21 +1,33 @@
+import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
+import LineByLineReader from 'n-readlines';
 
-function processFile(inputFile) {
-	var fs = require('fs'),
-	readline = require('readline'),
-	instream = fs.createReadStream(inputFile),
-	outstream = new (require('stream'))(),
-	rl = readline.createInterface(instream, outstream);
+/**
+ * Format of input files is expected to be
+ *
+ * ``[UUID, index, date, score, optional response, optional double-check-period, optional forced-half-life]``
+ *
+ * @param  {[type]} filename [description]
+ * @param  {[type]} data     =             {} [description]
+ * @return {[type]}          [description]
+ */
+export function processFile(filename, data = {}) {
+	console.log(`processFile(${filename})`)
+	const lr = new LineByLineReader(filename);
 
-	rl.on('line', function (line) {
-	console.log(line);
-	});
-
-	rl.on('close', function (line) {
-	console.log(line);
-	console.log('done reading file.');
-	});
+	let line;
+	while (line = lr.next()) {
+		const s = line.toString('utf8');
+		const l = JSON.parse(s);
+		const [uuid, index] = l;
+		const historyPath = [uuid, index, "history"];
+		console.log(historyPath)
+		const history0 = _.get(data, historyPath, []);
+		const history1 = history0.concat([_.drop(l, 2)]);
+		_.set(data, historyPath, history1);
+		console.log();
+	}
 }
 
 export function loadUserdata(username) {
@@ -27,12 +39,13 @@ export function loadUserdata(username) {
 	var filenames = _.filter(filenames0, function(filename) { return path.extname(filename) === ".rec1" });
 	filenames.sort();
 
-	var item_m = {};
+	const data = {};
 	for (const filename of filenames) {
-		fs.readFileSync(path.join(userdir, filename), "utf8")
-		var contents = JSON.parse();
-		applyPatch(item_m, contents);
-	});
+		processFile(path.join(userdir, filename), data);
+		//fs.readFileSync(path.join(userdir, filename), "utf8")
+		//var contents = JSON.parse();
+		//applyPatch(item_m, contents);
+	}
 
-	return item_m;
+	return data;
 }

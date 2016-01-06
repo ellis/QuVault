@@ -13,6 +13,7 @@
     "mkdirp": "^0.5.1",
     "moment": "^2.11.0",
     "mustache": "^2.2.1",
+    "n-readlines": "^0.2.2",
     "nomnom": "~1.8.1",
     "text-diff": "^1.0.1"
   },
