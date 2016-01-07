@@ -21,11 +21,18 @@ export function processFile(filename, data = {}) {
 		const s = line.toString('utf8');
 		const l = JSON.parse(s);
 		const [uuid, index] = l;
-		const historyPath = [uuid, index, "history"];
+		const id = (_.isNull(index)) ? uuid : `${uuid}/${index}`;
+
+		_.set(data, [id, "uuid"], uuid);
+		_.set(data, [id, "index"], index);
+
+		// Update history
+		const historyPath = [id, "history"];
 		console.log(historyPath)
-		const history0 = _.get(data, historyPath, []);
-		const history1 = history0.concat([_.drop(l, 2)]);
-		_.set(data, historyPath, history1);
+		const history = _.get(data, historyPath, []);
+		history.push(_.drop(l, 2));
+		_.set(data, historyPath, history);
+
 		console.log();
 	}
 }
