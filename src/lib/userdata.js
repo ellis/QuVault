@@ -4,13 +4,19 @@ import path from 'path';
 import LineByLineReader from 'n-readlines';
 
 /**
- * Format of input files is expected to be
+ * Process an user's response file and update the question data object.
+ *
+ * The format of input files is expected to be
  *
  * ``[UUID, index, date, score, optional response, optional double-check-period, optional forced-half-life]``
  *
- * @param  {[type]} filename [description]
- * @param  {[type]} data     =             {} [description]
- * @return {[type]}          [description]
+ * The question data object is has as key question IDs (i.e. UUID or UUID/index).
+ * Each key has these field: 'uuid', 'index', 'history'.
+ *
+ * This function mutates @param data.
+ *
+ * @param  {string} filename - path to a response file
+ * @param  {object} data - user response map (keys are question IDs)
  */
 export function processFile(filename, data = {}) {
 	console.log(`processFile(${filename})`)
