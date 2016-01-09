@@ -1,14 +1,16 @@
 import _ from 'lodash';
 import moment from 'moment';
 
+const scoreToRecall = c(0.05, 0.20, 0.40, 0.60, 0.80, 0.95);
+
 /**
  * Calculate the current expected half-life given a history of question responses.
  *
  * The response format is ``[date, score, optional response, optional double-check-period, optional forced-half-life]``.
- * The important field
+ * The important fields are date and score.
  *
- * @param  {array} history - array w
- * @return {[type]}         [description]
+ * @param  {array} history - array from response history
+ * @return {number} expected half-life of recall
  */
 export function calcHalfLife(history) {
 	assert(_.isArray(history));
@@ -22,20 +24,22 @@ export function calcHalfLife(history) {
 	history.forEach(l => {
 		const [dateText, score] = l;
 		const date = moment(dateText);
-		if (datePrev) {
-			date.diff(datePrev, 'days', true);
-		}
-		/*
-		 * Adjust $T$ as follows:
-		 * * If the actual score is >= 3:
-		 *     * If the actual score is higher than the expected score:
-		 *         * $T = T \cdot (actual - expected + 1)$
-		 *     * If the actual score is lower than the expected score, $T /= (actual - expected + 1)$
-		 *     * Otherwise, leave $T$ unchanged
-		 * * Otherwise the actual score is <= 2:
-		 */
-		if (score >= 3) {
-			CONTINUE
+		// Time since previous score
+		const t = (datePrev) ? date.diff(datePrev, 'days', true) : 1;
+		// Calculate the expected recall fraction (between 0 and 1)
+		const recallExpected = Math.pow(2, -t / TPrev);
+		const scoreExpected
+			= (recallExpected > 90) ? 5
+			: (recallExpected > 70) ? 4
+			: (recallExpected > 50) ? 3
+			: (recallExpected > 30) ? 2
+			: (recallExpected > 10) ? 1
+			: 0;
+		if (score != scoreExpected) {
+			const recall = scoreToRecall[score];
+			const T = -t / Math.log2(recall)
+			TPrev = T;
 		}
 	});
+	return TPrev;
 }
