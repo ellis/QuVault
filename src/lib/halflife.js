@@ -1,7 +1,33 @@
 import _ from 'lodash';
 import moment from 'moment';
 
-const scoreToRecall = c(0.05, 0.20, 0.40, 0.60, 0.80, 0.95);
+const scoreToRecall = [0.05, 0.20, 0.40, 0.60, 0.80, 0.95];
+
+export function calcHalflife2(dateText2, score2, dateText1 = undefined, halflife1 = 1) {
+	const date1 = (dateText1) ? moment(dateText1) : undefined;
+	const date2 = moment(dateText2);
+	// Time since previous score
+	const t = (date1) ? date2.diff(date1, 'days', true) : 1;
+	// Calculate the expected recall fraction (between 0 and 1)
+	const recallExpected = Math.pow(2, -t / halflife1);
+	const scoreExpected
+		= (recallExpected >= 0.90) ? 5
+		: (recallExpected >= 0.70) ? 4
+		: (recallExpected >= 0.50) ? 3
+		: (recallExpected >= 0.30) ? 2
+		: (recallExpected >= 0.10) ? 1
+		: 0;
+	console.log({t, halflife1, recallExpected, scoreExpected});
+	if (date1 && score2 === scoreExpected) {
+		return halflife1;
+	}
+	else {
+		const recall = scoreToRecall[score2];
+		//console.log({score2, recall, t});
+		const halflife2 = -t / Math.log2(recall)
+		return halflife2;
+	}
+}
 
 /**
  * Calculate the current expected half-life given a history of question responses.
