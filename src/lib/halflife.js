@@ -24,8 +24,37 @@ export function calcHalflife2(dateText2, score2, dateText1 = undefined, halflife
 	else {
 		const recall = scoreToRecall[score2];
 		//console.log({score2, recall, t});
-		const halflife2 = -t / Math.log2(recall)
-		return halflife2;
+		// Calculate updated half-life, only based on recall and time since last response
+		const halflife2a = -t / Math.log2(recall);
+		// If user answered correctly:
+		if (score2 >= 3) {
+			// Always allow a decrease in half-life
+			if (halflife2a < halflife1) {
+				return halflife2a;
+			}
+			// If halflife should increase
+			else {
+				// Time that should have ellapsed since previous response,
+				// in order to switch halflife completely to halflife2.
+				const tFull = Math.max(1, halflife1);
+				// Attenuation factor: if t is less than a day,
+				const factor
+					= (t >= tFull) ? 1
+					: t/tFull;
+				// Interpolate between the old and new half-lives
+				const halflife2 = (1 - t) * halflife1 + t * halflife2a;
+				return halflife2;
+			}
+		}
+		// Otherwise the user didn't give the right answer:
+		else {
+			const halflife2b
+				= (score2 === 2) ? halflife1 * 0.75
+				: (score2 === 1) ? halflife1 * 0.50
+				: Math.min(1, halflife1 * 0.25);
+			const halflife2 = Math.max(Math.min(halflife2a, halflife2b), 1/1440);
+			return halflife2;
+		}
 	}
 }
 
