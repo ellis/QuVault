@@ -6,8 +6,8 @@
 * [x] cli: initial code for interactive shell
 * [x] cli: create session file and write scores to it (userdata/$USERNAME/2016-01-04T12:00:00-as9d0fn4340.json)
 * [x] cli: load in all userdata
-* [ ] halflife.js: attenuate change in half-life linearly for responses less than 12h, 24h, or previous half-life?
-* [ ] halflife.js: if it's been too long since user answered question and they got it wrong, reduce half-life more severely (perhaps even reset to 1)
+* [x] halflife.js: attenuate change in half-life linearly for responses less than 12h, 24h, or previous half-life?
+* [x] halflife.js: if it's been too long since user answered question and they got it wrong, reduce half-life more severely (perhaps even reset to 1)
 * [ ] cli: calculate question half-lives for all questions
 
 * [ ] cli: calculate weighted, randomized order to present questions

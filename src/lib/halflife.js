@@ -8,8 +8,26 @@ export function calcHalflife2(dateText2, score2, dateText1 = undefined, halflife
 	const date2 = moment(dateText2);
 	// Time since previous score
 	const t = (date1) ? date2.diff(date1, 'days', true) : 1;
+
+	const halflife2a = calcHalflife2b(t, score2, halflife1);
+
+	// Time that should have ellapsed since previous response,
+	// in order to switch halflife completely to halflife2.
+	const tFull = Math.max(1, halflife1);
+	// Attenuation factor: if t is less than a day,
+	const factor
+		= (t >= tFull) ? 1
+		: t/tFull;
+	// Interpolate between the old and new half-lives
+	const halflife2b = (1 - factor) * halflife1 + factor * halflife2a;
+	const halflife2c = Math.max(halflife2b, 1/1440);
+	//console.log({halflife2a, halflife2b, halflife2c})
+	return Number(halflife2c.toPrecision(2));
+}
+
+function calcHalflife2b(t, score2, halflife1) {
 	// Calculate the expected recall fraction (between 0 and 1)
-	const recallExpected = Math.pow(2, -t / halflife1);
+	/*const recallExpected = Math.pow(2, -t / halflife1);
 	const scoreExpected
 		= (recallExpected >= 0.90) ? 5
 		: (recallExpected >= 0.70) ? 4
@@ -17,42 +35,24 @@ export function calcHalflife2(dateText2, score2, dateText1 = undefined, halflife
 		: (recallExpected >= 0.30) ? 2
 		: (recallExpected >= 0.10) ? 1
 		: 0;
-	console.log({t, halflife1, recallExpected, scoreExpected});
+	console.log({t, halflife1, recallExpected, scoreExpected, score2});*/
 	const recall = scoreToRecall[score2];
 	//console.log({score2, recall, t});
 	// Calculate updated half-life, only based on recall and time since last response
 	const halflife2a = -t / Math.log2(recall);
-	CONTINUE:
-	if score === 3: keep halflife or change it to t
-	if score === 4: 
-	// If user answered correctly:
-	if (score2 >= 3) {
-		// Always allow a decrease in half-life
-		if (halflife2a < halflife1) {
-			return Number(halflife2a.toPrecision(2));
-		}
-		// If halflife should increase
-		else {
-			// Time that should have ellapsed since previous response,
-			// in order to switch halflife completely to halflife2.
-			const tFull = Math.max(1, halflife1);
-			// Attenuation factor: if t is less than a day,
-			const factor
-				= (t >= tFull) ? 1
-				: t/tFull;
-			// Interpolate between the old and new half-lives
-			const halflife2 = (1 - t) * halflife1 + t * halflife2a;
-			return Number(halflife2.toPrecision(2));
-		}
+	// Handle different cases by score:
+	if (score2 === 0) {
+		return Math.min(1, t * 0.25);
 	}
-	// Otherwise the user didn't give the right answer:
+	else if (score2 === 1) {
+		return Math.min(30, t * 0.50);
+	}
+	else if (score2 === 2) {
+		return Math.min(t * 0.75, halflife1 * 0.75);
+	}
+	// If user answered correctly:
 	else {
-		const halflife2b
-			= (score2 === 2) ? halflife1 * 0.75
-			: (score2 === 1) ? halflife1 * 0.50
-			: Math.min(1, halflife1 * 0.25);
-		const halflife2 = Math.max(Math.min(halflife2a, halflife2b), 1/1440);
-		return Number(halflife2.toPrecision(2));
+		return halflife2a;
 	}
 }
 
