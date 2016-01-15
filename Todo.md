@@ -9,7 +9,7 @@
 * [x] halflife.js: attenuate change in half-life linearly for responses less than 12h, 24h, or previous half-life?
 * [x] halflife.js: if it's been too long since user answered question and they got it wrong, reduce half-life more severely (perhaps even reset to 1)
 * [ ] cli: calculate question half-lives for all questions
-
+	- [ ] consider different approach: for t=halflife1, 5=>x4, 4=>x2, 3=>x1.3, etc, but within limit (e.g. min 1day, max 5yr)
 * [ ] cli: calculate weighted, randomized order to present questions
 * [ ] repl: support top-level commands (e.g. 'start')
 * [ ] try creating a simple chemistry problem
