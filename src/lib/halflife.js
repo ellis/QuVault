@@ -9,6 +9,27 @@ export function calcHalflife2(dateText2, score2, dateText1 = undefined, halflife
 	// Time since previous score
 	const t = (date1) ? date2.diff(date1, 'days', true) : 1;
 
+	const halflife2a
+		= (score2 === 5) ? Math.max(t*4, halflife1)
+		: (score2 === 4) ? Math.max(t*2, halflife1)
+		: (score2 === 3) ? Math.max(t*1.3, halflife1)
+		: (score2 === 2) ? Math.min(t*0.7, halflife1)
+		: (score2 === 1) ? Math.min(t*0.5, halflife1)
+		: 1;
+
+	const halflife2b = Math.min(365*5, Math.max(halflife2a, 1));
+
+	//console.log({halflife1, date1: dateText1, date2: date2.toISOString(), t, halflife2a, halflife2b})
+
+	return Number(halflife2b.toPrecision(2));
+}
+
+/*export function calcHalflife2(dateText2, score2, dateText1 = undefined, halflife1 = 1) {
+	const date1 = (dateText1) ? moment(dateText1) : undefined;
+	const date2 = moment(dateText2);
+	// Time since previous score
+	const t = (date1) ? date2.diff(date1, 'days', true) : 1;
+
 	const halflife2a = calcHalflife2b(t, score2, halflife1);
 
 	// Time that should have ellapsed since previous response,
@@ -23,7 +44,7 @@ export function calcHalflife2(dateText2, score2, dateText1 = undefined, halflife
 	const halflife2c = Math.max(halflife2b, 1/1440);
 	//console.log({halflife2a, halflife2b, halflife2c})
 	return Number(halflife2c.toPrecision(2));
-}
+}*/
 
 function calcHalflife2b(t, score2, halflife1) {
 	// Calculate the expected recall fraction (between 0 and 1)
