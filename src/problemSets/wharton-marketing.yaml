@@ -1,3 +1,8 @@
+DEFAULTS:
+  sourceTitle: wharton-marketing
+
+---
+CONTINUE with Week 1 lessons 1 and 2
 Product
 Place
 Promotion
@@ -5,6 +10,7 @@ Price
 
 S.T.P. (P=Positioning, brand)
 
+---
 reference: Week 1 Lesson 3
 question: What are the Market-Driven Principles?
 answer: |
@@ -107,19 +113,68 @@ answer: |
 ---
 reference: Week 1 Lesson 5
 question: CONTINUE 7:21
-answer: 
+answer:
 
 ---
 reference: Week 1 Lesson 4
-question: 
-answer: 
+question:
+answer:
 
 ---
 reference: Week 1 Lesson 4
-question: 
-answer: 
+question:
+answer:
 
 ---
 reference: Week 1 Lesson 4
-question: 
-answer: 
+question:
+answer:
+
+---
+reference: Week 3 Lesson 4
+question: Explain the concept of the *long tail*.
+answer: |
+  Consider this in terms of the popularity of items on Amazon.  Rank all items
+  by sales (descending) and plot sales vs item.  The most popular items will be
+  sold much more than less popular items.  Before internet sales were so common,
+  stores would only stock the most popular items, because the less popular items
+  didn't sell enough to be worth the costs.  But the profit that can be made
+  off of the long tail is significant if the customers can find you and you
+  can ship cheaply.
+
+  Explainations for the long tail are:
+
+  * supply-side: companies can offer more variety due to easier distribution than in the past
+  * demand-side: customers can search for products on the internet that fit their precises wishes; they can read reviews
+
+---
+reference: Week 3 Lesson 4
+question: Would a small physical store likely sell from "head" or the "long tail"?  Why?
+answer: From the head, because many more customers will be interested in the products in the head rather than the long tail.
+
+---
+reference: Week 3 Lesson 4
+question: People who don’t read a lot of books tend to read best-sellers.  Discuss this trend.
+answer: |
+  This is also called the "Law of Natural Monopoly".  Generally, if a person
+  isn't involved in an area much (e.g. reading books, watching movies), they
+  tend to enjoy and consume the most popular products rather than niche ones.
+
+---
+CONTINUE with Week 3 lessons on pricing (2) and the 7 Ms
+
+---
+reference: Week 4 Lesson 1
+question: What are the elements of perception related to customers and marketing?
+answer: |
+  * Exposure: CONTINUE
+  * Attention:
+  * Interpretation:
+
+---
+reference: Week 4 Lesson 1
+question: CONTINUE 7:45
+answer:
+
+CONTINUE Week 4
+---
