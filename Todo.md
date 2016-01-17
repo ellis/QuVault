@@ -8,7 +8,7 @@
 * [x] cli: load in all userdata
 * [x] halflife.js: attenuate change in half-life linearly for responses less than 12h, 24h, or previous half-life?
 * [x] halflife.js: if it's been too long since user answered question and they got it wrong, reduce half-life more severely (perhaps even reset to 1)
-* [ ] new tests, one for a set of halflifes, where the matrix is t=..., score=0..5
+* [x] new tests, one per halflife (over a range of half lives), where the matrix is t=..., score=0..5
 * [ ] cli: calculate question half-lives for all questions
 	- [ ] consider different approach: for t=halflife1, 5=>x4, 4=>x2, 3=>x1.3, etc, but within limit (e.g. min 1day, max 5yr)
 	- [ ] 5: halflife2 = math.max(t*4, halflife1)

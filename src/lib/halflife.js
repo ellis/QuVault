@@ -21,7 +21,7 @@ export function calcHalflife2(dateText2, score2, dateText1 = undefined, halflife
 
 	//console.log({halflife1, date1: dateText1, date2: date2.toISOString(), t, halflife2a, halflife2b})
 
-	return Number(halflife2b.toPrecision(2));
+	return Number(halflife2b.toPrecision(3));
 }
 
 /*export function calcHalflife2(dateText2, score2, dateText1 = undefined, halflife1 = 1) {
