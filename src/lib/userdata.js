@@ -2,6 +2,27 @@ import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
 import LineByLineReader from 'n-readlines';
+import Halflife from './halflife.js';
+
+export function loadUserdata(username) {
+	const userdir = path.join("userdata", username);
+	// Load all json files into a map to a list of
+	const filenames0 = fs.readdirSync(userdir);
+	// The files should be named in order of processing,
+	// so sort the array so that we can directly update the item list
+	var filenames = _.filter(filenames0, function(filename) { return path.extname(filename) === ".rec1" });
+	filenames.sort();
+
+	const data = {};
+	for (const filename of filenames) {
+		processFile(path.join(userdir, filename), data);
+		//fs.readFileSync(path.join(userdir, filename), "utf8")
+		//var contents = JSON.parse();
+		//applyPatch(item_m, contents);
+	}
+
+	return data;
+}
 
 /**
  * Process an user's response file and update the question data object.
@@ -43,22 +64,5 @@ export function processFile(filename, data = {}) {
 	}
 }
 
-export function loadUserdata(username) {
-	const userdir = path.join("userdata", username);
-	// Load all json files into a map to a list of
-	const filenames0 = fs.readdirSync(userdir);
-	// The files should be named in order of processing,
-	// so sort the array so that we can directly update the item list
-	var filenames = _.filter(filenames0, function(filename) { return path.extname(filename) === ".rec1" });
-	filenames.sort();
-
-	const data = {};
-	for (const filename of filenames) {
-		processFile(path.join(userdir, filename), data);
-		//fs.readFileSync(path.join(userdir, filename), "utf8")
-		//var contents = JSON.parse();
-		//applyPatch(item_m, contents);
-	}
-
-	return data;
-}
+CONTINUE
+export function calculateHalflives(...)

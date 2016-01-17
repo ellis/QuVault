@@ -74,48 +74,34 @@ User responses are stored named something like this:
 
 ## Data format for responses
 
-For each question, we store the response scores.
-Scores on the integer scale 0-5, where 0 means completely forgotten
-and 5 indicates immediate and correct recall.
-These scores help determine the duration till the next review.
-
-Starting off, we assume that there's a 50% chance of forgetting the answer in one day.
-For the next review, calculate the probability of remembering as follows:
-
-$$r = 2^{-t/T}$$
-
-where $r$ is the probability of remembering,
-$t$ is the time in days since the last review,
-and $T$ is the estimated "half-life" of memory
-(the number of days until we expect a 50% chance of remembering).
-
-The expected score is drawn from this table:
-
-   y  score
-----  -----
-  90      5
-  70      4
-  50      3
-  30      2
-  10      1
-   0      0
-----  -----
-
-Adjust $T$ as follows:
-* If the actual score is >= 3:
-    * If the actual score is higher than the expected score:
-        * $T = T \cdot (actual - expected + 1)$
-    * If the actual score is lower than the expected score, $T /= (actual - expected + 1)$
-    * Otherwise, leave $T$ unchanged
-* Otherwise the actual score is <= 2:
-
 ``[UUID, index, date, score, optional response, optional double-check-period, optional forced-half-life]``
 
 ```{json}
 ["1234125-12345-1245-125233", 1, "2016-01-02T12:03:23+01:00", 5, null, null, 1]
 ```
 
-#
+## The Recall Half-life
+
+For each question, we store the response scores.
+Scores on the integer scale 0-5, where 0 means completely forgotten
+and 5 indicates immediate and correct recall.
+These scores help determine the duration till the next review.
+
+Starting off, we assume that there's a 50% chance of forgetting the answer in one day.
+We refer to this as the *recall half-life* of 1 day.
+After the next review, calculate the new half-life as follows:
+
+score halflife2
+----- ---------
+    0 1
+    1 `math.min(t*0.5, halflife1)`
+    2 `math.min(t*0.7, halflife1)`
+    3 `math.max(t*1.3, halflife1)`
+    4 `math.max(t*2.0, halflife1)`
+    5 `math.max(t*4.0, halflife1)`
+
+where $t$ is the time in days since the last review,
+and $halflife1$ was the previous half-life.
 
 ## Indexes
 

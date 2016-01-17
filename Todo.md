@@ -10,13 +10,6 @@
 * [x] halflife.js: if it's been too long since user answered question and they got it wrong, reduce half-life more severely (perhaps even reset to 1)
 * [x] new tests, one per halflife (over a range of half lives), where the matrix is t=..., score=0..5
 * [ ] cli: calculate question half-lives for all questions
-	- [ ] consider different approach: for t=halflife1, 5=>x4, 4=>x2, 3=>x1.3, etc, but within limit (e.g. min 1day, max 5yr)
-	- [ ] 5: halflife2 = math.max(t*4, halflife1)
-	- [ ] 4: halflife2 = math.max(t*2, halflife1)
-	- [ ] 3: halflife2 = math.max(t*1.3, halflife1)
-	- [ ] 2: halflife2 = math.min(t*0.7, halflife1)
-	- [ ] 1: halflife2 = math.min(t*0.5, halflife1)
-	- [ ] 0: halflife2 = 1
 * [ ] cli: calculate weighted, randomized order to present questions
 * [ ] repl: support top-level commands (e.g. 'start')
 * [ ] try creating a simple chemistry problem
