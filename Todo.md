@@ -13,6 +13,10 @@
 * [ ] user directory should probably have a list of active questions, because on a shared system, different users will want different questions
 * [ ] cli: calculate question half-lives for all questions, including ones that haven't been scored yet
 * [ ] cli: calculate weighted, randomized order to present questions
+* [ ] cli: for a single-user setup, load/save data in .config/ directory
+* [ ] cli: read configuration information from .config/QuVault/QuVault.yaml, with directory information
+* [ ] cli: look for questions in a configurable directory
+* [ ] cli: look for userdata in a configurable directory
 * [ ] repl: support top-level commands (e.g. 'start')
 * [ ] try creating a simple chemistry problem
 * [ ] try creating a complex chemistry problem
