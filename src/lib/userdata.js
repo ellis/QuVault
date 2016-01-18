@@ -2,7 +2,7 @@ import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
 import LineByLineReader from 'n-readlines';
-import Halflife from './halflife.js';
+import * as Halflife from '../lib/halflife.js';
 
 export function loadUserdata(username) {
 	const userdir = path.join("userdata", username);
@@ -20,12 +20,13 @@ export function loadUserdata(username) {
 		//var contents = JSON.parse();
 		//applyPatch(item_m, contents);
 	}
+	calcHalflives(data);
 
 	return data;
 }
 
 /**
- * Process an user's response file and update the question data object.
+ * Process a user's response file and update the question data object.
  *
  * The format of input files is expected to be
  *
@@ -64,5 +65,15 @@ export function processFile(filename, data = {}) {
 	}
 }
 
-CONTINUE
-export function calculateHalflives(...)
+export function calcHalflives(userdata) {
+	_.forEach(userdata, qdata => {
+		let dateText1;
+		let halflife1;
+		const halflives = [];
+		qdata.halflives = _.map(qdata.history, ([dateText2, score2]) => {
+			halflife1 = Halflife.calcHalflife2(dateText2, score2, dateText1, halflife1);
+			dateText1 = dateText2;
+			return halflife1;
+		});
+	});
+}

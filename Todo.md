@@ -9,7 +9,9 @@
 * [x] halflife.js: attenuate change in half-life linearly for responses less than 12h, 24h, or previous half-life?
 * [x] halflife.js: if it's been too long since user answered question and they got it wrong, reduce half-life more severely (perhaps even reset to 1)
 * [x] new tests, one per halflife (over a range of half lives), where the matrix is t=..., score=0..5
-* [ ] cli: calculate question half-lives for all questions
+* [x] userdata.js: calculate question half-lives for all scored questions
+* [ ] user directory should probably have a list of active questions, because on a shared system, different users will want different questions
+* [ ] cli: calculate question half-lives for all questions, including ones that haven't been scored yet
 * [ ] cli: calculate weighted, randomized order to present questions
 * [ ] repl: support top-level commands (e.g. 'start')
 * [ ] try creating a simple chemistry problem
