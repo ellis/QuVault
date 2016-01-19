@@ -2,7 +2,26 @@
 * [x] cli: command to add UUIDs to problems in problem set and write it back to disk: `npm run cli -- --import problemSets/Algorithms1.yaml -d -u`
 * [x] cli: handle importing of problem sets, creating a file for each problem
 * [x] cli: specify a question with `UUID/index`
-* [ ] score a response
+* [x] score a response
+* [x] cli: initial code for interactive shell
+* [x] cli: create session file and write scores to it (userdata/$USERNAME/2016-01-04T12:00:00-as9d0fn4340.json)
+* [x] cli: load in all userdata
+* [x] halflife.js: attenuate change in half-life linearly for responses less than 12h, 24h, or previous half-life?
+* [x] halflife.js: if it's been too long since user answered question and they got it wrong, reduce half-life more severely (perhaps even reset to 1)
+* [x] new tests, one per halflife (over a range of half lives), where the matrix is t=..., score=0..5
+* [x] userdata.js: calculate question half-lives for all scored questions
+* [ ] user directory should probably have a list of active questions, because on a shared system, different users will want different questions
+* [ ] cli: calculate question half-lives for all questions, including ones that haven't been scored yet
+* [ ] cli: calculate weighted, randomized order to present questions
+* [ ] cli: for a single-user setup, load/save data in .config/ directory
+* [ ] cli: read configuration information from .config/QuVault/QuVault.yaml, with directory information
+* [ ] cli: look for questions in a configurable directory
+* [ ] cli: look for userdata in a configurable directory
+* [ ] replace nomnom with commander
+    * [ ] split cli.js into multiple files `main-*.js`
+    * [ ] main-import.js -- for importing problem sets
+    * [ ] main-start.js -- for an interactive Q&A session
+* [ ] repl: support top-level commands (e.g. 'start')
 * [ ] try creating a simple chemistry problem
 * [ ] try creating a complex chemistry problem
 * [ ] try creating a simple 2-way vocabulary problem

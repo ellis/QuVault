@@ -1,0 +1,85 @@
+question: Define "interaction"
+---
+quesiton: Add vectors and write a vector in its x and y components
+---
+quesiton: State Newton's Laws
+---
+quesiton: State Newton's 1st Law
+answer: |
+  A body which is not subject to external forces will maintain constant velocity (which may be 0).
+
+  $$\vec{F}_{net} = 0 \Leftrightarrow \vec{v} = \text{const}$$
+
+  (This is also known as Galileo's Law of Inertia)
+---
+question: Describe *inertia*
+answer: the tendency of matter to maintain its state of rest or motion with constant velocity.
+---
+quesiton: Define the net force in terms of the individual forces
+---
+quesiton: Define the term "free body diagram"
+---
+quesiton: Use double subscript notation to indicate the forces between interacting objects
+---
+question: What is a *newton*?
+answer: |
+  The units of force, named in honor of Newton and his second law $\vec{F}_{net} = m\vec{a}$.  $N = kg\cdot m / s^2$
+---
+question: What are the units of force?
+answer: $\left[\vec{F}\right] = N = kg\cdot m / s^2$
+---
+question: The newton is a "derived unit".  Why have newtons when the same quanity can be defined by simpler units?
+answer: |
+  Because force is so important and commonly considered.  And although
+  $1 N = 1 kg\cdot m / s^2$, it's not so intuitive that force is related
+  to length and time: you wouldn't normally want to tell a person that your
+  weight is $X$ kg m / s².
+---
+question: What is Newton's 2nd law?
+answer: $\vec{F}_{net} = m\vec{a}$
+---
+question: What can you say about the direction of force and acceleration?
+answer: They are parallel, always moving in the same direction.
+---
+question: What can you say about the claim "force causes motion"?
+answer: |
+  This is false.  Things can move without force, such as a rocket in outer space.
+  Instead, force causes changes in motion.
+---
+question: What is *weight*?
+answer: The force of gravity.  $\vec{w} = m\vec{g}$ and $w = mg$.
+---
+question: You place a stone on a table, and it stays there.  How does the table know to exert the exact force upward in order to counteract the force of gravity?
+answer: It compresses a bit.  The table is like a spring.  The more it compresses, the more counter-force it exerts.
+---
+question: What is *momentum*?
+answer: |
+  momentum = $m\vec{v}$, is a kind of "quantity of motion": how much, in which direction, and at what speed.
+---
+question: Express Netwon's second law as a *LAW OF CHANGE* (e.g. a differential equation).
+answer: |
+  $$\frac{d\vec{v}}{dt} = \vec{a} = \frac{\vec{F}_{net}}{m}$$
+---
+question: What is the difference between $\vec{F}_{net}$ and $m\vec{a}$?
+answer: |
+  Repeat this to yourself as often as necessary: $m\vec{a}$ is not a force! It should never be put on your free body diagram -- it is the **result** of forces.
+---
+question: What are the three base *dimensions* needed for classical mechanics?
+answer: They are length, time, and mass.
+---
+question: What are the dimensions for velocity and acceleration?
+answer: They are length/time and length/time², respectively.
+---
+question: What is the distinction between the *dimensions* and *units* of force?
+answer: |
+  The dimensions involve mass, length, and time; whereas the units are relative
+  to a specific system of units, such as the SI units: $kg\cdot m/s^2$.
+---
+question: Describe the effect of a 1N push.
+answer: |
+  It would cause a 1kg object to accelerate away at 1 m/s².
+---
+question: ~26min https://www.youtube.com/watch?v=NQWThwJoang
+answer: Inertia
+---
+question: ~29min https://www.youtube.com/watch?v=NQWThwJoang

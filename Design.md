@@ -1,13 +1,17 @@
 # Design
 
-## Problems, questions, decks
+This file contains informations about QuVault's design.
+
+# Problems, questions, decks
 
 The basic item is called a "problem".
 This is something that can be displayed to the user for testing.
 A problem normally has a single "question" for the user to answer,
 but it might have many nested questions, such as an entire exam.
 
-## Files
+# Problems
+
+## Problem files
 
 Filenames should be UUIDs.
 A file can contain various different types of content:
@@ -61,7 +65,22 @@ items.
   answer": "5"
 ```
 
+# Responses
+
+## Files
+
+User responses are stored named something like this:
+`userdata/${USERNAME}/${DATE_AND_TIME}-${RANDOMHASH}.rec1`
+
 ## Data format for responses
+
+``[UUID, index, date, score, optional response, optional double-check-period, optional forced-half-life]``
+
+```{json}
+["1234125-12345-1245-125233", 1, "2016-01-02T12:03:23+01:00", 5, null, null, 1]
+```
+
+## The Recall Half-life
 
 For each question, we store the response scores.
 Scores on the integer scale 0-5, where 0 means completely forgotten
@@ -69,42 +88,20 @@ and 5 indicates immediate and correct recall.
 These scores help determine the duration till the next review.
 
 Starting off, we assume that there's a 50% chance of forgetting the answer in one day.
-For the next review, calculate the probability of remembering as follows:
+We refer to this as the *recall half-life* of 1 day.
+After the next review, calculate the new half-life as follows:
 
-$$r = 2^{-t/T}$$
+score halflife2
+----- ---------
+    0 1
+    1 `math.min(t*0.5, halflife1)`
+    2 `math.min(t*0.7, halflife1)`
+    3 `math.max(t*1.3, halflife1)`
+    4 `math.max(t*2.0, halflife1)`
+    5 `math.max(t*4.0, halflife1)`
 
-where $r$ is the probability of remembering,
-$t$ is the time in days since the last review,
-and $T$ is the estimated "half-life" of memory
-(the number of days until we expect a 50% chance of remembering).
-
-The expected score is drawn from this table:
-
-   y  score
-----  -----
-  90      5
-  70      4
-  50      3
-  30      2
-  10      1
-   0      0
-----  -----
-
-# Adjust tau as follows:
-#  If the actual score is higher than the expected score, tau *= (actual - expected + 1)
-#  If the actual score is lower than the expected score, tau /= (actual - expected + 1)
-
-# d: half-life in days
-
-ts = c(0)
-ds = c(1)
-taus = ds/0.693
-actuals = c(0)
-exp(-(1:10)/taus)
-
-# [date, UUID/IDX, score, double-check-period, optional forced-half-life]
-# ["2016-01-02T12:03:23.02+01:00", "1234125-12345-1245-125233/1", 5, -1, 1]
-
+where $t$ is the time in days since the last review,
+and $halflife1$ was the previous half-life.
 
 ## Indexes
 
@@ -125,3 +122,28 @@ These should be obligatory for shared questions.
 CONTINUE, consider also problems with multiple questions and
 problems with many similar variants (e.g. a story problem
 that can display different concrete values for its variables).
+
+# Configuration
+
+Should look in the standard places for config files (e.g. `$HOME/.config/quvault/quvault.yaml`).
+Should be able to merge global and user configs.  In particular,
+should be able to look in multiple directories for question files,
+and it should be possible for a user to reference both global questions as
+well as questions in some user directory.
+
+The default directories are as follows:
+
+* questions: `$HOME/.config/quvault/questions/`
+* user responses: `$HOME/.config/quvault/userdata/$USER/`
+
+# User data
+
+A user first needs to select problems by either selecting them individually or
+from "decks" (i.e. lists of problems).
+
+Q: Where should the system decks by stored?
+Q: Where should local decks be stored?
+Q: Where should the user's selection of problems and decks be stored?
+
+Then when users score their responses to questions, this is saved in a session file.
+The default path is `$HOME/.config/quvault/userdata/$USER/$ISODATE--$HASH.json`.
