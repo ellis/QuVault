@@ -138,6 +138,12 @@ The default directories are as follows:
 
 # User data
 
-A user needs to select questions or question sets thei CONTINUE
-When users score their responses to questions, this is saved in a session file.
+A user first needs to select problems by either selecting them individually or
+from "decks" (i.e. lists of problems).
+
+Q: Where should the system decks by stored?
+Q: Where should local decks be stored?
+Q: Where should the user's selection of problems and decks be stored?
+
+Then when users score their responses to questions, this is saved in a session file.
 The default path is `$HOME/.config/quvault/userdata/$USER/$ISODATE--$HASH.json`.
