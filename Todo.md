@@ -17,6 +17,10 @@
 * [ ] cli: read configuration information from .config/QuVault/QuVault.yaml, with directory information
 * [ ] cli: look for questions in a configurable directory
 * [ ] cli: look for userdata in a configurable directory
+* [ ] replace nomnom with commander
+    * [ ] split cli.js into multiple files `main-*.js`
+    * [ ] main-import.js -- for importing problem sets
+    * [ ] main-start.js -- for an interactive Q&A session
 * [ ] repl: support top-level commands (e.g. 'start')
 * [ ] try creating a simple chemistry problem
 * [ ] try creating a complex chemistry problem

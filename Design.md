@@ -122,3 +122,22 @@ These should be obligatory for shared questions.
 CONTINUE, consider also problems with multiple questions and
 problems with many similar variants (e.g. a story problem
 that can display different concrete values for its variables).
+
+# Configuration
+
+Should look in the standard places for config files (e.g. `$HOME/.config/quvault/quvault.yaml`).
+Should be able to merge global and user configs.  In particular,
+should be able to look in multiple directories for question files,
+and it should be possible for a user to reference both global questions as
+well as questions in some user directory.
+
+The default directories are as follows:
+
+* questions: `$HOME/.config/quvault/questions/`
+* user responses: `$HOME/.config/quvault/userdata/$USER/`
+
+# User data
+
+A user needs to select questions or question sets thei CONTINUE
+When users score their responses to questions, this is saved in a session file.
+The default path is `$HOME/.config/quvault/userdata/$USER/$ISODATE--$HASH.json`.
