@@ -70,7 +70,7 @@ items.
 ## Files
 
 User responses are stored named something like this:
-`userdata/${USERNAME}/${DATE_AND_TIME}-${RANDOMHASH}.rec1`
+`userdata/${USERNAME}/${DATE_AND_TIME}-${RANDOMHASH}.sco1`
 
 ## Data format for responses
 
@@ -133,17 +133,41 @@ well as questions in some user directory.
 
 The default directories are as follows:
 
-* questions: `$HOME/.config/quvault/questions/`
-* user responses: `$HOME/.config/quvault/userdata/$USER/`
+* questions: `$HOME/.local/share/quvault/questions/`
+* decks: `$HOME/.local/share/quvault/decks/`
+* user responses: `$HOME/.local/share/quvault/userdata/$USER/`
+
+## Deck formats
+
+```{yaml}
+decks:
+  XXXXX:
+    name: Some Deck 1
+---
+decks:
+  YYYYY:
+    name: Some Deck 2
+    parent: XXXXX
+---
+questions:
+  QQQQQ:
+    decks:
+      YYYYY: true
+```
+
+```
+[["decks", "XXXXX"], {"name": "Some Deck 1"}]
+[["decks", "YYYYY"], {"name": "Some Deck 2", "parent": "XXXXX"}]
+[["questions", "QQQQQ"], {"decks": {"YYYYY": true}]
+```
 
 # User data
 
 A user first needs to select problems by either selecting them individually or
 from "decks" (i.e. lists of problems).
 
-Q: Where should the system decks by stored?
+Q: Where should the system decks be stored?
 Q: Where should local decks be stored?
 Q: Where should the user's selection of problems and decks be stored?
 
 Then when users score their responses to questions, this is saved in a session file.
-The default path is `$HOME/.config/quvault/userdata/$USER/$ISODATE--$HASH.json`.
