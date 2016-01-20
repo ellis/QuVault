@@ -15,7 +15,8 @@
     "mustache": "^2.2.1",
     "n-readlines": "^0.2.2",
     "nomnom": "~1.8.1",
-    "text-diff": "^1.0.1"
+    "text-diff": "^1.0.1",
+    "xdg-basedir": "^2.0.0"
   },
   "devDependencies": {
     "ink-docstrap": "~0.5.2",
