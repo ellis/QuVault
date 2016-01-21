@@ -157,6 +157,8 @@ questions:
 
 Some file `*.dec1`:
 ```
+{"type": "deckCreate", "uuid": "XXXXX", "name": "Some Deck 1"}
+{"type": "deckCreate", "uuid": "YYYYY", "name": "Some Deck 2", "parent": "XXXXX"}
 [["decks", "XXXXX"], {"name": "Some Deck 1", "status": "active"}]
 [["decks", "YYYYY"], {"name": "Some Deck 2", "parent": "XXXXX", "status": "active"}]
 [["decks", "ZZZZZ"], {"name": "Some Deck 3", "parent": "XXXXX", "after": "YYYYY", "status": "active"}]

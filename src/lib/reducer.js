@@ -8,14 +8,18 @@ import StateWrapper, {initialState} from './StateWrapper.js';
 const handlers = {
 	'@@redux/INIT': () => {},
 
-	deckCreate: (builder, action) => {
-		const desktopId = builder.findDesktopIdByNum(action.desktop);
-		builder.activateDesktop(desktopId);
+	createDeck: (builder, action) => {
+		builder.createDeck(action.uuid, action.name, action.parent, action.after);
+	},
+
+	addProblemsToDeck: (builder, action) => {
+		builder.addProblemsToDeck(action.problems, action.deck);
 	},
 };
 
 export default function reducer(state = initialState, action) {
 	//logger.info("reducer: "+JSON.stringify(action));
+	//console.log({state, action})
 
 	const handler = handlers[action.type];
 	if (handler) {
@@ -23,19 +27,17 @@ export default function reducer(state = initialState, action) {
 			const builder = new StateWrapper(state);
 			builder.check();
 			handler(builder, action);
-			updateLayout(builder);
-			updateX11(builder);
 			builder.check();
 			return builder.getState();
 		}
 		catch (e) {
-			logger.error(e.message);
-			logger.error(e.stack);
+			console.log(e.message);
+			console.log(e.stack);
 		}
 	}
 
 	else {
-		//logger.warn("reducer: unknown action", action);
+		console.log("reducer: unknown action", action);
 	}
 	return state;
 }
