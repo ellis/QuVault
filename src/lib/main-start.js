@@ -1,8 +1,9 @@
 import _ from 'lodash';
-import commander from 'commander';
 import fs from 'fs';
+import jsonfile from 'jsonfile';
 import path from 'path';
 import xdgBasedir from 'xdg-basedir';
+import reducer from './reducer.js';
 
 function loadConfig(username) {
 	/*const config = {
@@ -36,12 +37,33 @@ function loadConfig(username) {
 }
 
 function loadDecks(config) {
-	_.flatMap(config.deckDirs, dir => {
-		const filenames0 = fs.readdirSync(userdir);
-		// The files should be named in order of processing,
-		// so sort the array so that we can directly update the item list
-		const filenames = _.filter(filenames0, filename => path.extname(filename) === ".dec1");
-		filenames.sort();
-		filenames
-	})
+	let decks = undefined;
+	_.forEach(config.deckDirs, dir => {
+		console.log(dir)
+		if (fs.existsSync(dir)) {
+			console.log("exists")
+			// The files should be named in order of processing,
+			// so sort the array so that we can directly update the item list
+			const filenames = fs.readdirSync(dir);
+			filenames.sort();
+			_.forEach(filenames, filename => {
+				if (path.extname(filename) === ".act1") {
+					const act = jsonfile.readFileSync(path.join(dir, filename));
+					decks = reducer(decks, act);
+				}
+			});
+		}
+	});
+	return decks || {};
 }
+
+const program = require('commander');
+
+program
+	.version('0.1')
+	.option('-u, --user', 'user name')
+	.parse(process.argv);
+
+const config = loadConfig(program.user || "default");
+const decks = loadDecks(config);
+console.log(JSON.stringify(decks, null, '\t'));

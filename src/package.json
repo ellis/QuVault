@@ -4,7 +4,7 @@
   "description": "Spaced repetition flashcard system",
   "main": "lib/cli.js",
   "dependencies": {
-    "babel": "^5.8.23",
+    "commander": "^2.9.0",
     "immutable": "^3.7.6",
     "inquirer": "^0.11.1",
     "js-yaml": "^3.4.6",
@@ -34,7 +34,8 @@
     "test": "mocha --compilers js:babel-core/register --recursive tests/",
     "pegjs": "pegjs --allowed-start-rules start,startOne parsers/wellsParser0.pegjs",
     "jsdoc": "jsdoc -r -c jsdoc.json --readme README.md --tutorials tutorials",
-    "cli": "babel-node -- lib/cli.js"
+	"cli": "babel-node -- lib/cli.js",
+	"start": "babel-node -- lib/main-start.js"
   },
   "author": "Ellis Whitehead",
   "license": "GPL-3.0"
