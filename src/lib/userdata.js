@@ -10,7 +10,7 @@ export function loadUserdata(username) {
 	const filenames0 = fs.readdirSync(userdir);
 	// The files should be named in order of processing,
 	// so sort the array so that we can directly update the item list
-	var filenames = _.filter(filenames0, function(filename) { return path.extname(filename) === ".rec1" });
+	const filenames = _.filter(filenames0, function(filename) { return path.extname(filename) === ".rec1" });
 	filenames.sort();
 
 	const data = {};

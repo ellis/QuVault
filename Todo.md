@@ -11,8 +11,9 @@
 * [x] new tests, one per halflife (over a range of half lives), where the matrix is t=..., score=0..5
 * [x] userdata.js: calculate question half-lives for all scored questions
 * [ ] cli: read configuration information from .config/QuVault/QuVault.yaml, with directory information
-* [ ] load users deck lists
-    * [ ] load all 
+* [ ] load users' deck lists
+    * [ ] load all
+* [ ] start a `medley-data` library?
 * [ ] user directory should probably have a list of active questions, because on a shared system, different users will want different questions
 * [ ] cli: calculate question half-lives for all questions, including ones that haven't been scored yet
 * [ ] cli: calculate weighted, randomized order to present questions

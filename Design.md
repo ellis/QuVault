@@ -133,9 +133,9 @@ well as questions in some user directory.
 
 The default directories are as follows:
 
-* questions: `$HOME/.local/share/quvault/questions/`
-* decks: `$HOME/.local/share/quvault/decks/`
-* user responses: `$HOME/.local/share/quvault/userdata/$USER/`
+* questions: `$HOME/.local/share/quvault/questions/` and `$HOME/.local/share/quvault/userdata/$USER/questions/`
+* decks: `$HOME/.local/share/quvault/decks/` and `$HOME/.local/share/quvault/userdata/$USER/decks/`
+* user responses: `$HOME/.local/share/quvault/userdata/$USER/scores/`
 
 ## Deck formats
 
@@ -155,9 +155,11 @@ questions:
       YYYYY: true
 ```
 
+Some file `*.dec1`:
 ```
-[["decks", "XXXXX"], {"name": "Some Deck 1"}]
-[["decks", "YYYYY"], {"name": "Some Deck 2", "parent": "XXXXX"}]
+[["decks", "XXXXX"], {"name": "Some Deck 1", "status": "active"}]
+[["decks", "YYYYY"], {"name": "Some Deck 2", "parent": "XXXXX", "status": "active"}]
+[["decks", "ZZZZZ"], {"name": "Some Deck 3", "parent": "XXXXX", "after": "YYYYY", "status": "active"}]
 [["questions", "QQQQQ"], {"decks": {"YYYYY": true}]
 ```
 
