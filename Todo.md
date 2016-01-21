@@ -10,21 +10,26 @@
 * [x] halflife.js: if it's been too long since user answered question and they got it wrong, reduce half-life more severely (perhaps even reset to 1)
 * [x] new tests, one per halflife (over a range of half lives), where the matrix is t=..., score=0..5
 * [x] userdata.js: calculate question half-lives for all scored questions
-* [ ] cli: read configuration information from .config/QuVault/QuVault.yaml, with directory information
-* [ ] load users' deck lists
-    * [ ] load all
-* [ ] start a `medley-data` library?
-* [ ] user directory should probably have a list of active questions, because on a shared system, different users will want different questions
-* [ ] cli: calculate question half-lives for all questions, including ones that haven't been scored yet
-* [ ] cli: calculate weighted, randomized order to present questions
-* [ ] cli: for a single-user setup, load/save data in `.local/share/` directory
-* [ ] cli: look for questions in a configurable directory
-* [ ] cli: look for userdata in a configurable directory
+* [x] user directory should probably have a list of active questions, because on a shared system, different users will want different questions
+* [x] for a single-user setup, load data in `.local/share/` directory
+* [x] cli: look for questions in XDG directories
+* [x] cli: look for userdata in XDG directory
+* [ ] try vorpal instead of inquirer
 * [ ] replace nomnom with commander
     * [ ] split cli.js into multiple files `main-*.js`
     * [ ] main-import.js -- for importing problem sets
     * [ ] main-start.js -- for an interactive Q&A session
-* [ ] repl: support top-level commands (e.g. 'start')
+* [ ] repl:
+	* [ ] `decks`: list active decks
+	* [ ] calculate question half-lives for all questions, including ones that haven't been scored yet
+	* [ ] cli: calculate weighted, randomized order to present questions
+	* [ ] list number of pending questions for each active deck
+	* [ ] allow for interactive question scoring
+	* [ ] cli: for a single-user setup, save data in `.local/share/` directory
+	* [ ] `createDeck`: create a new deck
+	* [ ] `createProblem`: create a new problem
+* [ ] cli: read configuration information from .config/quvault/quvault.yaml, with directory information
+* [ ] start a `medley-data` library?  Merge functions would never automatically create arrays, even if a number was in the path; lists could be extracted from maps
 * [ ] try creating a simple chemistry problem
 * [ ] try creating a complex chemistry problem
 * [ ] try creating a simple 2-way vocabulary problem
@@ -35,6 +40,7 @@
 * [ ] save question scores
 * [ ] generate spaced repetition plan
 * [ ] handle media, hashed filenames
+* [ ] repl: consider displaying amount of time spent answering questions
 
 
 Old:

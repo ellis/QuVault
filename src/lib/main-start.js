@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import fs from 'fs';
+import inquirer from 'inquirer';
 import jsonfile from 'jsonfile';
 import path from 'path';
 import xdgBasedir from 'xdg-basedir';
@@ -67,3 +68,32 @@ program
 const config = loadConfig(program.user || "default");
 const decks = loadDecks(config);
 console.log(JSON.stringify(decks, null, '\t'));
+
+function repl() {
+	inquirer.prompt(
+		[{type: "input", name: "command", message: "(? for help)"}],
+		(answers) => {
+			if (answers.command === "quit") {
+				process.exit(0);
+			}
+			else if (answers.command === "decks") {
+				// Create map from deck to all of its children
+				const deckToChildren = {};
+				_.forEach(decks.decks, deck => {
+					if (deck.parent) {
+						const children = deckToChildren[deck.parent] || [];
+						children.push(deck.uuid);
+						deckToChildren[deck.parent] = children.push();
+					}
+					deckToChildren[deck.uuid] = deckToChildren[deck.uuid] || [];
+				});
+				const l1 = _.toPairs(deckToChildren);
+				const l2 = _.sortBy(l1, x => x[1].length);
+				console.log(JSON.stringify(l2, null, '\t'));
+			}
+		}
+		
+	);
+}
+
+repl();
