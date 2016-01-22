@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import fs from 'fs';
-import inquirer from 'inquirer';
 import jsonfile from 'jsonfile';
 import path from 'path';
 import xdgBasedir from 'xdg-basedir';
@@ -40,9 +39,9 @@ function loadConfig(username) {
 function loadDecks(config) {
 	let decks = undefined;
 	_.forEach(config.deckDirs, dir => {
-		console.log(dir)
+		//console.log(dir)
 		if (fs.existsSync(dir)) {
-			console.log("exists")
+			//console.log("exists")
 			// The files should be named in order of processing,
 			// so sort the array so that we can directly update the item list
 			const filenames = fs.readdirSync(dir);
@@ -58,42 +57,82 @@ function loadDecks(config) {
 	return decks || {};
 }
 
+/**
+ * List active decks.
+ * @param  {immutable:Map} decks - Map of decks
+ */
+function do_decks(decks) {
+	//console.log("do_decks")
+	//console.log(decks)
+	// Create map from deck UUID to all of its children UUIDs
+	const deckToChildren = {};
+	const roots = [];
+	decks.get("decks").forEach((deck, deckUuid) => {
+		//console.log({deck});
+		if (deck.has("parent")) {
+			const parentUuid = deck.get("parent");
+			const children = deckToChildren[parentUuid] || [];
+			//console.log({children})
+			children.push(deckUuid);
+			deckToChildren[parentUuid] = children;
+		}
+		else {
+			roots.push(deckUuid);
+		}
+		deckToChildren[deckUuid] = deckToChildren[deckUuid] || [];
+	});
+	//console.log({deckToChildren})
+	/*const l1 = _.toPairs(deckToChildren);
+	console.log({l1})
+	const l2 = _.sortBy(l1, x => -x[1].length);
+	console.log(JSON.stringify(l2, null, '\t'));*/
+
+	function print(uuid, indent=0) {
+		const deck = decks.getIn(["decks", uuid]);
+		console.log(_.repeat("  ", indent)+deck.get("name"));
+		_.forEach(deckToChildren[uuid], uuid2 => print(uuid2, indent+1));
+	}
+
+	_.forEach(roots, uuid => {
+		print(uuid);
+	})
+}
+
 const program = require('commander');
+
+let config;
+let decks;
+function init() {
+	//console.log({process})
+	config = loadConfig(program.user || "default");
+	decks = loadDecks(config);
+	//console.log(JSON.stringify(decks, null, '\t'));
+
+}
+
+function repl() {
+	const vorpal = require('vorpal')();
+	vorpal
+		.command("decks", "List active decks")
+		.action((args, cb) => { do_decks(decks); cb(); })
+		;
+	vorpal
+		.delimiter("quvault >")
+		.show();
+};
 
 program
 	.version('0.1')
-	.option('-u, --user', 'user name')
+	.option('-u, --user', 'user name');
+
+program
+	.command("decks")
+	.description("List active decks")
+	.action(() => { init(); do_decks(decks); });
+
+program
+	.command("repl")
+	.action(() => { init(); repl();});
+
+program
 	.parse(process.argv);
-
-const config = loadConfig(program.user || "default");
-const decks = loadDecks(config);
-console.log(JSON.stringify(decks, null, '\t'));
-
-function repl() {
-	inquirer.prompt(
-		[{type: "input", name: "command", message: "(? for help)"}],
-		(answers) => {
-			if (answers.command === "quit") {
-				process.exit(0);
-			}
-			else if (answers.command === "decks") {
-				// Create map from deck to all of its children
-				const deckToChildren = {};
-				_.forEach(decks.decks, deck => {
-					if (deck.parent) {
-						const children = deckToChildren[deck.parent] || [];
-						children.push(deck.uuid);
-						deckToChildren[deck.parent] = children.push();
-					}
-					deckToChildren[deck.uuid] = deckToChildren[deck.uuid] || [];
-				});
-				const l1 = _.toPairs(deckToChildren);
-				const l2 = _.sortBy(l1, x => x[1].length);
-				console.log(JSON.stringify(l2, null, '\t'));
-			}
-		}
-		
-	);
-}
-
-repl();

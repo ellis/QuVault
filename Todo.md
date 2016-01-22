@@ -14,11 +14,11 @@
 * [x] for a single-user setup, load data in `.local/share/` directory
 * [x] cli: look for questions in XDG directories
 * [x] cli: look for userdata in XDG directory
-* [ ] try vorpal instead of inquirer
-* [ ] replace nomnom with commander
-    * [ ] split cli.js into multiple files `main-*.js`
-    * [ ] main-import.js -- for importing problem sets
-    * [ ] main-start.js -- for an interactive Q&A session
+* [x] replace nomnom with commander
+* [x] try vorpal instead of inquirer
+* [x] main-start.js -- for an interactive Q&A session
+* [ ] main-import.js -- for importing problem sets
+* [ ] delete old cli.js
 * [ ] repl:
 	* [ ] `decks`: list active decks
 	* [ ] calculate question half-lives for all questions, including ones that haven't been scored yet

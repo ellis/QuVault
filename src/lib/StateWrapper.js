@@ -33,7 +33,7 @@ export default class StateWrapper {
 			parent,
 			after
 		});
-		this.state = this.state.setIn(["decks", uuid], deck);
+		this.state = this.state.setIn(["decks", uuid], fromJS(deck));
 		return this;
 	}
 
