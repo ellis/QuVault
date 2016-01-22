@@ -7,30 +7,22 @@ DEFAULTS:
   sourceTitle: wharton-marketing
 
 ---
-CONTINUE with Week 1 lessons 1 and 2
-Product
-Place
-Promotion
-Price
+What about S.T.P. (P=Positioning, brand)?
 
-S.T.P. (P=Positioning, brand)
-
----
-reference: Week 1 Lesson 1
-question: What is the essense of marketing?
-answer: To have a very strong brand.
 ---
 reference: Week 1 Lesson 1
 question: What is marketing?
 answer: |
   It is the study of markets, which are mediums of exchange (typically between
   a buyer and a seller).
+
 ---
 reference: Week 1 Lesson 1
 question: What is a *buyer's market*? What is a *seller's market*?
 answer: >
   A buyer's market is a market in which the buyers have more power to determine
   the conditions of exchange.  The converse is true for a seller's market.
+
 ---
 reference: Week 1 Lesson 1
 question: Describe the discipline of marketing in a seller's market.
@@ -74,12 +66,93 @@ answer: |
 
 ---
 reference: Week 1 Lesson 1
-question: What is the notion of *cross selling* and how should a company apply it?
-answer: CONTINUE 07:35
+question: What is the notion of *cross selling*?
+answer: >
+  Cross selling is when a customer buys something and you try to sell them a complementary
+  product to go along with the first purchase.
+  Example: you go buy a pair of pants, and the sales person asks if you need a belt with it too.
+
 ---
 reference: Week 1 Lesson 1
-question:
-answer:
+question: Where does profitability come from in a customer-based market?
+answer: |
+  In a customer-based market, profitability comes from:
+
+  * giving the customer exactly what they want,
+    so they're willing to pay a premium price
+  * they become loyal customers and purchase over time
+  * and you engage in cross-selling additional products to meet their needs
+
+---
+reference: Week 1 Lesson 1
+question: What is meant by *connected community* and *customer experience*?
+answer: |
+  Customers will discuss their experiences with your company online, and
+  this will influence the attitudes of others in their communities towards
+  your company.
+
+---
+reference: Week 1 Lesson 1
+question: List four different marketing "orientations", their competitive advantages, etc.
+answer: |
+  * Production orientation
+      * pursuade the customer to want the products the company offers
+      * provides generic products
+      * competitive advantage is in lowest production cost through large volume
+      * profitability comes from market share
+  * Marketing orientation
+      * pursuade the company to develop products for the customers
+      * provides differentiated products
+      * competitive advantage is in quality and customer data for delivering value to customers, engendering customer loyalty, and cross-selling.
+      * profitability comes from customer share
+  * Experience orientation
+      * try to manage the customers entire experience related to the company
+      * provides experiential value
+      * competitive advantage is in the customer becoming a co-creator of value
+      * profitability comes from buzz and referrals
+  * Trust orientation
+      * prioritize building a relationship of trust and discipline
+      * provides genuine value
+      * competitive advantage is in trust
+      * profitability comes from reduced costs passed onto customers
+
+---
+reference: Week 1 Lesson 2
+question: Describe the *3 Principles of Marketing*.
+answer: |
+  * Value: you need to provide real value to customers in order for them to buy from you.
+  * Differentiation: you need to provide what the customer wants better than the competition.
+  * Segmentation, Targeting, and Positioning: when in a customer-focused market,
+      you can't meet everyone's needs, so you 1) identify customer segments in the market, 2)
+      target one of those segments, and 3) position your brand to meet the needs
+      of that target segment.
+
+---
+reference: Week 1 Lesson 2
+question: What are the *4 P's of Marketing*?
+answer: |
+  These are the "tools" for working on the "3 principles of marketing".
+
+  * Product -- what the company provides
+  * Place -- where the product is available to the customer
+  * Promotion -- the means of making the customer aware of the product
+  * Price -- what the customer provides
+
+---
+reference: Week 1 Lesson 2
+question: Illustrate the "4 P's of Marketing" using the example of the blood drive by the American Red Cross.
+answer: |
+  * Product: feel good about having donated
+      * "you're going to help save lives"
+      * customer gets a sticker for their jacket that they donated
+      * customers were given orange juice and cookies
+  * Place: they had a "blood mobile" and went to the customers
+  * Promotion: how they communicated the benefits of giving blood
+  * Price: blood
+
+  Some of the most successful blood drives were in high school, and one of the
+  most successful "products" was to let them miss class.
+
 ---
 reference: Week 1 Lesson 3
 question: What are the Market-Driven Principles?
