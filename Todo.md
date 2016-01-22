@@ -17,10 +17,8 @@
 * [x] replace nomnom with commander
 * [x] try vorpal instead of inquirer
 * [x] main-start.js -- for an interactive Q&A session
-* [ ] main-import.js -- for importing problem sets
-* [ ] delete old cli.js
 * [ ] repl:
-	* [ ] `decks`: list active decks
+	* [x] `decks`: list active decks
 	* [ ] calculate question half-lives for all questions, including ones that haven't been scored yet
 	* [ ] cli: calculate weighted, randomized order to present questions
 	* [ ] list number of pending questions for each active deck
@@ -28,6 +26,8 @@
 	* [ ] cli: for a single-user setup, save data in `.local/share/` directory
 	* [ ] `createDeck`: create a new deck
 	* [ ] `createProblem`: create a new problem
+* [ ] main-import.js -- for importing problem sets
+* [ ] delete old cli.js
 * [ ] cli: read configuration information from .config/quvault/quvault.yaml, with directory information
 * [ ] start a `medley-data` library?  Merge functions would never automatically create arrays, even if a number was in the path; lists could be extracted from maps
 * [ ] try creating a simple chemistry problem

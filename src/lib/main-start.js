@@ -136,3 +136,8 @@ program
 
 program
 	.parse(process.argv);
+
+//console.log(program)
+if (program.args.length === 0) {
+	init(); repl();
+}
