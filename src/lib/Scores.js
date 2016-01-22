@@ -4,24 +4,26 @@ import path from 'path';
 import LineByLineReader from 'n-readlines';
 import * as Halflife from '../lib/halflife.js';
 
-export function loadUserdata(username) {
-	const userdir = path.join("userdata", username);
-	// Load all json files into a map to a list of
-	const filenames0 = fs.readdirSync(userdir);
-	// The files should be named in order of processing,
-	// so sort the array so that we can directly update the item list
-	const filenames = _.filter(filenames0, function(filename) { return path.extname(filename) === ".rec1" });
-	filenames.sort();
+export function loadDirs(decks, dir) {
+	if (fs.existsSync(dir)) {
+		// Filenames in the directory
+		const filenames = fs.readdirSync(dir);
+		filenames.sort();
 
-	const data = {};
-	for (const filename of filenames) {
-		processFile(path.join(userdir, filename), data);
-		//fs.readFileSync(path.join(userdir, filename), "utf8")
-		//var contents = JSON.parse();
-		//applyPatch(item_m, contents);
+		// Load data from all files
+		const data = {};
+		_.forEach(filenames, filename => {
+			const ext = path.extname(filename);
+			switch (ext) {
+				case ".rec1":
+					processFile(path.join(dir, filename), data);
+					break;
+			}
+		});
+
+		CONTINUE
 	}
-	calcHalflives(data);
-
+	decks = calcHalflives(decks);
 	return data;
 }
 
@@ -32,7 +34,7 @@ export function loadUserdata(username) {
  *
  * ``[UUID, index, date, score, optional response, optional double-check-period, optional forced-half-life]``
  *
- * The question data object is has as key question IDs (i.e. UUID or UUID/index).
+ * The question data object has as key question IDs (i.e. UUID or UUID/index).
  * Each key has these field: 'uuid', 'index', 'history'.
  *
  * This function mutates @param data.

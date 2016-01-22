@@ -57,6 +57,22 @@ function loadDecks(config) {
 	return decks || {};
 }
 
+function loadScores(decks) {
+	let decks = decks0;
+	decks.get("questions").forEach((question, questionUuid) => {
+		CONTINUE
+		question.
+	});
+}
+/*
+function calcQuestionHalflives(decks0) {
+	let decks = decks0;
+	decks.get("questions").forEach((question, questionUuid) => {
+		question.
+	});
+}
+*/
+
 /**
  * List active decks.
  * @param  {immutable:Map} decks - Map of decks
