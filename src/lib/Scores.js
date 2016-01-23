@@ -42,7 +42,7 @@ export function load(dir) {
  * @param  {object} data - user response map (keys are question IDs)
  */
 export function processFile(filename, data = {}) {
-	console.log(`processFile(${filename})`)
+	//console.log(`processFile(${filename})`)
 	const lr = new LineByLineReader(filename);
 
 	let line;
@@ -60,11 +60,11 @@ export function processFile(filename, data = {}) {
 		//console.log(historyPath)
 		//const history = _.get(data, historyPath, []);
 		//history.push(_.drop(l, 2));
-		console.log(data);
-		console.log({uuid, index, dateText, score})
+		//console.log(data);
+		//console.log({uuid, index, dateText, score})
 		M.setMut(data, [uuid, index, dateText], {score});
 		//_.set(data, historyPath, history);
-		console.log();
+		//console.log();
 	}
 }
 
