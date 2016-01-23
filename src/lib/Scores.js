@@ -2,16 +2,17 @@ import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
 import LineByLineReader from 'n-readlines';
-import * as Halflife from '../lib/halflife.js';
+import * as Halflife from './halflife.js';
+import * as M from './Medley.js'
 
-export function loadDirs(decks, dir) {
+export function load(dir) {
+	const data = {};
 	if (fs.existsSync(dir)) {
 		// Filenames in the directory
 		const filenames = fs.readdirSync(dir);
 		filenames.sort();
 
 		// Load data from all files
-		const data = {};
 		_.forEach(filenames, filename => {
 			const ext = path.extname(filename);
 			switch (ext) {
@@ -20,10 +21,8 @@ export function loadDirs(decks, dir) {
 					break;
 			}
 		});
-
-		CONTINUE
 	}
-	decks = calcHalflives(decks);
+	//calcHalflives(data);
 	return data;
 }
 
@@ -50,19 +49,21 @@ export function processFile(filename, data = {}) {
 	while (line = lr.next()) {
 		const s = line.toString('utf8');
 		const l = JSON.parse(s);
-		const [uuid, index] = l;
+		const [uuid, index, dateText, score] = l;
 		const id = (_.isNull(index)) ? uuid : `${uuid}/${index}`;
 
-		_.set(data, [id, "uuid"], uuid);
-		_.set(data, [id, "index"], index);
+		//_.set(data, [id, "uuid"], uuid);
+		//_.set(data, [id, "index"], index);
 
 		// Update history
-		const historyPath = [id, "history"];
-		console.log(historyPath)
-		const history = _.get(data, historyPath, []);
-		history.push(_.drop(l, 2));
-		_.set(data, historyPath, history);
-
+		//const historyPath = [id, "history"];
+		//console.log(historyPath)
+		//const history = _.get(data, historyPath, []);
+		//history.push(_.drop(l, 2));
+		console.log(data);
+		console.log({uuid, index, dateText, score})
+		M.setMut(data, [uuid, index, dateText], {score});
+		//_.set(data, historyPath, history);
 		console.log();
 	}
 }

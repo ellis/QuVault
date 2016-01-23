@@ -4,6 +4,7 @@ import jsonfile from 'jsonfile';
 import path from 'path';
 import xdgBasedir from 'xdg-basedir';
 import reducer from './reducer.js';
+import * as Scores from './Scores.js';
 
 function loadConfig(username) {
 	/*const config = {
@@ -58,11 +59,15 @@ function loadDecks(config) {
 }
 
 function loadScores(decks) {
-	let decks = decks0;
-	decks.get("questions").forEach((question, questionUuid) => {
+	let scores = Scores.load(config.scoreDir);
+	console.log("loadScores:")
+	console.log(JSON.stringify(scores, null, '\t'))
+
+	//let decks = decks0;
+	/*decks.get("questions").forEach((question, questionUuid) => {
 		CONTINUE
 		question.
-	});
+	});*/
 }
 /*
 function calcQuestionHalflives(decks0) {
@@ -122,6 +127,7 @@ function init() {
 	//console.log({process})
 	config = loadConfig(program.user || "default");
 	decks = loadDecks(config);
+	loadScores(decks);
 	//console.log(JSON.stringify(decks, null, '\t'));
 
 }

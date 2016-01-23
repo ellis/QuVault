@@ -19,6 +19,7 @@
 * [x] main-start.js -- for an interactive Q&A session
 * [ ] repl:
 	* [x] `decks`: list active decks
+	* [ ] create `Medley.setMut` function
 	* [ ] calculate question half-lives for all questions, including ones that haven't been scored yet
 	* [ ] cli: calculate weighted, randomized order to present questions
 	* [ ] list number of pending questions for each active deck
