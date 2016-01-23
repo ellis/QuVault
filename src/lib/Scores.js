@@ -62,7 +62,7 @@ export function processFile(filename, data = {}) {
 		//history.push(_.drop(l, 2));
 		//console.log(data);
 		//console.log({uuid, index, dateText, score})
-		M.setMut(data, [uuid, index, dateText], {score});
+		M.setMut(data, [uuid, index, "history", dateText], {score});
 		//_.set(data, historyPath, history);
 		//console.log();
 	}

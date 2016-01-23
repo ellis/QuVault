@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import fs from 'fs';
 import jsonfile from 'jsonfile';
+import Immutable, {fromJS} from 'immutable';
 import path from 'path';
 import xdgBasedir from 'xdg-basedir';
 import reducer from './reducer.js';
@@ -60,14 +61,15 @@ function loadDecks(config) {
 
 function loadScores(decks) {
 	let scores = Scores.load(config.scoreDir);
-	console.log("loadScores:")
-	console.log(JSON.stringify(scores, null, '\t'))
+	//console.log("loadScores:")
+	//console.log(JSON.stringify(scores, null, '\t'))
 
 	//let decks = decks0;
 	/*decks.get("questions").forEach((question, questionUuid) => {
 		CONTINUE
 		question.
 	});*/
+	return scores;
 }
 /*
 function calcQuestionHalflives(decks0) {
@@ -127,9 +129,9 @@ function init() {
 	//console.log({process})
 	config = loadConfig(program.user || "default");
 	decks = loadDecks(config);
-	loadScores(decks);
-	//console.log(JSON.stringify(decks, null, '\t'));
-
+	const scores = loadScores(decks);
+	decks = decks.set("scores", fromJS(scores));
+	console.log(JSON.stringify(decks.toJS(), null, '\t'));
 }
 
 function repl() {
