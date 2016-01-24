@@ -1,5 +1,0 @@
-{
-	"question": "What is the asymptotic running time of the Insert and Extract-Min operations, respectively, for a heap with n objects?",
-	"answer": "$\\Theta(\\log n)$ and $\\Theta(\\log n)$",
-	"uuid": "40b7916e-d2a7-4ac7-de31-fc27ff9ff189"
-}

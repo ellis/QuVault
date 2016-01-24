@@ -1,5 +1,0 @@
-{
-	"question": "Describe the Floyd-Warshall algorithm.",
-	"answer": "This is dynamic programming algorithm to solve the all-pairs shortest paths problem.\nRecurrence A[i,j,k] = min{A[i,j,k-1], A[i,k,k-1] + A[k,j,k-1]}\n\n\n```scala\nfor {\n\n   k <- 1 to n\n\n   i <- 1 to n\n\n   j <- 1 to n\n\n} {\n\n   A(i)(j)(k) = math.min(A(i)(j)(k-1), A(i)(k)(k-1) + A(k)(j)(k-1))\n\n}\n```\n",
-	"uuid": "44cebdb3-a8e5-41d1-8b71-af6a63f4001a"
-}
