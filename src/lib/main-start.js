@@ -87,7 +87,16 @@ function loadQuestions(decks) {
 			_.forEach(indexes, index => {
 				const scoreData = _.get(problemScores, index);
 				if (scoreData) {
+					if (scoreData.history) {
+						const halflives = Scores.calcHalflives(scoreData.history);
+						console.log({halflives});
+						if (!_.isEmpty(halflives)) {
+							scoreData.halflives = halflives;
+							scoreData.halflife = _.last(halflives);
+						}
+					}
 					decks = decks.setIn(["problems", problemUuid, "questions"], fromJS(scoreData));
+
 				}
 			});
 		}

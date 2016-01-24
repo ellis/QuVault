@@ -21,6 +21,7 @@
 	* [x] `decks`: list active decks
 	* [x] create `Medley.setMut` function
 	* [x] for all problems in a deck, query the problem file to discover out how many questions it has
+	* [x] calculate question half-lives for all questions with history
 	* [ ] calculate question half-lives for all questions, including ones that haven't been scored yet
 	* [ ] cli: calculate weighted, randomized order to present questions
 	* [ ] list number of pending questions for each active deck
