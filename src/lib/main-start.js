@@ -59,19 +59,20 @@ function loadDecks(config) {
 	return decks || {};
 }
 
-function loadScores() {
-	let scores = Scores.load(config.scoreDir);
-	//console.log("loadScores:")
-	//console.log(JSON.stringify(scores, null, '\t'))
-	return scores;
-}
-
 function loadQuestions(decks) {
+	// Load score data
+	const scores = Scores.load(config.scoreDir);
+	//console.log(JSON.stringify(scores, null, '\t'))
+
+	// Iterate through all problems, load the problem, find out how many
+	// questions it has, add score history to decks, and calculate half-lives.
 	decks.get("problems").forEach((problemData, problemUuid) => {
-		console.log({dirs: config.problemDirs})
+		//console.log({dirs: config.problemDirs})
+		// Try to find a directory with the problem file
 		const dir = _.find(config.problemDirs, dir => fs.existsSync(path.join(dir, problemUuid+".json")));
-		console.log({problemUuid, dir});
+		//console.log({problemUuid, dir});
 		if (dir) {
+			// Load problem to find its quesiton indexes
 			const filenameJson = path.join(dir, problemUuid+".json");
 			const problem = jsonfile.readFileSync(filenameJson);
 			//console.log(JSON.stringify(problem, null, "  "));
@@ -79,7 +80,16 @@ function loadQuestions(decks) {
 			const indexes = (problemType.getFlashcardQuestionIndexes)
 				? problemType.getFlashcardQuestionIndexes(problem) || [0]
 				: [0];
+			// Add question indexes to decks
 			decks = decks.setIn(["problems", problemUuid, "indexes"], indexes);
+
+			const problemScores = scores[problemUuid];
+			_.forEach(indexes, index => {
+				const scoreData = _.get(problemScores, index);
+				if (scoreData) {
+					decks = decks.setIn(["problems", problemUuid, "questions"], fromJS(scoreData));
+				}
+			});
 		}
 	});
 	return decks;
@@ -93,8 +103,6 @@ function init() {
 	//console.log({process})
 	config = loadConfig(program.user || "default");
 	decks = loadDecks(config);
-	const scores = loadScores();
-	decks = decks.set("scores", fromJS(scores));
 	decks = loadQuestions(decks);
 	console.log(JSON.stringify(decks.toJS(), null, '\t'));
 }
