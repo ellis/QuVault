@@ -1,8 +1,8 @@
 description: |
-  coursera 2015
-  Financial Evaluation and Strategy: Investments
-  University of Illinois at Urbana-Champaign
-  Professor Scott Weisbenner
+  * Coursera 2015
+  * Financial Evaluation and Strategy: Investments
+  * University of Illinois at Urbana-Champaign
+  * Professor Scott Weisbenner
 DEFAULTS:
   sourceTitle: Investments
 
@@ -62,4 +62,33 @@ answer: >
   When the market is doing well, the asset will do even better by a factor of $\beta$.
   When the market is doing poorly, the asset will do even worse by a factor of $\beta$.
 ---
-CONTINUE 7:19 of conclusion video
+reference: Module 3
+question: How well does CAPM $\beta$ actually predict returns?
+answer: >
+  In general, the correlation is not particularly strong.  However, on days
+  when macroeconomic news comes out, the extent of movement of the stock price
+  is strongly related to $\beta$.
+---
+reference: Module 3
+question: Besides CAPM $\beta$, what are other factors that predict returns?
+answer: |
+  Some include firm size, value vs growth, and momentum.
+---
+reference: Module 3
+question: What is meant by *market efficiency*?
+answer: >
+  Stock prices should reflect all public information, including past stock
+  returns and accounting data.
+---
+reference: Module 3
+question: There are factors that somewhat predict returns; what does this indicate about the principle of market efficiency?
+answer: >
+  * If the factor represents risk, then its ability to predict returns doesn't violate market efficiency.
+  * It may indicate some form of market inefficiency.
+  * It may simply be a false conclusion of data mining lots of factors.
+---
+reference: Module 4
+question: What are the two ways discussed in the course to value a firm?
+answer: >
+  * Market multiples approach: requires finding a similar firm with similar accounting practices
+  * Discounted cash flow

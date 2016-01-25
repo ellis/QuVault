@@ -1,0 +1,53 @@
+description: |
+  Coursera 2016
+  Introduction to Financial Accounting
+  by University of Pennsylvania
+  Professor Brian J Bushee
+DEFAULTS:
+  sourceTitle: wharton-accounting
+
+---
+reference: Lesson 1.1.1 Financial Reporting Overview
+question: What are the required financial statements?
+answer: |
+  * Balance sheet: financial position on a certain date
+  * Income statement: results of operations over a certain period of time using accrual accounting (i.e. according to business activities, not cash flows)
+  * Statement of cash flows: sources and uses of cash over a certain period of time
+  * Statement of stockholder equity: changes in stockholder equity over a certain period of time
+
+---
+reference: Lesson 1.1.2 Financial Reporting Example
+question: Which sections are on a Cash Flow report?
+answer: |
+  * CFO: Cash Flow from Operations: from provision of goods and services and other normal business activities
+  * CFI: Cash Flow from Investing: from acquisition and disposal of long-lived productive assets
+  * CFF: Cash Flow from Financing: from transactions with owners and creditors
+
+---
+reference: Lesson 1.1.2 Financial Reporting Example
+question: How does *accrual accounting* relate to cash flow?
+answer: >
+  It is not directly related to cash flow.
+  It calculates transactions based on business activities in a certain time period,
+  so for example, while you might have an out-flow of cash for long-lived equipment in
+  January, in accrual accounting you would depreciate that expense over the
+  equipment's lifetime, rather than considering the full price to be an expense
+  in January.
+
+---
+reference: Lesson 1.1.2 Financial Reporting Example
+question: Which sections are on an Income Statement?
+answer: |
+  * Revenues: increases in owner equity from providing goods or services
+  * Expenses: decreases in owner equity incurred in the process of generating revenues
+  * Net income = Revenues - Expenses
+
+---
+reference: Lesson 1.1.2 Financial Reporting Example
+question: Which sections are on a Balance Sheet?
+answer: |
+  * Assets: resources owned by the business that are expected to provide future economic benefits
+  * Liabilities: claims on assets by creditors
+  * Stockholder Equity: claims on assets by owners of the business (contributed capital and retained earnings)
+
+  Assets = Liabilities + Stockhold Equity
