@@ -2,6 +2,7 @@ import _ from 'lodash';
 import fs from 'fs';
 import jsonfile from 'jsonfile';
 import Immutable, {fromJS} from 'immutable';
+import moment from 'moment';
 import path from 'path';
 import xdgBasedir from 'xdg-basedir';
 import reducer from './reducer.js';
@@ -93,15 +94,28 @@ function loadQuestions(decks) {
 						if (!_.isEmpty(halflives)) {
 							scoreData.halflives = halflives;
 							scoreData.halflife = _.last(halflives);
+							scoreData.due = moment(_.max(_.keys(scoreData.history))).add(scoreData.halflife, 'days').toISOString();
 						}
 					}
-					decks = decks.setIn(["problems", problemUuid, "questions"], fromJS(scoreData));
-
+					decks = decks.setIn(["problems", problemUuid, "questions", index.toString()], fromJS(scoreData));
+				}
+				// For questions that haven't been scored yet:
+				else {
+					decks = decks.setIn(["problems", problemUuid, "questions", index.toString()], fromJS({}));
 				}
 			});
 		}
 	});
 	return decks;
+}
+
+function calcReviewList(decks) {
+	decks.get("problems").forEach((problemData, problemUuid) => {
+		problemData.get("questions", (questionData, index) => {
+
+		});
+	});
+
 }
 
 const program = require('commander');
