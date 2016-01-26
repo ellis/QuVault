@@ -50,7 +50,7 @@ answer: |
   * Liabilities: claims on assets by creditors
   * Stockholder Equity: claims on assets by owners of the business (contributed capital and retained earnings)
 
-  Assets = Liabilities + Stockhold Equity
+  Assets = Liabilities + Stockholder Equity
 
 ---
 reference: Lesson 1.2.1 Balance Sheet Equation
@@ -121,11 +121,68 @@ answer: |
   * The value of its future benefits can be measured with a reasonable degree of precision
 
 ---
-reference: Lesson 1.2.1 Balance Sheet Equation
-question: Is this an asset, and if so which account would it be in: BOC sells $100,000 of merchandise to a customer that promises to pay cash within 60 days?
+reference: Lesson 1.2.2 Assets, Liabilities, and Stockholder's Equity
+question: "Is this an asset, and if so which account would it be in: BOC sells $100,000 of merchandise to a customer that promises to pay cash within 60 days?"
 answer: |
   Yes.  1) it is expected to provide future cash inflow, 2) it was "acquired" in a transaction, and 3) its future benefit can be estimated.
 
   It would belong to "Accounts Receivable".
 
 CONTINUE 2:06
+
+---
+reference: Lesson 1.2.2 Assets, Liabilities, and Stockholder's Equity
+question: "Is this an asset, and if so which account would it be in: BOC signs a contract to deliver $100,000 of natural gas to DEF each month for the next year?"
+answer: |
+  No, because no products or services have been exchanged.
+
+---
+reference: Lesson 1.2.2 Assets, Liabilities, and Stockholder's Equity
+question: "Is this an asset, and if so which account would it be in: BOC pays $12 million for the annual rent on its office building and has already occupied it for one month?"
+answer: |
+  The asset is "Prepaid Rent" and is worth $11 million.
+  $1 million has gone to the "Rent" expense.
+
+---
+reference: Lesson 1.2.2 Assets, Liabilities, and Stockholder's Equity
+question: "Is this an asset, and if so which account would it be in: BOC's brand name has been estimated to be worth $63 million?"
+answer: |
+  It is not an asset in financial accounting, because there was no transaction,
+  and can't be precisely valued.
+
+---
+reference: Lesson 1.2.2 Assets, Liabilities, and Stockholder's Equity
+question: What are the criteria for considering something to be a liability?
+answer: |
+  * It is an obligation to make future payment of cash, goods, or services
+  * It is based on benefits or services received in the past
+  * The amount and timing of payment is reasonably certain
+
+---
+reference: Lesson 1.2.2 Assets, Liabilities, and Stockholder's Equity
+question: "Is this a liability, and if so which account would it be in: BOC estimates that it owes $3 million in taxes for the quarter?"
+answer: |
+  Yes, this is a liability in the "Income Tax Payable" account.
+  The "benefits received" criteria is met because we receive the benefit to
+  operate the business from the government.
+
+---
+reference: Lesson 1.2.2 Assets, Liabilities, and Stockholder's Equity
+question: "Is this a liability, and if so which account would it be in: BOC borrows $500,000 on a one-year note with a 10% interest rate?"
+answer: |
+  This is a liability in "Notes payable" worth $500,000.
+  The interest obligations will only be booked as times passes.
+
+---
+reference: Lesson 1.2.2 Assets, Liabilities, and Stockholder's Equity
+question: What are *dividends*?
+answer: |
+  * Dividends are distributions of retained earnings to shareholders.
+  * They are not considered an expense.
+  * They are recorded as a reduction of retained earnings on the declaration date.
+  * Until the dividends are actually paid, they become a payable liability.
+
+---
+reference: Lesson 1.2.2 Assets, Liabilities, and Stockholder's Equity
+question:
+answer:
