@@ -51,3 +51,81 @@ answer: |
   * Stockholder Equity: claims on assets by owners of the business (contributed capital and retained earnings)
 
   Assets = Liabilities + Stockhold Equity
+
+---
+reference: Lesson 1.2.1 Balance Sheet Equation
+question: What is the *Balance Sheet Equation*?
+answer: |
+  Assets = Liabilities + Stockholder Equity
+
+  Another way to say this is: Resources = Claims on Resources by Ousiders and Owners
+
+  A more detailed equation is:
+
+  assets = liabilities + contributed capital + prior retained earnings + revenues - expenses - dividends
+
+---
+reference: Lesson 1.2.1 Balance Sheet Equation
+question: What are the two components of *Stockholder's Equity*?
+answer: |
+  * Contributed capital: money we raise from shareholders
+  * Retained earnings: profits from operating the business
+
+---
+reference: Lesson 1.2.1 Balance Sheet Equation
+question: What is the equation for *retained earnings*?
+answer: retained earnings = prior retained earnings + net income - dividends
+
+---
+reference: Lesson 1.2.1 Balance Sheet Equation
+question: What is the equation for *net income*?
+answer: Net income = revenues - expenses
+
+---
+reference: Lesson 1.2.1 Balance Sheet Equation
+question: assets = 100, liabilities = 50, what is stockholder's equity?
+answer: |
+  50.
+
+  assets (100) = liabilities (50) + stockholder's equity (50)
+
+---
+reference: Lesson 1.2.1 Balance Sheet Equation
+question: noncash assets = 70, liabilities = 60, stockholder's equity = 30.  What is cash?
+answer: |
+  20.
+
+  70 + x = 60 + 30
+
+---
+reference: Lesson 1.2.1 Balance Sheet Equation
+question: Retained earnings increases by 100, dividends = 50.  What is net income?
+answer: |
+  * net income = revenues - expenses
+  * retained income = previous retained income + net income - dividends
+  * 100 = net income - 50
+  * net income = 150
+
+---
+reference: Lesson 1.2.1 Balance Sheet Equation
+question: Revenue increases by 100 and all other categories are unchanged excepts assets.  What is the change in assets?
+answer: |
+ 100.
+
+---
+reference: Lesson 1.2.2 Assets, Liabilities, and Stockholder's Equity
+question: What are the criteria for considering something to be an asset?
+answer: |
+  * It is a resource that is expected to provide future economic benefits (i.e. generate future cash inflows or reduce cash outflows)
+  * It is acquired in a past transaction or exchange
+  * The value of its future benefits can be measured with a reasonable degree of precision
+
+---
+reference: Lesson 1.2.1 Balance Sheet Equation
+question: Is this an asset, and if so which account would it be in: BOC sells $100,000 of merchandise to a customer that promises to pay cash within 60 days?
+answer: |
+  Yes.  1) it is expected to provide future cash inflow, 2) it was "acquired" in a transaction, and 3) its future benefit can be estimated.
+
+  It would belong to "Accounts Receivable".
+
+CONTINUE 2:06
