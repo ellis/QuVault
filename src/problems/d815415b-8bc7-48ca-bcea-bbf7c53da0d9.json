@@ -1,5 +1,0 @@
-{
-	"question": "What is the running time of depth-ﬁrst search, as a function of n and m, if the input graph $G=(V,E)$ is represented by an adjacency list?  As an adjacency matrix?",
-	"answer": "$\\Theta(n + m), \\Theta(n^2)$",
-	"uuid": "d815415b-8bc7-48ca-bcea-bbf7c53da0d9"
-}

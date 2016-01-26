@@ -20,7 +20,8 @@
 * [ ] repl:
 	* [x] `decks`: list active decks
 	* [x] create `Medley.setMut` function
-	* [ ] for all problems in a deck, query the problem file to discover out how many questions it has
+	* [x] for all problems in a deck, query the problem file to discover out how many questions it has
+	* [x] calculate question half-lives for all questions with history
 	* [ ] calculate question half-lives for all questions, including ones that haven't been scored yet
 	* [ ] cli: calculate weighted, randomized order to present questions
 	* [ ] list number of pending questions for each active deck
@@ -43,6 +44,7 @@
 * [ ] generate spaced repetition plan
 * [ ] handle media, hashed filenames
 * [ ] repl: consider displaying amount of time spent answering questions
+* [ ] delegate halflife calculations to the problem type, in order to support such things as problems with infinite variants on questions
 
 
 Old:

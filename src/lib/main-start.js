@@ -9,7 +9,7 @@ import * as Scores from './Scores.js';
 
 function loadConfig(username) {
 	/*const config = {
-		questionDirs: {
+		problemDirs: {
 			_order: ["user", "data[]"],
 			user: path.join(xdgBasedir.data, "quvault", "userdata", username, "questions"),
 			"data[]": xdgBasedir.dataDirs.map(dir => path.join(dir, "quvault", "questions")),
@@ -25,9 +25,9 @@ function loadConfig(username) {
 	const filename = path.join(xdgBasedir.config, "quvault/quvault.yaml");
 	if (fs.exists(filename))*/
 	const config = {
-		questionDirs: _.flatten([
-			path.join(xdgBasedir.data, "quvault", "userdata", username, "questions"),
-			xdgBasedir.dataDirs.map(dir => path.join(dir, "quvault", "questions"))
+		problemDirs: _.flatten([
+			path.join(xdgBasedir.data, "quvault", "userdata", username, "problems"),
+			xdgBasedir.dataDirs.map(dir => path.join(dir, "quvault", "problems"))
 		]),
 		deckDirs: _.flatten([
 			path.join(xdgBasedir.data, "quvault", "userdata", username, "decks"),
@@ -59,17 +59,61 @@ function loadDecks(config) {
 	return decks || {};
 }
 
-function loadScores(decks) {
-	let scores = Scores.load(config.scoreDir);
-	//console.log("loadScores:")
+function loadQuestions(decks) {
+	// Load score data
+	const scores = Scores.load(config.scoreDir);
 	//console.log(JSON.stringify(scores, null, '\t'))
 
-	//let decks = decks0;
-	/*decks.get("questions").forEach((question, questionUuid) => {
-		CONTINUE
-		question.
-	});*/
-	return scores;
+	// Iterate through all problems, load the problem, find out how many
+	// questions it has, add score history to decks, and calculate half-lives.
+	decks.get("problems").forEach((problemData, problemUuid) => {
+		//console.log({dirs: config.problemDirs})
+		// Try to find a directory with the problem file
+		const dir = _.find(config.problemDirs, dir => fs.existsSync(path.join(dir, problemUuid+".json")));
+		//console.log({problemUuid, dir});
+		if (dir) {
+			// Load problem to find its quesiton indexes
+			const filenameJson = path.join(dir, problemUuid+".json");
+			const problem = jsonfile.readFileSync(filenameJson);
+			//console.log(JSON.stringify(problem, null, "  "));
+			const problemType = require('../problemTypes/default.js');
+			const indexes = (problemType.getFlashcardQuestionIndexes)
+				? problemType.getFlashcardQuestionIndexes(problem) || [0]
+				: [0];
+			// Add question indexes to decks
+			decks = decks.setIn(["problems", problemUuid, "indexes"], indexes);
+
+			const problemScores = scores[problemUuid];
+			_.forEach(indexes, index => {
+				const scoreData = _.get(problemScores, index);
+				if (scoreData) {
+					if (scoreData.history) {
+						const halflives = Scores.calcHalflives(scoreData.history);
+						console.log({halflives});
+						if (!_.isEmpty(halflives)) {
+							scoreData.halflives = halflives;
+							scoreData.halflife = _.last(halflives);
+						}
+					}
+					decks = decks.setIn(["problems", problemUuid, "questions"], fromJS(scoreData));
+
+				}
+			});
+		}
+	});
+	return decks;
+}
+
+const program = require('commander');
+
+let config;
+let decks;
+function init() {
+	//console.log({process})
+	config = loadConfig(program.user || "default");
+	decks = loadDecks(config);
+	decks = loadQuestions(decks);
+	console.log(JSON.stringify(decks.toJS(), null, '\t'));
 }
 /*
 function calcQuestionHalflives(decks0) {
@@ -119,19 +163,6 @@ function do_decks(decks) {
 	_.forEach(roots, uuid => {
 		print(uuid);
 	})
-}
-
-const program = require('commander');
-
-let config;
-let decks;
-function init() {
-	//console.log({process})
-	config = loadConfig(program.user || "default");
-	decks = loadDecks(config);
-	const scores = loadScores(decks);
-	decks = decks.set("scores", fromJS(scores));
-	console.log(JSON.stringify(decks.toJS(), null, '\t'));
 }
 
 function repl() {

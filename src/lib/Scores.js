@@ -68,15 +68,12 @@ export function processFile(filename, data = {}) {
 	}
 }
 
-export function calcHalflives(userdata) {
-	_.forEach(userdata, qdata => {
-		let dateText1;
-		let halflife1;
-		const halflives = [];
-		qdata.halflives = _.map(qdata.history, ([dateText2, score2]) => {
-			halflife1 = Halflife.calcHalflife2(dateText2, score2, dateText1, halflife1);
-			dateText1 = dateText2;
-			return halflife1;
-		});
+export function calcHalflives(history) {
+	let dateText1;
+	let halflife1;
+	return _.map(history, ({score: score2}, dateText2) => {
+		halflife1 = Halflife.calcHalflife2(dateText2, score2, dateText1, halflife1);
+		dateText1 = dateText2;
+		return halflife1;
 	});
 }

@@ -1,4 +1,0 @@
-{
-	"question": "What is the asymptotic running time of Randomized QuickSort on arrays of length n, in expectation (over the choice of random pivots) and in the worst case, respectively?",
-	"uuid": "e9bbeead-29ef-44be-8569-946ae1e84c1e"
-}
