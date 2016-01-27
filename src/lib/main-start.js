@@ -1,12 +1,41 @@
 import _ from 'lodash';
 import fs from 'fs';
 import jsonfile from 'jsonfile';
-import Immutable, {fromJS} from 'immutable';
+import Immutable, {List, Map, fromJS} from 'immutable';
 import moment from 'moment';
 import path from 'path';
 import xdgBasedir from 'xdg-basedir';
 import reducer from './reducer.js';
 import * as Scores from './Scores.js';
+
+/**
+ * The format of the data is:
+ *
+ * ```{yaml}
+ * decks:
+ *   DECKUUID1:
+ *     uuid: DECKUUID1
+ *     name: DECKNAME1
+ *     parent: ...
+ *     after: ...
+ *   DECKUUID2:
+ *     ...
+ * problems:
+ *   PROBUUID1:
+ *     decks:
+ *       DECKUUID?: true
+ *     indexes: [INDEX1, ...]
+ *     questions:
+ *       INDEX1:
+ *         history:
+ *           ISODATE1:
+ *             score: <integer>
+ *         halflives: [...]
+ *         halflife: <number>
+ *         due: <isodate>
+ * reviewList: [PROBUUIDs]
+ * ```
+ */
 
 function loadConfig(username) {
 	/*const config = {
@@ -110,9 +139,25 @@ function loadQuestions(decks) {
 }
 
 function calcReviewList(decks) {
+	console.log("calcReviewList")
+	const weights = [];
 	decks.get("problems").forEach((problemData, problemUuid) => {
-		problemData.get("questions", (questionData, index) => {
-
+		console.log({problemData, problemUuid})
+		problemData.get("questions").forEach((questionData, index) => {
+			const scoreDates = questionData.get("history", List()).keys();
+			console.log({scoreDates});
+			CONTINUE:
+			if (!scoreDates.isEmpty()) {
+				const lastDateText = scoreDates.max();
+				const lastDate = moment(lastDateText);
+				const now = moment();
+				const halflife = _.get(questionData, "halflife", 1);
+				const weight = now.diff(lastDate, 'days') / halflife;
+				console.log({lastDateText, now, halflife, weight})
+			}
+			else {
+				weights.push([1, problemUuuid, index]);
+			}
 		});
 	});
 
@@ -128,6 +173,7 @@ function init() {
 	decks = loadDecks(config);
 	decks = loadQuestions(decks);
 	console.log(JSON.stringify(decks.toJS(), null, '\t'));
+	calcReviewList(decks);
 }
 /*
 function calcQuestionHalflives(decks0) {

@@ -128,8 +128,6 @@ answer: |
 
   It would belong to "Accounts Receivable".
 
-CONTINUE 2:06
-
 ---
 reference: Lesson 1.2.2 Assets, Liabilities, and Stockholder's Equity
 question: "Is this an asset, and if so which account would it be in: BOC signs a contract to deliver $100,000 of natural gas to DEF each month for the next year?"
@@ -183,6 +181,118 @@ answer: |
   * Until the dividends are actually paid, they become a payable liability.
 
 ---
-reference: Lesson 1.2.2 Assets, Liabilities, and Stockholder's Equity
+reference: Lesson 1.3.1 Debit and Credit Bookkeeping I
+question: What are the three fundamental bookeeping equations?
+answer: |
+  * assets = liabilities + stockholder's equity
+  * sum of debits = sum of credits
+  * beginning account balance + increase - decreases = ending account balance
+
+  That first equation is the *balance sheet equation*.
+
+---
+reference: Lesson 1.3.1 Debit and Credit Bookkeeping I
+question: In accounting, what is the definition of "debits" and "credits"?
+answer: >
+  A debit is a left-side entry and a credit is a right-side entry in this
+  equation:
+
+  assets + expenses = liability + contributed capital + retained earnings + revenues
+
+---
+reference: Lesson 1.3.1 Debit and Credit Bookkeeping I
+question: How are "debit" and "credit" abbreviated in accounting?
+answer: "Dr." and "Cr.", respectively.
+
+---
+reference: Lesson 1.3.1 Debit and Credit Bookkeeping I
+question: Are negative debits and credits allowed?
+answer: No, all the numbers need to be positive.
+
+---
+reference: Lesson 1.3.1 Debit and Credit Bookkeeping I
+question: |
+  Create a T-Account for the following scenario:
+
+  * Account = Accounts Receivable
+  * Beginning balance = 1000
+  * New sales awaying payment = 100
+  * Cash collections = 80
+answer: |
+  Accounts Receivable (A)
+
+  ----------------  ------   ------ ----------------
+  Beg. balance        1000
+  New sales            100       80 Cash collections
+  End. balance        1020
+  ----------------  ------   ------ ----------------
+
+  The "(A)" in the title indicates an Asset.
+
+---
+reference: Lesson 1.3.1 Debit and Credit Bookkeeping I
+question: |
+  Create a T-Account for the following scenario:
+
+  * Account = Accounts Payable
+  * Beginning balance = 1000
+  * Payment to suppliers = 80
+  * New purchase on credit = 100
+answer: |
+  Accounts Receivable (A)
+
+  ----------------  ------   ------ ----------------
+                               1000 Beg. balance
+  Cash payments         80      100 New purchases
+                               1020 End. balance
+  ----------------  ------   ------ ----------------
+
+  The "(L)" in the title indicates a Liability.
+
+---
+reference: Lesson 1.3.1 Debit and Credit Bookkeeping I
+question: What is the *journal entry format*?
+answer: |
+  Looks like this:
+
+  ```
+  Dr. <name of account debited>  $XXX
+      Cr. <name of account credited>  $XXX
+  ```
+
+  Debit accounts are listed first, and credit accounts are indented.
+
+---
+reference: Lesson 1.3.2 Debit and Credit Bookkeeping II
+question:
+answer:
+
+---
+reference: Lesson 1.3.2 Debit and Credit Bookkeeping II
+question:
+answer:
+
+---
+reference: Lesson 1.3.2 Debit and Credit Bookkeeping II
+question:
+answer:
+
+---
+reference: Lesson 1.3.2 Debit and Credit Bookkeeping II
+question:
+answer:
+
+---
+reference: Lesson 1.3.2 Debit and Credit Bookkeeping II
+question:
+answer:
+
+---
+reference: Lesson 1.3.2 Debit and Credit Bookkeeping II
+question:
+answer:
+
+---
+reference: Lesson 1.3.2 Debit and Credit Bookkeeping II
 question:
 answer:
