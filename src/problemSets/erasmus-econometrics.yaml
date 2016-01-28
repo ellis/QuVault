@@ -1,0 +1,13 @@
+description: |
+  Coursera 2016
+  Econometrics: Methods and Applications
+  by Erasmus University Rotterdam
+DEFAULTS:
+  sourceTitle: erasmus-econometrics
+
+---
+reference: Lecture 2.3 on Multiple Regression: Estimation
+question: Prove that rank(X) = k implies that X'X is invertible (where X has k columns).
+answer: >
+  X'X is a symmetric matrix.  A symmetric matrix with full rank is invertible.
+  CONTINUE with answer at 3:35
