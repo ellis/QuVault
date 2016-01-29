@@ -264,27 +264,69 @@ answer: |
 
 ---
 reference: Lesson 1.3.2 Debit and Credit Bookkeeping II
-question:
-answer:
+question: You receive $100 cash from a bank loan.  For this transaction, show the 1) balance sheet equation, 2) the journal entry, and 3) the T-accounts.
+answer: |
+  **Balance sheet equation**:
+
+  Assets (100) = Liabilities (100) + Equity (0)
+
+  **Journal entries**:
+
+      Dr. Cash (+A)            100
+        Cr. Notes payable (+L)   100
+
+  **T-Accounts**:
+
+      Cash (A)          Notes Payable (L)
+      -----------       -----------
+       100 |                 | 100
+      -----------       -----------
+       100 |                 | 100
 
 ---
 reference: Lesson 1.3.2 Debit and Credit Bookkeeping II
-question:
-answer:
+question: You repay $20 of a loan (starting state was $100 borrowed).  For this transaction, show the 1) balance sheet equation, 2) the journal entry, and 3)
+answer: |
+  **Balance sheet equation**:
+
+  Assets (-20) = Liabilities (-20) + Equity (0)
+
+  **Journal entries**:
+
+      Dr. Notes payable (-L)  20
+        Cr. Cash (-A)           20
+
+  **T-Accounts**:
+
+      Cash (A)          Notes Payable (L)
+      -----------       -----------
+       100 |  20          20 | 100
+      -----------       -----------
+        80 |                 |  80
 
 ---
 reference: Lesson 1.3.2 Debit and Credit Bookkeeping II
-question:
-answer:
+question: Show the journal entry for this transaction: BOC issues 10,000 shares of $5 par value stock for $15 cash per share.
+answer: |
+  **Journal entries**:
+
+      Dr. Cash (+A)  150,000
+        Cr. Common Stock-Par (+SE)            50,000
+        Cr. Additional paid-in capital (+SE) 100,000
 
 ---
 reference: Lesson 1.3.2 Debit and Credit Bookkeeping II
-question:
-answer:
+question: Show the journal entry for this transaction: BOC acquires a building costing $500,000; it pays $80,000 cash and assumes a long-term mortgage for the balance of the purchase price.
+answer: |
+  **Journal entries**:
+
+      Dr. Buildings (+A)          500,000
+        Cr. Cash (-A)                80,000
+        Cr. Morgage payable (+L)    420,000
 
 ---
 reference: Lesson 1.3.2 Debit and Credit Bookkeeping II
-question:
+question: CONTINUE 9:08
 answer:
 
 ---

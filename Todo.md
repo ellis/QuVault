@@ -29,7 +29,10 @@
 	* [ ] cli: for a single-user setup, save data in `.local/share/` directory
 	* [ ] `createDeck`: create a new deck
 	* [ ] `createProblem`: create a new problem
+* [ ] move Design.md and Todo.md to src/ folder
 * [ ] main-import.js -- for importing problem sets
+	* [x] create it
+	* [ ] add 'addUuid' and 'debug' options to program
 * [ ] delete old cli.js
 * [ ] cli: read configuration information from .config/quvault/quvault.yaml, with directory information
 * [ ] start a `medley-data` library?  Merge functions would never automatically create arrays, even if a number was in the path; lists could be extracted from maps

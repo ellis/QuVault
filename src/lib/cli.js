@@ -6,7 +6,7 @@ import mkdirp from 'mkdirp';
 import moment from 'moment';
 import path from 'path';
 import yaml from 'js-yaml';
-import * as userdata from './userdata.js';
+//import * as userdata from './userdata.js';
 
 const version = "0.1";
 
@@ -124,7 +124,7 @@ function doImport() {
 	}
 
 	// Create problem files
-	fs.mkdir("problems");
+	mkdirp.sync("problems");
 	for (const problem of documents) {
 		const filename = path.join("problems", problem.uuid+".json");
 		const content2 = JSON.stringify(problem, null, "\t");
@@ -245,7 +245,8 @@ else if (!_.isEmpty(opts.uuid)) {
 		}
 	}
 }
-
+/*
 else if (opts.interactive) {
 	doInteractive();
 }
+*/
