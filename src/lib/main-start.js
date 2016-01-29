@@ -4,6 +4,7 @@ import jsonfile from 'jsonfile';
 import Immutable, {List, Map, fromJS} from 'immutable';
 import moment from 'moment';
 import path from 'path';
+import random from 'random-js';
 import xdgBasedir from 'xdg-basedir';
 import loadConfig from './loadConfig.js';
 import reducer from './reducer.js';
@@ -110,6 +111,8 @@ function loadQuestions(decks) {
 
 function calcReviewList(decks) {
 	//console.log("calcReviewList")
+	const mt = random.engines.mt19937();
+	mt.autoSeed();
 	const weights = [];
 	decks.get("problems").forEach((problemData, problemUuid) => {
 		//console.log({problemData, problemUuid})
@@ -117,23 +120,23 @@ function calcReviewList(decks) {
 			//console.log({questionData, index})
 			const scoreDates = _.keys(questionData.get("history", Map()).toJS());
 			//console.log({scoreDates, json: JSON.stringify(scoreDates)})
+			let weight = 1;
 			if (scoreDates.length > 0) {
 				const lastDateText = _.max(scoreDates);
 				const lastDate = moment(lastDateText);
 				const now = moment();
 				const halflife = questionData.get("halflife", 1);
 				const diff = now.diff(lastDate, 'minutes') / (24*60);
-				const weight = diff / halflife;
+				weight = diff / halflife;
 				//console.log({lastDateText, now, halflife, diff, weight})
-				weights.push([problemUuid, index, weight]);
 			}
-			else {
-				weights.push([problemUuuid, index, 1]);
-			}
+			const randWeight = random.real(0, 1, true)(mt) * weight;
+			weights.push([problemUuid, index, weight, randWeight]);
 		});
 	});
-	console.log({weights});
-	return weights;
+	const l = _.sortBy(weights, x => -x[3]);
+	console.log({l});
+	return l;
 }
 
 const program = require('commander');
