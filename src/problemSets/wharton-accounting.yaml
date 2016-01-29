@@ -326,15 +326,69 @@ answer: |
 
 ---
 reference: Lesson 1.3.2 Debit and Credit Bookkeeping II
-question: CONTINUE 9:08
-answer:
+question: Show the journal entry for this transaction: BOC obtains a 3-year fire insurance policy and pays the $3,000 premium in advance.
+answer: |
+  **Journal entries**:
+
+      Dr. Insurance Prepaid (+A)  3,000
+        Cr. Cash (-A)               3,000
 
 ---
 reference: Lesson 1.3.2 Debit and Credit Bookkeeping II
-question:
-answer:
+question: Show the journal entry for this transaction: BOC pays $22,000 to its suppliers.
+answer: |
+  **Journal entries**:
+
+      Dr. Accounts Payable (-L)  22,000
+        Cr. Cash (-A)               22,000
 
 ---
 reference: Lesson 1.3.2 Debit and Credit Bookkeeping II
-question:
-answer:
+question: Show the journal entry for this transaction: BOC exchanges a building valued on the books at $200,000 for a piece of undeveloped land.
+answer: |
+  **Journal entries**:
+
+      Dr. Land (+A)         200,000
+        Cr. Buildings (-A)    200,000
+
+---
+reference: Lesson 1.3.2 Debit and Credit Bookkeeping II
+question: Show the journal entry for this transaction: BOC retires $1,000,000 of debt by issuing 100,000 shares of $5 par value stock.
+answer: |
+  **Journal entries**:
+
+      Dr. Notes Payable (-L)              1,000,000
+        Cr. Common Stock (+SE)                500,000
+        Cr. Additional paid-in capital (+SE)  500,000
+
+---
+reference: Lesson 1.3.2 Debit and Credit Bookkeeping II
+question: Show the journal entry for this transaction: BOC receives an order for $6,000 of merchandise to be shipped next month.  The customer pays $600 at the time of placing the order.
+answer: |
+  **Journal entries**:
+
+      Dr. Cash (+A)                     600
+        Cr. Advances from customers (+L)  600
+
+---
+reference: Lesson 1.3.2 Debit and Credit Bookkeeping II
+question: Show the journal entry for this transaction: BOC declares and pays $8,000 of cash dividends.
+answer: |
+  **Journal entries**:
+
+      Dr. Retained Earnings (-SE)  8,000
+        Cr. Cash (-A)                8,000
+
+---
+reference: Lesson 1.4.1
+question: What are the steps of the *accounting cycle*?
+answer: |
+  1) Analyze transactions during the reporting period
+  2) Journalize and post till the end of period
+    * Journalize: recording each transaction as a journal entry in the *general journal*
+    * Post: transfer journal entries to the T-accounts or *general ledger*
+  3) Add adjusting entries
+  4) Product the financial statements
+  5) Add closing entries
+
+CONTINUE 6:25

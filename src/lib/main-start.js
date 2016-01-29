@@ -109,28 +109,31 @@ function loadQuestions(decks) {
 }
 
 function calcReviewList(decks) {
-	console.log("calcReviewList")
+	//console.log("calcReviewList")
 	const weights = [];
 	decks.get("problems").forEach((problemData, problemUuid) => {
-		console.log({problemData, problemUuid})
+		//console.log({problemData, problemUuid})
 		problemData.get("questions").forEach((questionData, index) => {
-			const scoreDates = questionData.get("history", List()).keys();
-			console.log({scoreDates});
-			CONTINUE:
-			if (!scoreDates.isEmpty()) {
-				const lastDateText = scoreDates.max();
+			//console.log({questionData, index})
+			const scoreDates = _.keys(questionData.get("history", Map()).toJS());
+			//console.log({scoreDates, json: JSON.stringify(scoreDates)})
+			if (scoreDates.length > 0) {
+				const lastDateText = _.max(scoreDates);
 				const lastDate = moment(lastDateText);
 				const now = moment();
-				const halflife = _.get(questionData, "halflife", 1);
-				const weight = now.diff(lastDate, 'days') / halflife;
-				console.log({lastDateText, now, halflife, weight})
+				const halflife = questionData.get("halflife", 1);
+				const diff = now.diff(lastDate, 'minutes') / (24*60);
+				const weight = diff / halflife;
+				//console.log({lastDateText, now, halflife, diff, weight})
+				weights.push([problemUuid, index, weight]);
 			}
 			else {
-				weights.push([1, problemUuuid, index]);
+				weights.push([problemUuuid, index, 1]);
 			}
 		});
 	});
-
+	console.log({weights});
+	return weights;
 }
 
 const program = require('commander');
