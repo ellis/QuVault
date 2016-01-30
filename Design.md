@@ -8,6 +8,84 @@ The basic item is called a "problem".
 This is something that can be displayed to the user for testing.
 A problem normally has a single "question" for the user to answer,
 but it might have many nested questions, such as an entire exam.
+Questions are imported into QuVault in the form of "decks".
+
+# Decks
+
+(Or should these just be called problem sets?)
+
+## Deck source format
+
+You can write a deck file and import it into quvault.
+
+```{yaml}
+DECK:
+  name: My Deck Name
+  description: More info about the source or purpose of this deck
+DEFAULTS:
+  someProperty: someValue
+---
+question: Hello, who?
+answer: Hello, world.
+```
+
+## Deck storage format
+
+When a deck gets imported, its contents get stored in two places:
+the problems are written to a problem storage directory, and
+deck data is writen to a deck storage
+directory (e.g. `$HOME/.local/share/quvault/userdata/$USERNAME/decks/`)
+with the filename `$UUID--$DATE.dec1`, where UUID is the deck's UUID
+and DATE is the date and time of import.  Upon import, older files for
+that deck will be deleted.  Upon loading, if multiple files for a single
+deck are detected, a warning should be printed to the console, and only
+the most recent file will be loaded.
+
+The deck and all questions must have UUIDs for import to succeed.
+Obviously, we don't want users to have to generate their own UUIDs, so
+there is a `--addUuid` option available with the import command that will
+re-write the deck with UUIDs.
+
+
+```{yaml}
+decks:
+  UUID1:
+    name: My Deck Name
+    description: More info about the source or purpose of this deck
+problems:
+  UUID2:
+    decks:
+      UUID1: true
+    indexes: [0]
+```
+
+## Deck format in program state
+
+```{yaml}
+decks:
+  XXXXX:
+    name: Some Deck 1
+---
+decks:
+  YYYYY:
+    name: Some Deck 2
+    parent: XXXXX
+---
+questions:
+  QQQQQ:
+    decks:
+      YYYYY: true
+```
+
+Some file `*.dec1`:
+```
+{"type": "deckCreate", "uuid": "XXXXX", "name": "Some Deck 1"}
+{"type": "deckCreate", "uuid": "YYYYY", "name": "Some Deck 2", "parent": "XXXXX"}
+[["decks", "XXXXX"], {"name": "Some Deck 1", "status": "active"}]
+[["decks", "YYYYY"], {"name": "Some Deck 2", "parent": "XXXXX", "status": "active"}]
+[["decks", "ZZZZZ"], {"name": "Some Deck 3", "parent": "XXXXX", "after": "YYYYY", "status": "active"}]
+[["questions", "QQQQQ"], {"decks": {"YYYYY": true}]
+```
 
 # Problems
 
@@ -136,34 +214,6 @@ The default directories are as follows:
 * questions: `$HOME/.local/share/quvault/questions/` and `$HOME/.local/share/quvault/userdata/$USER/questions/`
 * decks: `$HOME/.local/share/quvault/decks/` and `$HOME/.local/share/quvault/userdata/$USER/decks/`
 * user responses: `$HOME/.local/share/quvault/userdata/$USER/scores/`
-
-## Deck formats
-
-```{yaml}
-decks:
-  XXXXX:
-    name: Some Deck 1
----
-decks:
-  YYYYY:
-    name: Some Deck 2
-    parent: XXXXX
----
-questions:
-  QQQQQ:
-    decks:
-      YYYYY: true
-```
-
-Some file `*.dec1`:
-```
-{"type": "deckCreate", "uuid": "XXXXX", "name": "Some Deck 1"}
-{"type": "deckCreate", "uuid": "YYYYY", "name": "Some Deck 2", "parent": "XXXXX"}
-[["decks", "XXXXX"], {"name": "Some Deck 1", "status": "active"}]
-[["decks", "YYYYY"], {"name": "Some Deck 2", "parent": "XXXXX", "status": "active"}]
-[["decks", "ZZZZZ"], {"name": "Some Deck 3", "parent": "XXXXX", "after": "YYYYY", "status": "active"}]
-[["questions", "QQQQQ"], {"decks": {"YYYYY": true}]
-```
 
 # User data
 

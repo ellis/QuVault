@@ -1,10 +1,10 @@
-description: |
-  Coursera 2016
-  Introduction to Financial Accounting
-  by University of Pennsylvania
-  Professor Brian J Bushee
-DEFAULTS:
-  sourceTitle: wharton-accounting
+DECK:
+  name: Introduction to Financial Accounting
+  description: |
+    Coursera 2016
+    Introduction to Financial Accounting
+    by University of Pennsylvania
+    Professor Brian J Bushee
 
 ---
 reference: Lesson 1.1.1 Financial Reporting Overview
@@ -385,8 +385,8 @@ question: What are the steps of the *accounting cycle*?
 answer: |
   1) Analyze transactions during the reporting period
   2) Journalize and post till the end of period
-    * Journalize: recording each transaction as a journal entry in the *general journal*
-    * Post: transfer journal entries to the T-accounts or *general ledger*
+      * Journalize: recording each transaction as a journal entry in the *general journal*
+      * Post: transfer journal entries to the T-accounts or *general ledger*
   3) Add adjusting entries
   4) Product the financial statements
   5) Add closing entries

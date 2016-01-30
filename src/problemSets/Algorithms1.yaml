@@ -1,3 +1,9 @@
+DECK:
+  name: Algorithms I
+  description: |
+    Coursera 2015
+
+---
 question: 'What is the asymptotic worst-case running time of MergeSort, as a function of the input array length n?'
 answer: "$\\Theta(n \\log n)$"
 uuid: fab70f16-7332-438e-c9e0-928fcfaef8c8

@@ -37,6 +37,7 @@
 * [ ] main-import.js -- for importing problem sets
 	* [x] create it
 	* [ ] create deck file for problem set
+	* [ ] figure out how to manage importing a file multiple times to ensure that UUID is stable and that questions get properly added and removed
 	* [ ] add 'addUuid' and 'debug' options to program
 * [ ] delete old cli.js
 * [ ] cli: read configuration information from .config/quvault/quvault.yaml, with directory information
