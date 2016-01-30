@@ -201,12 +201,19 @@ function do_decks(decks) {
 	})
 }
 
+function do_dump(decks) {
+	console.log(JSON.stringify(decks, null, '\t'));
+}
+
 function repl() {
 	const vorpal = require('vorpal')();
 	vorpal
 		.command("decks", "List active decks")
-		.action((args, cb) => { do_decks(decks); cb(); })
-		;
+		.action((args, cb) => { do_decks(decks); cb(); });
+	vorpal
+		.command("dump")
+		.description("Dump the program state to the console")
+		.action((args, cb) => { do_dump(decks); cb(); });
 	vorpal
 		.delimiter("quvault >")
 		.show();
@@ -222,13 +229,17 @@ program
 	.action(() => { init(); do_decks(decks); });
 
 program
+	.command("dump")
+	.description("Dump the program state to the console")
+	.action(() => { init(); do_dump(decks); });
+
+program
 	.command("repl")
 	.action(() => { init(); repl();});
 
 program
 	.parse(process.argv);
 
-//console.log(program)
-if (program.args.length === 0) {
-	init(); repl();
+if (process.argv.length == 2) {
+	program.outputHelp();
 }

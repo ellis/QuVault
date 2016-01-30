@@ -17,13 +17,17 @@
 * [x] replace nomnom with commander
 * [x] try vorpal instead of inquirer
 * [x] main-start.js -- for an interactive Q&A session
+* [x] main-start: print help to console if no commands are given
+* [x] main-start: create `dump` command
+* [ ] main-start: rename program state from `decks` to `state`
+* [ ] loadDecks(): load the complete deck files created by import
 * [ ] repl:
 	* [x] `decks`: list active decks
 	* [x] create `Medley.setMut` function
 	* [x] for all problems in a deck, query the problem file to discover out how many questions it has
 	* [x] calculate question half-lives for all questions with history
 	* [x] calculate question half-lives for all questions, including ones that haven't been scored yet
-	* [ ] cli: calculate weighted, randomized order to present questions (see calcReviewList())
+	* [x] cli: calculate weighted, randomized order to present questions (see calcReviewList())
 	* [ ] list number of pending questions for each active deck
 	* [ ] allow for interactive question scoring
 	* [ ] cli: for a single-user setup, save data in `.local/share/` directory
@@ -32,10 +36,12 @@
 * [ ] move Design.md and Todo.md to src/ folder
 * [ ] main-import.js -- for importing problem sets
 	* [x] create it
+	* [ ] create deck file for problem set
 	* [ ] add 'addUuid' and 'debug' options to program
 * [ ] delete old cli.js
 * [ ] cli: read configuration information from .config/quvault/quvault.yaml, with directory information
 * [ ] start a `medley-data` library?  Merge functions would never automatically create arrays, even if a number was in the path; lists could be extracted from maps
+* [ ] main-start: refactor code so that we don't need to duplicate the `program` and `vorpal` commands
 * [ ] try creating a simple chemistry problem
 * [ ] try creating a complex chemistry problem
 * [ ] try creating a simple 2-way vocabulary problem
