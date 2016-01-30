@@ -380,7 +380,7 @@ answer: |
         Cr. Cash (-A)                8,000
 
 ---
-reference: Lesson 1.4.1
+reference: Lesson 1.4.1 Relic Spotter Case, Part 1
 question: What are the steps of the *accounting cycle*?
 answer: |
   1) Analyze transactions during the reporting period
@@ -391,4 +391,17 @@ answer: |
   4) Product the financial statements
   5) Add closing entries
 
-CONTINUE 6:25
+---
+reference: Lesson 1.4.1 Relic Spotter Case, Part 1
+question: >
+  Show the journal entry for this transaction #3:
+  On April 2, legal fees of $3,900 were paid to have a company incorporated.
+answer: |
+  **Journal entries**:
+
+      (3) Apr-2  Dr. Legal Fee Expenses (+E,-SE)  3,900
+                   Cr. Cash (-A)                    3,900
+
+---
+reference: Lesson 1.4.2 Relic Spotter Case, Part 2
+CONTINUE 5:10

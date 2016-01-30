@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import assert from 'assert';
 import fs from 'fs';
 import jsonfile from 'jsonfile';
 import Immutable, {List, Map, fromJS} from 'immutable';
@@ -40,34 +41,41 @@ import * as Scores from './Scores.js';
  */
 
 function loadDecks(config) {
-	let decks = undefined;
+	let state = undefined;
 	_.forEach(config.deckDirs, dir => {
-		//console.log(dir)
+		console.log({dir})
 		if (fs.existsSync(dir)) {
 			//console.log("exists")
 			// The files should be named in order of processing,
 			// so sort the array so that we can directly update the item list
 			const filenames = fs.readdirSync(dir);
 			filenames.sort();
+			console.log({filenames})
 			_.forEach(filenames, filename => {
-				if (path.extname(filename) === ".act1") {
+				const ext = path.extname(filename);
+				if (ext === ".act1") {
 					const act = jsonfile.readFileSync(path.join(dir, filename));
-					decks = reducer(decks, act);
+					state = reducer(state, act);
+				}
+				else if (ext === ".json") {
+					const content = jsonfile.readFileSync(path.join(dir, filename));
+					assert(content.format === 1);
+					_.merge(state, content);
 				}
 			});
 		}
 	});
-	return decks || {};
+	return state || {};
 }
 
-function loadQuestions(decks) {
+function loadQuestions(state) {
 	// Load score data
 	const scores = Scores.load(config.scoreDir);
 	//console.log(JSON.stringify(scores, null, '\t'))
 
 	// Iterate through all problems, load the problem, find out how many
-	// questions it has, add score history to decks, and calculate half-lives.
-	decks.get("problems").forEach((problemData, problemUuid) => {
+	// questions it has, add score history to state, and calculate half-lives.
+	state.get("problems").forEach((problemData, problemUuid) => {
 		//console.log({dirs: config.problemDirs})
 		// Try to find a directory with the problem file
 		const dir = _.find(config.problemDirs, dir => fs.existsSync(path.join(dir, problemUuid+".json")));
@@ -81,8 +89,8 @@ function loadQuestions(decks) {
 			const indexes = (problemType.getFlashcardQuestionIndexes)
 				? problemType.getFlashcardQuestionIndexes(problem) || [0]
 				: [0];
-			// Add question indexes to decks
-			decks = decks.setIn(["problems", problemUuid, "indexes"], indexes);
+			// Add question indexes to state
+			state = state.setIn(["problems", problemUuid, "indexes"], indexes);
 
 			const problemScores = scores[problemUuid];
 			_.forEach(indexes, index => {
@@ -97,24 +105,24 @@ function loadQuestions(decks) {
 							scoreData.due = moment(_.max(_.keys(scoreData.history))).add(scoreData.halflife, 'days').toISOString();
 						}
 					}
-					decks = decks.setIn(["problems", problemUuid, "questions", index.toString()], fromJS(scoreData));
+					state = state.setIn(["problems", problemUuid, "questions", index.toString()], fromJS(scoreData));
 				}
 				// For questions that haven't been scored yet:
 				else {
-					decks = decks.setIn(["problems", problemUuid, "questions", index.toString()], fromJS({}));
+					state = state.setIn(["problems", problemUuid, "questions", index.toString()], fromJS({}));
 				}
 			});
 		}
 	});
-	return decks;
+	return state;
 }
 
-function calcReviewList(decks) {
+function calcReviewList(state) {
 	//console.log("calcReviewList")
 	const mt = random.engines.mt19937();
 	mt.autoSeed();
 	const weights = [];
-	decks.get("problems").forEach((problemData, problemUuid) => {
+	state.get("problems").forEach((problemData, problemUuid) => {
 		//console.log({problemData, problemUuid})
 		problemData.get("questions").forEach((questionData, index) => {
 			//console.log({questionData, index})
@@ -142,35 +150,27 @@ function calcReviewList(decks) {
 const program = require('commander');
 
 let config;
-let decks;
+let state;
 function init() {
 	//console.log({process})
 	config = loadConfig(program.user || "default");
-	decks = loadDecks(config);
-	decks = loadQuestions(decks);
-	console.log(JSON.stringify(decks.toJS(), null, '\t'));
-	calcReviewList(decks);
+	state = loadDecks(config);
+	state = loadQuestions(state);
+	console.log(JSON.stringify(state.toJS(), null, '\t'));
+	calcReviewList(state);
 }
-/*
-function calcQuestionHalflives(decks0) {
-	let decks = decks0;
-	decks.get("questions").forEach((question, questionUuid) => {
-		question.
-	});
-}
-*/
 
 /**
  * List active decks.
- * @param  {immutable:Map} decks - Map of decks
+ * @param  {immutable:Map} state - program state
  */
-function do_decks(decks) {
+function do_decks(state) {
 	//console.log("do_decks")
-	//console.log(decks)
+	//console.log(state)
 	// Create map from deck UUID to all of its children UUIDs
 	const deckToChildren = {};
 	const roots = [];
-	decks.get("decks").forEach((deck, deckUuid) => {
+	state.get("decks").forEach((deck, deckUuid) => {
 		//console.log({deck});
 		if (deck.has("parent")) {
 			const parentUuid = deck.get("parent");
@@ -191,7 +191,7 @@ function do_decks(decks) {
 	console.log(JSON.stringify(l2, null, '\t'));*/
 
 	function print(uuid, indent=0) {
-		const deck = decks.getIn(["decks", uuid]);
+		const deck = state.getIn(["decks", uuid]);
 		console.log(_.repeat("  ", indent)+deck.get("name"));
 		_.forEach(deckToChildren[uuid], uuid2 => print(uuid2, indent+1));
 	}
@@ -201,22 +201,29 @@ function do_decks(decks) {
 	})
 }
 
-function do_dump(decks) {
-	console.log(JSON.stringify(decks, null, '\t'));
+function do_dump(state) {
+	console.log(JSON.stringify(state, null, '\t'));
 }
 
-function repl() {
+function repl(args) {
+	init();
 	const vorpal = require('vorpal')();
 	vorpal
 		.command("decks", "List active decks")
-		.action((args, cb) => { do_decks(decks); cb(); });
+		.action((args, cb) => { do_decks(state); cb(); });
 	vorpal
 		.command("dump")
-		.description("Dump the program state to the console")
-		.action((args, cb) => { do_dump(decks); cb(); });
-	vorpal
-		.delimiter("quvault >")
-		.show();
+		.description("Dump the program state to the console in JSON format")
+		.action((args, cb) => { do_dump(state); cb(); });
+
+	if (_.isEmpty(args) || args.length < 3) {
+		vorpal
+			.delimiter("quvault >")
+			.show();
+	}
+	else {
+		vorpal.parse(args);
+	}
 };
 
 program
@@ -224,22 +231,11 @@ program
 	.option('-u, --user', 'user name');
 
 program
-	.command("decks")
-	.description("List active decks")
-	.action(() => { init(); do_decks(decks); });
-
-program
-	.command("dump")
-	.description("Dump the program state to the console")
-	.action(() => { init(); do_dump(decks); });
-
-program
-	.command("repl")
-	.action(() => { init(); repl();});
-
-program
 	.parse(process.argv);
 
-if (process.argv.length == 2) {
-	program.outputHelp();
-}
+const args = (process.argv.length > 3) ? _.concat(_.take(process.argv, 2), _.drop(process.argv, 3)) : undefined;
+
+// if (process.argv.length == 2) {
+// 	program.outputHelp();
+// }
+repl(args)

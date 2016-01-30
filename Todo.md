@@ -19,26 +19,29 @@
 * [x] main-start.js -- for an interactive Q&A session
 * [x] main-start: print help to console if no commands are given
 * [x] main-start: create `dump` command
-* [ ] main-start: rename program state from `decks` to `state`
-* [ ] loadDecks(): load the complete deck files created by import
-* [ ] repl:
+* [x] main-start: rename program state from `decks` to `state`
+* [x] repl:
 	* [x] `decks`: list active decks
 	* [x] create `Medley.setMut` function
 	* [x] for all problems in a deck, query the problem file to discover out how many questions it has
 	* [x] calculate question half-lives for all questions with history
 	* [x] calculate question half-lives for all questions, including ones that haven't been scored yet
 	* [x] cli: calculate weighted, randomized order to present questions (see calcReviewList())
-	* [ ] list number of pending questions for each active deck
-	* [ ] allow for interactive question scoring
-	* [ ] cli: for a single-user setup, save data in `.local/share/` directory
-	* [ ] `createDeck`: create a new deck
-	* [ ] `createProblem`: create a new problem
-* [ ] move Design.md and Todo.md to src/ folder
-* [ ] main-import.js -- for importing problem sets
+* [x] main-import.js -- for importing problem sets
 	* [x] create it
-	* [ ] create deck file for problem set
-	* [ ] figure out how to manage importing a file multiple times to ensure that UUID is stable and that questions get properly added and removed
-	* [ ] add 'addUuid' and 'debug' options to program
+	* [x] create deck file for problem set
+	* [x] add 'addUuid' and 'debug' options to program
+* [ ] why isn't new deck .json being loaded?
+* [ ] figure out how to manage importing a file multiple times to ensure that UUID is stable and that questions get properly added and removed
+	* [ ] append date to filename, delete older files
+	* [ ] load from deckDirs in the proper order
+* [ ] loadDecks(): load the complete deck files created by import
+* [ ] repl: list number of pending questions for each active deck
+* [ ] repl: allow for interactive question scoring
+* [ ] repl: for a single-user setup, save data in `.local/share/` directory
+* [ ] repl: `createDeck`: create a new deck
+* [ ] repl: `createProblem`: create a new problem
+* [ ] move Design.md and Todo.md to src/ folder
 * [ ] delete old cli.js
 * [ ] cli: read configuration information from .config/quvault/quvault.yaml, with directory information
 * [ ] start a `medley-data` library?  Merge functions would never automatically create arrays, even if a number was in the path; lists could be extracted from maps
