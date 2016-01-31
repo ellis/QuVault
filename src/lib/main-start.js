@@ -130,6 +130,7 @@ function calcReviewList(state) {
 			//console.log({scoreDates, json: JSON.stringify(scoreDates)})
 			let weight = 1;
 			let randWeight = 1;
+			const isNew = (scoreDates.length == 0);
 			if (scoreDates.length > 0) {
 				const lastDateText = _.max(scoreDates);
 				const lastDate = moment(lastDateText);
@@ -141,12 +142,25 @@ function calcReviewList(state) {
 				const factor = random.real(-0.1, 0.1, true)(mt);
 				randWeight = (1 + factor) * weight;
 			}
-			weights.push([problemUuid, index, weight, randWeight]);
+			weights.push([problemUuid, index, weight, randWeight, isNew]);
 		});
 	});
-	const l = _.sortBy(weights, x => -x[3]);
-	console.log({l});
-	return l;
+	const l0 = _.sortBy(weights, x => -x[3]);
+	const l1 = l0.map(([problemUuid, index, weight, , isNew]) => { return {problemUuid, index, weight, isNew}; });
+	const deckOrders = {};
+	_.forEach(l1, ({problemUuid, index, isNew}) => {
+		const decks = state.getIn(["problems", problemUuid, "decks"], Map());
+		decks.forEach((x, deckUuid) => {
+			const l2 = deckOrders[deckUuid] || [];
+			l2.push({problemUuid, index, isNew});
+			deckOrders[deckUuid] = l2;
+		});
+	});
+	_.forEach(deckOrders, (x, deckUuid) => {
+		state = state.setIn(["decks", deckUuid, "order"], fromJS(x));
+	});
+	state = state.set("order", fromJS(l1));
+	return state;
 }
 
 const program = require('commander');
@@ -158,8 +172,8 @@ function init() {
 	config = loadConfig(program.user || "default");
 	state = loadDecks(config);
 	state = loadQuestions(state);
+	state = calcReviewList(state);
 	console.log(JSON.stringify(state.toJS(), null, '\t'));
-	calcReviewList(state);
 }
 
 /**
@@ -193,8 +207,14 @@ function do_decks(state) {
 	console.log(JSON.stringify(l2, null, '\t'));*/
 
 	function print(uuid, indent=0) {
-		const deck = state.getIn(["decks", uuid]);
-		console.log(_.repeat("  ", indent)+deck.get("name"));
+		const deck = state.getIn(["decks", uuid], Map());
+		//console.log({deck})
+		//console.log({order: deck.get("order")})
+		const [newCount, pendingCount] = deck.get("order", List()).reduce(
+			(acc, item) => (item.get("isNew")) ? [acc[0] + 1, acc[1]] : [acc[0], acc[1] + 1],
+			[0, 0]
+		)
+		console.log(_.repeat("  ", indent)+deck.get("name") + `  (${newCount}/${pendingCount})`);
 		_.forEach(deckToChildren[uuid], uuid2 => print(uuid2, indent+1));
 	}
 

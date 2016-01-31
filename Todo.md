@@ -34,7 +34,7 @@
 * [x] loadDecks(): load the complete deck files created by import
 * [x] why isn't new deck .json being loaded?
 * [x] keep new questions in the original order
-* [ ] repl: list number of pending questions for each active deck
+* [x] `decks` command: list number of pending questions for each active deck
 * [ ] repl: allow for interactive question scoring
 * [ ] figure out how to manage importing a file multiple times to ensure that UUID is stable and that questions get properly added and removed
 	* [ ] append date to filename, delete older files
