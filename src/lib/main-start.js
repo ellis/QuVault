@@ -238,16 +238,75 @@ function do_dump(state) {
 	console.log(JSON.stringify(state, null, '\t'));
 }
 
+function do_review(state, deckRef) {
+	/*if (deckRef) {
+		const deckIndex = parseInt(deckRef);
+		const deckUuid = state.getIn(["indexes", deckIndex]);
+		if (deckUuid)
+	}*/
+
+	// TODO: filter the order list according to deckRef
+
+	const order = state.get("order", List()).filter(x => {
+		return true;
+	});
+
+	CONTINUE
+}
+
+function do_question(state, uuid) {
+	CONTINUE
+	`config` need to become member of `state`
+	// Try to find a directory with the problem file
+	const dir = _.find(config.problemDirs, dir => fs.existsSync(path.join(dir, problemUuid+".json")));
+		const slashPos = opts.uuid.indexOf("/");
+		const uuid = (slashPos > 0) ? opts.uuid.substring(0, slashPos) : opts.uuid;
+		const index = (slashPos > 0) ? parseInt(opts.uuid.substring(slashPos + 1)) : 0;
+		const filenameJson = path.join("problems", uuid+".json");
+		const filenameYaml = path.join("problems", uuid+".yaml");
+
+		//console.log(filenameJson);
+		if (fs.existsSync(filenameJson)) {
+			const problem = jsonfile.readFileSync(filenameJson);
+			//console.log(JSON.stringify(data, null, "  "));
+
+			const problemType = require('../problemTypes/default.js');
+
+			if (opts.interactive) {
+				doInteractive(uuid, index, problemType, problem);
+			}
+			else {
+				const renderer = problemType.getQuestionFlashcardRenderer(opts.format, problem, index, opts.response, opts.answer);
+				//console.log(renderer)
+				if (_.isPlainObject(renderer)) {
+					console.log(renderer.data);
+				}
+				if (opts.score && !_.isUndefined(opts.response)) {
+					const scorer = problemType.getResponseScorer(opts.format, problem, index, opts.response);
+					console.log(scorer);
+					if (_.isPlainObject(scorer)) {
+						console.log(scorer.data);
+					}
+				}
+			}
+		}
+}
+
 function repl(args) {
 	init();
 	const vorpal = require('vorpal')();
 	vorpal
-		.command("decks", "List active decks")
+		.command("decks")
+		.description("List active decks")
 		.action((args, cb) => { state = do_decks(state); cb(); });
 	vorpal
 		.command("dump")
 		.description("Dump the program state to the console in JSON format")
 		.action((args, cb) => { do_dump(state); cb(); });
+	vorpal
+		.command("review [deck]")
+		.description("Start review (optionally for a given deck).")
+		.action((args, cb) => { state = do_review(state, args.deck); cb(); });
 
 	if (_.isEmpty(args) || args.length < 2) {
 		vorpal
