@@ -31,13 +31,14 @@
 	* [x] create it
 	* [x] create deck file for problem set
 	* [x] add 'addUuid' and 'debug' options to program
+* [x] loadDecks(): load the complete deck files created by import
 * [x] why isn't new deck .json being loaded?
+* [x] keep new questions in the original order
+* [ ] repl: list number of pending questions for each active deck
+* [ ] repl: allow for interactive question scoring
 * [ ] figure out how to manage importing a file multiple times to ensure that UUID is stable and that questions get properly added and removed
 	* [ ] append date to filename, delete older files
 	* [ ] load from deckDirs in the proper order
-* [ ] loadDecks(): load the complete deck files created by import
-* [ ] repl: list number of pending questions for each active deck
-* [ ] repl: allow for interactive question scoring
 * [ ] repl: for a single-user setup, save data in `.local/share/` directory
 * [ ] repl: `createDeck`: create a new deck
 * [ ] repl: `createProblem`: create a new problem

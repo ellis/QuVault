@@ -129,6 +129,7 @@ function calcReviewList(state) {
 			const scoreDates = _.keys(questionData.get("history", Map()).toJS());
 			//console.log({scoreDates, json: JSON.stringify(scoreDates)})
 			let weight = 1;
+			let randWeight = 1;
 			if (scoreDates.length > 0) {
 				const lastDateText = _.max(scoreDates);
 				const lastDate = moment(lastDateText);
@@ -137,9 +138,9 @@ function calcReviewList(state) {
 				const diff = now.diff(lastDate, 'minutes') / (24*60);
 				weight = diff / halflife;
 				//console.log({lastDateText, now, halflife, diff, weight})
+				const factor = random.real(-0.1, 0.1, true)(mt);
+				randWeight = (1 + factor) * weight;
 			}
-			const factor = random.real(0, 1, true)(mt);
-			const randWeight = (0.9 + factor * 0.2) * weight;
 			weights.push([problemUuid, index, weight, randWeight]);
 		});
 	});
