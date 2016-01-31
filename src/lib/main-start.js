@@ -206,6 +206,9 @@ function do_decks(state) {
 	const l2 = _.sortBy(l1, x => -x[1].length);
 	console.log(JSON.stringify(l2, null, '\t'));*/
 
+	const indexes = {};
+	let index = 1;
+	const indexPadding = state.get("decks").count().toString().length;
 	function print(uuid, indent=0) {
 		const deck = state.getIn(["decks", uuid], Map());
 		//console.log({deck})
@@ -214,13 +217,21 @@ function do_decks(state) {
 			(acc, item) => (item.get("isNew")) ? [acc[0] + 1, acc[1]] : [acc[0], acc[1] + 1],
 			[0, 0]
 		)
-		console.log(_.repeat("  ", indent)+deck.get("name") + `  (${newCount}/${pendingCount})`);
+		console.log(_.padStart(index.toString(), indexPadding)+") "+_.repeat("  ", indent)+deck.get("name") + `  (${newCount}/${pendingCount})`);
+		// Update indexes list
+		indexes[index.toString()] = uuid;
+		index++;
+		// Recurse into children
 		_.forEach(deckToChildren[uuid], uuid2 => print(uuid2, indent+1));
 	}
 
 	_.forEach(roots, uuid => {
 		print(uuid);
-	})
+	});
+
+	// Set indexes list in state
+	state = state.set("indexes", fromJS(indexes));
+	return state;
 }
 
 function do_dump(state) {
@@ -232,7 +243,7 @@ function repl(args) {
 	const vorpal = require('vorpal')();
 	vorpal
 		.command("decks", "List active decks")
-		.action((args, cb) => { do_decks(state); cb(); });
+		.action((args, cb) => { state = do_decks(state); cb(); });
 	vorpal
 		.command("dump")
 		.description("Dump the program state to the console in JSON format")

@@ -35,6 +35,7 @@
 * [x] why isn't new deck .json being loaded?
 * [x] keep new questions in the original order
 * [x] `decks` command: list number of pending questions for each active deck
+* [x] `decks` command: add indexes
 * [ ] repl: allow for interactive question scoring
 * [ ] figure out how to manage importing a file multiple times to ensure that UUID is stable and that questions get properly added and removed
 	* [ ] append date to filename, delete older files
