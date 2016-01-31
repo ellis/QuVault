@@ -31,7 +31,7 @@
 	* [x] create it
 	* [x] create deck file for problem set
 	* [x] add 'addUuid' and 'debug' options to program
-* [ ] why isn't new deck .json being loaded?
+* [x] why isn't new deck .json being loaded?
 * [ ] figure out how to manage importing a file multiple times to ensure that UUID is stable and that questions get properly added and removed
 	* [ ] append date to filename, delete older files
 	* [ ] load from deckDirs in the proper order

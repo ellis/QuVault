@@ -404,4 +404,6 @@ answer: |
 
 ---
 reference: Lesson 1.4.2 Relic Spotter Case, Part 2
-CONTINUE 5:10
+question: How do you satisfy the balance sheet equation if liabilities are greater than assets?  Consider that debits and credits are always positive numbers.
+answer: |
+  Retained earnings (within Shareholder's Equity) is the one account that can have a positive or negative balance, in order to allow for such situations.

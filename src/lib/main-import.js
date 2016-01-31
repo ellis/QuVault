@@ -81,7 +81,7 @@ function doImport(config, filename) {
 	deckFile.decks[deckUuid] = _.omit(deck, ['uuid']);
 	// Add problem data to deck file
 	for (const problem of documents) {
-		deckFile.problems[problem.uuid] = _.set({}, [deckUuid], true);
+		deckFile.problems[problem.uuid] = _.set({}, ["decks", deckUuid], true);
 	}
 	// FIXME: add date, delete other files with same uuid
 	const deckFilename = path.join(config.deckDirs[0], deckUuid+".json");

@@ -60,7 +60,7 @@ function loadDecks(config) {
 				else if (ext === ".json") {
 					const content = jsonfile.readFileSync(path.join(dir, filename));
 					assert(content.format === 1);
-					_.merge(state, content);
+					state = state.mergeDeep(fromJS(_.omit(content, ["format"])));
 				}
 			});
 		}
@@ -138,7 +138,8 @@ function calcReviewList(state) {
 				weight = diff / halflife;
 				//console.log({lastDateText, now, halflife, diff, weight})
 			}
-			const randWeight = random.real(0, 1, true)(mt) * weight;
+			const factor = random.real(0, 1, true)(mt);
+			const randWeight = (0.9 + factor * 0.2) * weight;
 			weights.push([problemUuid, index, weight, randWeight]);
 		});
 	});
@@ -216,7 +217,7 @@ function repl(args) {
 		.description("Dump the program state to the console in JSON format")
 		.action((args, cb) => { do_dump(state); cb(); });
 
-	if (_.isEmpty(args) || args.length < 3) {
+	if (_.isEmpty(args) || args.length < 2) {
 		vorpal
 			.delimiter("quvault >")
 			.show();
@@ -233,7 +234,7 @@ program
 program
 	.parse(process.argv);
 
-const args = (process.argv.length > 3) ? _.concat(_.take(process.argv, 2), _.drop(process.argv, 3)) : undefined;
+const args = (process.argv.length > 2) ? _.concat(_.take(process.argv, 2), _.drop(process.argv, 2)) : undefined;
 
 // if (process.argv.length == 2) {
 // 	program.outputHelp();

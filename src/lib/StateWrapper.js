@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import Immutable, {List, Map, fromJS} from 'immutable';
 
-export const initialState = fromJS({});
+export const initialState = Map();
 
 export default class StateWrapper {
 	/**
