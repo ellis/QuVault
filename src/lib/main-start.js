@@ -239,7 +239,7 @@ function do_dump(state) {
 	console.log(JSON.stringify(state, null, '\t'));
 }
 
-function do_review(state, deckRef, cb) {
+function do_review(state0, deckRef, cb) {
 	/*if (deckRef) {
 		const deckIndex = parseInt(deckRef);
 		const deckUuid = state.getIn(["indexes", deckIndex]);
@@ -248,13 +248,17 @@ function do_review(state, deckRef, cb) {
 
 	// TODO: filter the order list according to deckRef
 
-	const order = state.get("order", List()).filter(x => {
+	const order = state0.get("order", List()).filter(x => {
 		return true;
 	});
 
 	// TODO: iterate through all questions (until use enters 'quit')
 	const problemUuid = order.getIn([0, "problemUuid"]);
 	const index = order.getIn([0, "index"]);
+
+	function cb2() {
+		state = calcReviewList(state0);
+	}
 	do_question(state, problemUuid, index, cb);
 }
 
@@ -352,7 +356,7 @@ function repl(args) {
 	vorpal
 		.command("review [deck]")
 		.description("Start review (optionally for a given deck).")
-		.action((args, cb) => { state = do_review(state, args.deck, cb); });
+		.action((args, cb) => { do_review(state, args.deck, cb); });
 
 	if (_.isEmpty(args) || args.length < 2) {
 		vorpal

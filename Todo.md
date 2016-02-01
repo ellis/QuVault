@@ -38,6 +38,8 @@
 * [x] `decks` command: add indexes
 * [x] make `config` become member of `state`
 * [ ] repl: allow for interactive question scoring
+	* [ ] doInteractive(): update the question's score history in `state`
+	* [ ] doInteractive(): pass the updated `state` to callback `cb`
 * [ ] figure out how to manage importing a file multiple times to ensure that UUID is stable and that questions get properly added and removed
 	* [ ] append date to filename, delete older files
 	* [ ] load from deckDirs in the proper order
