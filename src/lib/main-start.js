@@ -250,14 +250,17 @@ function do_review(state, deckRef, cb) {
 		return true;
 	});
 
-	//CONTINUE
+	// TODO: iterate through all questions (until use enters 'quit')
+	const problemUuid = order.getIn([0, "problemUuid"]);
+	const index = order.getIn([0, "index"]);
+	do_question(state, problemUuid, index, cb);
 }
 
-function do_question(state, uuid, index, cb) {
+function do_question(state, problemUuid, index, cb) {
 	// Try to find a directory with the problem file
 	const dir = state.getIn(["config", "problemDirs"], List()).find(dir => fs.existsSync(path.join(dir, problemUuid+".json")));
-	const filenameJson = path.join("problems", uuid+".json");
-	const filenameYaml = path.join("problems", uuid+".yaml");
+	const filenameJson = path.join("problems", problemUuid+".json");
+	const filenameYaml = path.join("problems", problemUuid+".yaml");
 
 	//console.log(filenameJson);
 	if (fs.existsSync(filenameJson)) {
@@ -266,18 +269,15 @@ function do_question(state, uuid, index, cb) {
 
 		const problemType = require('../problemTypes/default.js');
 
-		doInteractive(state, uuid, index, problemType, problem, cb);
+		doInteractive(state, problemUuid, index, problemType, problem, cb);
 	}
 }
 
 function doInteractive(state, uuid, index, problemType, problem, cb) {
-	const userdir = path.join("userdata", username);
-	mkdirp.sync(userdir);
-	const userfile = path.join(userdir, generateSessionFilename());
-	let isUserfileOpen = false;
-
-	const udata = userdata.loadUserdata(username);
-	console.log(JSON.stringify(udata, null, '\t'))
+	const scoreDir = state.getIn("config", "scoreDir");
+	mkdirp.sync(scoreDir);
+	const scoreFilename = path.join(scoreDir, generateSessionFilename());
+	let isScoreFileOpen = false;
 
 	const format = "markdown";
 	const renderer = problemType.getQuestionFlashcardRenderer(format, problem, index, undefined, false);
@@ -303,11 +303,11 @@ function doInteractive(state, uuid, index, problemType, problem, cb) {
 			const data = [uuid, index, moment().format(), score, response1];
 			const text = JSON.stringify(data);
 			console.log(text);
-			if (!isUserfileOpen) {
-				fs.writeFileSync(userfile, "", "utf8", err => {});
-				isUserfileOpen = true;
+			if (!isScoreFileOpen) {
+				fs.writeFileSync(scoreFilename, "", "utf8", err => {});
+				isScoreFileOpen = true;
 			}
-			fs.appendFileSync(userfile, text, "utf8", err => {});
+			fs.appendFileSync(scoreFilename, text, "utf8", err => {});
 			cb();
 		});
 	});

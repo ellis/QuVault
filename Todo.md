@@ -36,7 +36,7 @@
 * [x] keep new questions in the original order
 * [x] `decks` command: list number of pending questions for each active deck
 * [x] `decks` command: add indexes
-* [?] make `config` a become member of `state`
+* [x] make `config` become member of `state`
 * [ ] repl: allow for interactive question scoring
 * [ ] figure out how to manage importing a file multiple times to ensure that UUID is stable and that questions get properly added and removed
 	* [ ] append date to filename, delete older files
