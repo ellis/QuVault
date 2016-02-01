@@ -72,4 +72,4 @@ const problemType = {
 	}*/
 };
 
-export default problemType;
+module.exports = problemType;

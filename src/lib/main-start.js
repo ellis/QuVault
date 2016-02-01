@@ -3,6 +3,8 @@ import assert from 'assert';
 import fs from 'fs';
 import jsonfile from 'jsonfile';
 import Immutable, {List, Map, fromJS} from 'immutable';
+import inquirer from 'inquirer';
+import mkdirp from 'mkdirp';
 import moment from 'moment';
 import path from 'path';
 import random from 'random-js';
@@ -42,14 +44,14 @@ import * as Scores from './Scores.js';
 
 function loadDecks(state) {
 	state.getIn(["config", "deckDirs"], List()).forEach(dir => {
-		console.log({dir})
+		//console.log({dir})
 		if (fs.existsSync(dir)) {
 			//console.log("exists")
 			// The files should be named in order of processing,
 			// so sort the array so that we can directly update the item list
 			const filenames = fs.readdirSync(dir);
 			filenames.sort();
-			console.log({filenames})
+			//console.log({filenames})
 			_.forEach(filenames, filename => {
 				const ext = path.extname(filename);
 				if (ext === ".act1") {
@@ -97,7 +99,7 @@ function loadQuestions(state) {
 				if (scoreData) {
 					if (scoreData.history) {
 						const halflives = Scores.calcHalflives(scoreData.history);
-						console.log({halflives});
+						//console.log({halflives});
 						if (!_.isEmpty(halflives)) {
 							scoreData.halflives = halflives;
 							scoreData.halflife = _.last(halflives);
@@ -172,7 +174,7 @@ function init() {
 	state = loadDecks(state);
 	state = loadQuestions(state);
 	state = calcReviewList(state);
-	console.log(JSON.stringify(state.toJS(), null, '\t'));
+	//console.log(JSON.stringify(state.toJS(), null, '\t'));
 }
 
 /**
@@ -257,10 +259,10 @@ function do_review(state, deckRef, cb) {
 }
 
 function do_question(state, problemUuid, index, cb) {
+	//console.log(`do_question(${problemUuid}, ${index})`);
 	// Try to find a directory with the problem file
 	const dir = state.getIn(["config", "problemDirs"], List()).find(dir => fs.existsSync(path.join(dir, problemUuid+".json")));
-	const filenameJson = path.join("problems", problemUuid+".json");
-	const filenameYaml = path.join("problems", problemUuid+".yaml");
+	const filenameJson = path.join(dir, problemUuid+".json");
 
 	//console.log(filenameJson);
 	if (fs.existsSync(filenameJson)) {
@@ -268,15 +270,18 @@ function do_question(state, problemUuid, index, cb) {
 		//console.log(JSON.stringify(data, null, "  "));
 
 		const problemType = require('../problemTypes/default.js');
+		//console.log({problemType})
 
 		doInteractive(state, problemUuid, index, problemType, problem, cb);
 	}
 }
 
 function doInteractive(state, uuid, index, problemType, problem, cb) {
-	const scoreDir = state.getIn("config", "scoreDir");
+	//console.log(`doInteractive(${uuid}, ${index})`)
+	const scoreDir = state.getIn(["config", "scoreDir"]);
 	mkdirp.sync(scoreDir);
 	const scoreFilename = path.join(scoreDir, generateSessionFilename());
+	console.log({scoreFilename})
 	let isScoreFileOpen = false;
 
 	const format = "markdown";
@@ -311,6 +316,26 @@ function doInteractive(state, uuid, index, problemType, problem, cb) {
 			cb();
 		});
 	});
+}
+
+/**
+ * Create a session filename of the format `${DATE_AND_TIME}-${RANDOMHASH}.rec1`
+ * @return {string} filename
+ */
+function generateSessionFilename() {
+	let d = new Date().getTime();
+	const hash = 'xxxxxxxx'.replace(/[xy]/g, function(c) {
+		const r = (d + Math.random()*16)%16 | 0;
+		d = Math.floor(d/16);
+		return (c=='x' ? r : (r&0x7|0x8)).toString(16);
+	});
+
+	const date = moment().utc().format("YYYYMMDD_HHmmss");
+	return `${date}-${hash}.rec1`;
+}
+
+function isInteger(s) {
+	return /^\+?(0|[1-9]\d*)$/.test(s);
 }
 
 function repl(args) {
