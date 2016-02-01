@@ -407,3 +407,48 @@ reference: Lesson 1.4.2 Relic Spotter Case, Part 2
 question: How do you satisfy the balance sheet equation if liabilities are greater than assets?  Consider that debits and credits are always positive numbers.
 answer: |
   Retained earnings (within Shareholder's Equity) is the one account that can have a positive or negative balance, in order to allow for such situations.
+---
+
+reference: Lesson 2.1 Revenues and expenses
+question: How does *accounting income* differ from *cash in/cash out*?
+answer: >
+  Accounting income is based on accrual accounting, and it tries to consider
+  business activities, rather than cash flow.
+---
+
+reference: Lesson 2.1 Revenues and expenses
+question: What are the criteria for recognizing revenues?
+answer: |
+  Revenue is recognized when BOTH:
+
+  1) Income has been earned (e.g. by providing a product or service), AND
+  2) Income has been "realized" (cash has been received or a document which will be converted to cash has been produced, such as a bill)
+---
+
+reference: Lesson 2.1 Revenues and expenses
+question: What are the criteria for recognizing expenses?
+answer: |
+  Expenses are recognized:
+
+  * When an associated revenue has been recognized (product costs), OR
+  * If it's difficult to associate the expense with a revenue, when the cost has been incurred (period costs or unusual costs).
+---
+
+reference: Lesson 2.1 Revenues and expenses
+question: What is the *conservatism principle*?
+answer: |
+  Recognize anticipated losses immediately, but
+  only recognized anticipated gains when they are realized.
+---
+
+reference: Lesson 2.1 Revenues and expenses
+question: How much revenue is recognized in December: BOC leases space to a client for $20,000 for December and January.
+answer: |
+  $10,000, because they have only earned the income for December so far.
+---
+
+reference: Lesson 2.1 Revenues and expenses
+question: What is the distinction between *cost* and *expense* in this course?
+answer: |
+  An expense is only something that goes on the income statement.
+  A cost is anything involving an outlay of cash.

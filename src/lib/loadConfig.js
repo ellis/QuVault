@@ -2,7 +2,7 @@ import _ from 'lodash';
 import assert from 'assert';
 //import fs from 'fs';
 //import jsonfile from 'jsonfile';
-//import Immutable, {List, Map, fromJS} from 'immutable';
+import {fromJS} from 'immutable';
 //import moment from 'moment';
 import path from 'path';
 import xdgBasedir from 'xdg-basedir';
@@ -37,5 +37,5 @@ export default function loadConfig(username) {
 		]),
 		scoreDir: path.join(xdgBasedir.data, "quvault", "userdata", username, "scores"),
 	};
-	return config;
+	return fromJS({config});
 }

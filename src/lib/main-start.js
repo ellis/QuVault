@@ -40,9 +40,8 @@ import * as Scores from './Scores.js';
  * ```
  */
 
-function loadDecks(config) {
-	let state = undefined;
-	_.forEach(config.deckDirs, dir => {
+function loadDecks(state) {
+	state.getIn(["config", "deckDirs"], List()).forEach(dir => {
 		console.log({dir})
 		if (fs.existsSync(dir)) {
 			//console.log("exists")
@@ -70,7 +69,7 @@ function loadDecks(config) {
 
 function loadQuestions(state) {
 	// Load score data
-	const scores = Scores.load(config.scoreDir);
+	const scores = Scores.load(state.getIn(["config", "scoreDir"]));
 	//console.log(JSON.stringify(scores, null, '\t'))
 
 	// Iterate through all problems, load the problem, find out how many
@@ -78,7 +77,7 @@ function loadQuestions(state) {
 	state.get("problems").forEach((problemData, problemUuid) => {
 		//console.log({dirs: config.problemDirs})
 		// Try to find a directory with the problem file
-		const dir = _.find(config.problemDirs, dir => fs.existsSync(path.join(dir, problemUuid+".json")));
+		const dir = state.getIn(["config", "problemDirs"], List()).find(dir => fs.existsSync(path.join(dir, problemUuid+".json")));
 		//console.log({problemUuid, dir});
 		if (dir) {
 			// Load problem to find its quesiton indexes
@@ -169,8 +168,8 @@ let config;
 let state;
 function init() {
 	//console.log({process})
-	config = loadConfig(program.user || "default");
-	state = loadDecks(config);
+	state = loadConfig(program.user || "default");
+	state = loadDecks(state);
 	state = loadQuestions(state);
 	state = calcReviewList(state);
 	console.log(JSON.stringify(state.toJS(), null, '\t'));
@@ -238,7 +237,7 @@ function do_dump(state) {
 	console.log(JSON.stringify(state, null, '\t'));
 }
 
-function do_review(state, deckRef) {
+function do_review(state, deckRef, cb) {
 	/*if (deckRef) {
 		const deckIndex = parseInt(deckRef);
 		const deckUuid = state.getIn(["indexes", deckIndex]);
@@ -251,45 +250,67 @@ function do_review(state, deckRef) {
 		return true;
 	});
 
-	CONTINUE
+	//CONTINUE
 }
 
-function do_question(state, uuid) {
-	CONTINUE
-	`config` need to become member of `state`
+function do_question(state, uuid, index, cb) {
 	// Try to find a directory with the problem file
-	const dir = _.find(config.problemDirs, dir => fs.existsSync(path.join(dir, problemUuid+".json")));
-		const slashPos = opts.uuid.indexOf("/");
-		const uuid = (slashPos > 0) ? opts.uuid.substring(0, slashPos) : opts.uuid;
-		const index = (slashPos > 0) ? parseInt(opts.uuid.substring(slashPos + 1)) : 0;
-		const filenameJson = path.join("problems", uuid+".json");
-		const filenameYaml = path.join("problems", uuid+".yaml");
+	const dir = state.getIn(["config", "problemDirs"], List()).find(dir => fs.existsSync(path.join(dir, problemUuid+".json")));
+	const filenameJson = path.join("problems", uuid+".json");
+	const filenameYaml = path.join("problems", uuid+".yaml");
 
-		//console.log(filenameJson);
-		if (fs.existsSync(filenameJson)) {
-			const problem = jsonfile.readFileSync(filenameJson);
-			//console.log(JSON.stringify(data, null, "  "));
+	//console.log(filenameJson);
+	if (fs.existsSync(filenameJson)) {
+		const problem = jsonfile.readFileSync(filenameJson);
+		//console.log(JSON.stringify(data, null, "  "));
 
-			const problemType = require('../problemTypes/default.js');
+		const problemType = require('../problemTypes/default.js');
 
-			if (opts.interactive) {
-				doInteractive(uuid, index, problemType, problem);
+		doInteractive(state, uuid, index, problemType, problem, cb);
+	}
+}
+
+function doInteractive(state, uuid, index, problemType, problem, cb) {
+	const userdir = path.join("userdata", username);
+	mkdirp.sync(userdir);
+	const userfile = path.join(userdir, generateSessionFilename());
+	let isUserfileOpen = false;
+
+	const udata = userdata.loadUserdata(username);
+	console.log(JSON.stringify(udata, null, '\t'))
+
+	const format = "markdown";
+	const renderer = problemType.getQuestionFlashcardRenderer(format, problem, index, undefined, false);
+	//console.log(renderer)
+	if (_.isPlainObject(renderer)) {
+		console.log();
+		console.log(renderer.data);
+		console.log();
+	}
+
+	const prompt1 = {type: "input", name: "response", message: "Your reponse: "};
+	const prompt2 = {type: "input", name: "score", message: "Your score (0=no idea, 2=wrong, 3=acceptable, 4=good, 5=easy): ", filter: (s) => parseInt(s), validate: isInteger};
+	inquirer.prompt(prompt1, ({response}) => {
+		console.log("RESPONSE: "+JSON.stringify(response));
+		console.log("ANSWER:");
+		const answer = problemType.renderFlashcardAnswer(format, problem, index, response).data;
+		console.log(answer);
+		console.log();
+
+		inquirer.prompt(prompt2, ({score}) => {
+			console.log(score);
+			const response1 = (_.isEmpty(response)) ? null : response;
+			const data = [uuid, index, moment().format(), score, response1];
+			const text = JSON.stringify(data);
+			console.log(text);
+			if (!isUserfileOpen) {
+				fs.writeFileSync(userfile, "", "utf8", err => {});
+				isUserfileOpen = true;
 			}
-			else {
-				const renderer = problemType.getQuestionFlashcardRenderer(opts.format, problem, index, opts.response, opts.answer);
-				//console.log(renderer)
-				if (_.isPlainObject(renderer)) {
-					console.log(renderer.data);
-				}
-				if (opts.score && !_.isUndefined(opts.response)) {
-					const scorer = problemType.getResponseScorer(opts.format, problem, index, opts.response);
-					console.log(scorer);
-					if (_.isPlainObject(scorer)) {
-						console.log(scorer.data);
-					}
-				}
-			}
-		}
+			fs.appendFileSync(userfile, text, "utf8", err => {});
+			cb();
+		});
+	});
 }
 
 function repl(args) {
@@ -306,7 +327,7 @@ function repl(args) {
 	vorpal
 		.command("review [deck]")
 		.description("Start review (optionally for a given deck).")
-		.action((args, cb) => { state = do_review(state, args.deck); cb(); });
+		.action((args, cb) => { state = do_review(state, args.deck, cb); });
 
 	if (_.isEmpty(args) || args.length < 2) {
 		vorpal
