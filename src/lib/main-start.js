@@ -256,10 +256,13 @@ function do_review(state0, deckRef, cb) {
 	const problemUuid = order.getIn([0, "problemUuid"]);
 	const index = order.getIn([0, "index"]);
 
-	function cb2() {
-		state = calcReviewList(state0);
+	function cb2(state1) {
+		state = calcReviewList(state1);
+		const uuid = problemUuid;
+		console.log({scoreStuff: state.getIn(["problems", uuid, "questions", index.toString(), "history"])})
+		cb();
 	}
-	do_question(state, problemUuid, index, cb);
+	do_question(state, problemUuid, index, cb2);
 }
 
 function do_question(state, problemUuid, index, cb) {
@@ -285,7 +288,7 @@ function doInteractive(state, uuid, index, problemType, problem, cb) {
 	const scoreDir = state.getIn(["config", "scoreDir"]);
 	mkdirp.sync(scoreDir);
 	const scoreFilename = path.join(scoreDir, generateSessionFilename());
-	console.log({scoreFilename})
+	//console.log({scoreFilename})
 	let isScoreFileOpen = false;
 
 	const format = "markdown";
@@ -307,17 +310,22 @@ function doInteractive(state, uuid, index, problemType, problem, cb) {
 		console.log();
 
 		inquirer.prompt(prompt2, ({score}) => {
-			console.log(score);
+			//console.log(score);
+			const dateText = moment().format();
+			// Update score history in state
+			state = state.setIn(["problems", uuid, "questions", index.toString(), "history", dateText, "score"], score);
+			console.log({path: ["problems", uuid, "questions", index.toString(), "history", dateText, "score"], score: state.getIn(["problems", uuid, "questions", index.toString(), "history", dateText, "score"])})
+			// Save score
 			const response1 = (_.isEmpty(response)) ? null : response;
-			const data = [uuid, index, moment().format(), score, response1];
+			const data = [uuid, index, dateText, score, response1];
 			const text = JSON.stringify(data);
-			console.log(text);
+			//console.log(text);
 			if (!isScoreFileOpen) {
 				fs.writeFileSync(scoreFilename, "", "utf8", err => {});
 				isScoreFileOpen = true;
 			}
 			fs.appendFileSync(scoreFilename, text, "utf8", err => {});
-			cb();
+			cb(state);
 		});
 	});
 }

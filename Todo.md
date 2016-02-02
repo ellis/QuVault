@@ -37,20 +37,24 @@
 * [x] `decks` command: list number of pending questions for each active deck
 * [x] `decks` command: add indexes
 * [x] make `config` become member of `state`
+* [x] main-start: refactor code so that we don't need to duplicate the `program` and `vorpal` commands
+* [x] repl: for a single-user setup, save data in `.local/share/` directory
 * [ ] repl: allow for interactive question scoring
-	* [ ] doInteractive(): update the question's score history in `state`
-	* [ ] doInteractive(): pass the updated `state` to callback `cb`
+	* [x] doInteractive(): update the question's score history in `state`
+	* [x] doInteractive(): pass the updated `state` to callback `cb`
+	* [ ] doInteractive(): update the question's halflife and due date in `state`
+	* [ ] move `do_review` functions to `quvault-review.js`
+	* [ ] allow the user to keep reviewing in a loop until he type 'exit' or 'quit' or Ctrl-D or something like that.
 * [ ] figure out how to manage importing a file multiple times to ensure that UUID is stable and that questions get properly added and removed
 	* [ ] append date to filename, delete older files
 	* [ ] load from deckDirs in the proper order
-* [ ] repl: for a single-user setup, save data in `.local/share/` directory
 * [ ] repl: `createDeck`: create a new deck
 * [ ] repl: `createProblem`: create a new problem
 * [ ] move Design.md and Todo.md to src/ folder
 * [ ] delete old cli.js
 * [ ] cli: read configuration information from .config/quvault/quvault.yaml, with directory information
 * [ ] start a `medley-data` library?  Merge functions would never automatically create arrays, even if a number was in the path; lists could be extracted from maps
-* [ ] main-start: refactor code so that we don't need to duplicate the `program` and `vorpal` commands
+* [ ] create a web ui
 * [ ] try creating a simple chemistry problem
 * [ ] try creating a complex chemistry problem
 * [ ] try creating a simple 2-way vocabulary problem
@@ -59,10 +63,10 @@
 * [ ] implement several modes: flashcard, exam, exam with answers, compact list, compact list with answers
 * [ ] implement rendering to markdown, HTML, and interactive HTML
 * [ ] save question scores
-* [ ] generate spaced repetition plan
 * [ ] handle media, hashed filenames
 * [ ] repl: consider displaying amount of time spent answering questions
 * [ ] delegate halflife calculations to the problem type, in order to support such things as problems with infinite variants on questions
+* [ ] do_review: rather than call calcReviewList to recalculate the entire list, only update the review list for the item we just reviewed
 
 
 Old:
