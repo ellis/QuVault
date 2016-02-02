@@ -452,3 +452,65 @@ question: What is the distinction between *cost* and *expense* in this course?
 answer: |
   An expense is only something that goes on the income statement.
   A cost is anything involving an outlay of cash.
+---
+
+reference: Lesson 2.2 Relic Spotter Case, Part 3
+question: >
+  Show the journal entry for this transaction #16:
+  For the six months ending Dec 31, rental revenues on
+  the metal detectors totaled $125,000.  $5,000 of those
+  payments are still outstanding.
+answer: |
+  **Journal entries**:
+
+      (16) Dec-31  Dr. Cash (+A)                  120,000
+                   Dr. Accounts receivable (+A)     5,000
+                     Cr. Rental income (+R, +SE)    125,000
+---
+
+reference: Lesson 2.2 Relic Spotter Case, Part 3
+question: >
+  Show the journal entry for this transaction #17:
+  During the period between Jul 1 and Dec 31, Park
+  purchased $40,000 of sundries inventory, of which
+  $2,000 was stilled owned on Dec 31.
+answer: |
+  **Journal entries**:
+
+      (17) Dec-31  Dr. Inventory (+A)           40000
+                     Cr. Cash (-A)                38000
+                     Cr. Accounts payable (+L)     2000
+---
+
+reference: Lesson 2.2 Relic Spotter Case, Part 3
+question: >
+  Show the journal entry for this transaction #18:
+  Relic Spotter recorded sales of sundries totally $35,000
+  during the period between Jul 1 and Dec 31.
+answer: |
+  **Journal entries**:
+
+      (18) Dec-31  Dr. Cash (+A)          35000
+                     Cr. Sales (+R, +SE)    35000
+---
+
+reference: Lesson 2.2 Relic Spotter Case, Part 3
+question: >
+  Show the journal entry for this transaction #17:
+  During the period between Jul 1 and Dec 31, the
+  original costs of inventory sold was $30,000.
+answer: |
+  **Journal entries**:
+
+      (17) Dec-31  Dr. Cost of goods sold (+E,-SE)  30000
+                     Cr. Inventory (-A)               30000
+---
+
+reference: Lesson 2.2 Relic Spotter Case, Part 3
+question:
+answer:
+---
+
+reference: Lesson 2.2 Relic Spotter Case, Part 3
+question:
+answer:
