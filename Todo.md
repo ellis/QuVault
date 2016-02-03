@@ -40,6 +40,9 @@
 * [x] main-start: refactor code so that we don't need to duplicate the `program` and `vorpal` commands
 * [x] repl: for a single-user setup, save data in `.local/share/` directory
 * [x] direct all state changes through `reducer`
+* [ ] redux: turn the app into a redux web app
+	* [ ] continue watching redux tutorial: https://egghead.io/lessons/javascript-redux-store-methods-getstate-dispatch-and-subscribe
+	* [ ] do all functions called by reducer need to be pure, including the initializing functions that read from disk?
 * [ ] add UI variables to `state`
 * [ ] add more tests to `StateWrapperTest.js`
 * [ ] repl: allow for interactive question scoring
