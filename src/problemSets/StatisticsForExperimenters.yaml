@@ -1,0 +1,30 @@
+DECK:
+  name: 'Statistics for Experimenters'
+  description: |
+    "Statistics for Experimenters: Design, Innovation, and Discovery",
+    by Box, Hunter, and Hunter.  Second edition.
+---
+
+reference: p73
+question: |
+  Suppose you have two samples A, and B, each with 10 observations.
+  You assume that the observations in each sample are IID,
+  and that both samples come from populations with similar shapes.
+  In particular, both populations have the same variance.
+
+  1) Calculate the standard error of the difference in averages.
+  2) Comment on the normality of $\bar{y}_B - \bar{y}_A$
+answer: |
+  $$\begin{aligned}
+  Var(\bar{y}_A) &= \sigma^2 / n_A \\
+  Var(\bar{y}_B) &= \sigma^2 / n_B \\
+  Var(\bar{y}_B - \bar{y}_A) &= \sigma^2 / n_B + \sigma^2 / n_A + 2Cov(\bar{y}_B, \bar{y}_A) \\
+   &= \sigma^2 (1 / n_B + 1 / n_A) \\
+  s.e. &= \sigma \sqrt{1 / n_B + 1 / n_A}
+  \end{aligned}$$
+
+  Due to the central limit effect with $n=10$, $\bar{y}_B - \bar{y}_A$ should be reasonably
+  normal if the underlying populations are not too extremely non-normal.
+  Given our assumptions,
+  $$z = \frac{(\bar{y}_B - \bar{y}_A) - \mu}{\sigma \sqrt{1 / n_B + 1 / n_A}}$$
+  should be approximately normal.

@@ -5,7 +5,7 @@ DECK:
     by Erasmus University Rotterdam
 ---
 
-reference: Lecture 2.2 on Multiple Regression: Representation, slide 9
+reference: "Lecture 2.2 on Multiple Regression: Representation, slide 9"
 question: For the linear model $y_i = β_1 + β_2 x_{2i} + ... + β_k + x_{ki} + ε_i$, what happens to $y$ if $x_j$ increases by one unit while all other $x$-variables remain fixed?
 answer: >
   $y$ will increase by $\beta_j$.  You can find this by taking the partial
@@ -14,14 +14,42 @@ answer: >
   $$\frac{\partial y}{\partial x_j} = \beta_j$$
 ---
 
-reference: Lecture 2.2 on Multiple Regression: Representation, slide 10
+reference: "Lecture 2.2 on Multiple Regression: Representation, slide 10"
 question: For the linear model $y_i = β_1 + β_2 x_{2i} + ... + β_k + x_{ki} + ε_i$, what is the total effect of a change in $x_j$ on $y$ if the $x$ factors are mutually dependent?
-answer: >
-  $$\begin{align}
+answer: |
+  The total effect = partial effect + indirect effect
+
+  $$\begin{aligned}
   \frac{dy}{dx_j}
-   &= \frac{\partial y}{\partial x_j} + \sum_{h=2,h \ne j}^k\frac{\partial y}{\partial x_h}\frac{\partial x_h}{\partial x_j}
+   &= \frac{\partial y}{\partial x_j} + \sum_{h=2,h \ne j}^k\frac{\partial y}{\partial x_h}\frac{\partial x_h}{\partial x_j} \\
    &= \frac{\partial y}{\partial x_j} + \sum_{h=2,h \ne j}^k\beta_h\frac{\partial x_h}{\partial x_j}
-  \end{align}$$
+  \end{aligned}$$
+---
+
+reference: "Lecture 2.3 on Multiple Regression: Estimation, slide 2"
+question: What is the model and objective in Ordinary Least Squares?
+answer: |
+  model: $y = X\beta + \epsilon$
+
+  objective: find a vector $b$ in the equation $y = Xb + e$ that minimizes the sum of squares of $e$:
+  minimize $S(e) = e^Te$.
+---
+
+reference: "Lecture 2.3 on Multiple Regression: Estimation, slide 4"
+question: Express the least squares criteron $S(e) = e^Te$ in terms of $y$, $X$ and $b$.
+answer: |
+  $$\begin{aligned}
+  S(e) &= e^Te \\
+   &= (y - Xb)^T (y - Xb) \\
+   &= y^Ty - y^TXb - (Xb)^Ty + (Xb)^T(Xb) \\
+   &= y^Ty - 2y^TXb + b^T X^T X b
+  \end{aligned}$$
+---
+
+reference: "Lecture 2.3 on Multiple Regression: Estimation, slide 5"
+question: Minimize the expression $y^Ty - 2y^TXb + b^T X^T X b$ with respect to b.
+answer: |
+  CONTINUE: lookup matrix derivatives
 ---
 
 reference: Lecture 2.3 on Multiple Regression: Estimation
