@@ -506,11 +506,88 @@ answer: |
                      Cr. Inventory (-A)               30000
 ---
 
-reference: Lesson 2.2 Relic Spotter Case, Part 3
-question:
-answer:
+reference: Lesson 2.3.1 Adjusting Entries I
+question: What are *adjusting entries*?
+answer: >
+  Adjusting entries are internal transactions that update account balances
+  in accordance with accrual accounting prior to the preparation of
+  financial statements.
+
+  *Internal transactions* are not with outside entities: they are just
+  formal transactions created by the accountant.  They there never involve
+  cash.
 ---
 
-reference: Lesson 2.2 Relic Spotter Case, Part 3
-question:
-answer:
+reference: Lesson 2.3.1 Adjusting Entries I
+question: What are the two main categories of adjusting entries?
+answer: |
+  * Deferred revenues and expenses: this happens when the cashflow has been
+     in the past, but revenues and expenses weren't yet realized.
+  * Accrued revenues and expenses: in this case, revenues and expenses will
+     be recorded now, but the cashflow is in the future.
+---
+
+reference: Lesson 2.3.1 Adjusting Entries I
+question: Describe *deferred expenses* as a type of adjusting entry, with examples and a template for such a journal entry.
+answer: |
+  These are assets which have been used up this period.
+
+  Examples include: prepaid rent, prepaid insuance, depreciation and amortization.
+
+  **Journal entries**:
+
+      Dr. Expense (+E,-SE)
+        Cr. Prepaid Asset (-A)
+---
+
+reference: Lesson 2.3.1 Adjusting Entries I
+question: Describe *deferred revenues* as a type of adjusting entry, with examples and a template for such a journal entry.
+answer: |
+  These are advances from customers (or other liabilities) that have been fulfilled
+  by the delivery of goods or services in this period.
+
+  Examples include: unearned rental revenue, deferred subscription revenue.
+
+  **Journal entries**:
+
+      Dr. Unearned Revenue Liability (-L)
+        Cr. Revenue (+R,+SE)
+---
+
+reference: Lesson 2.3.1 Adjusting Entries I
+question: Describe *accrued expenses* as a type of adjusting entry, with examples and a template for such a journal entry.
+answer: |
+  These are expenses which have accumulated over the period, but haven't been recorded yet.
+
+  Examples include: income taxes payable, interest payable, salaries and wages payable.
+
+  **Journal entries**:
+
+      Dr. Expenses (+E,-SE)
+        Cr. Payable Liability (+L)
+---
+
+reference: Lesson 2.3.1 Adjusting Entries I
+question: Describe *accrued revenues* as a type of adjusting entry, with examples and a template for such a journal entry.
+answer: |
+  These are revenues which have accumulated over the period, but haven't been recorded yet.
+
+  Examples include: interest receivable, rent receivable.
+
+  **Journal entries**:
+
+      Dr. Assets Receivable (+A)
+        Cr. Revenues (+R,+SE)
+---
+
+reference: Lesson 2.3.1 Adjusting Entries I
+question: What is the goal of *depreciation* and *amortization* and what is the difference between them?
+answer: |
+  Their purpose is to distribute the original costs of an asset over its useful life.
+
+  *Depreciation* is the term used for physical assets such as trucks and equipment.
+
+  *Amortization* is the term used for abstract assets such as acquired trademarks.
+---
+
+CONTINUE 9:11

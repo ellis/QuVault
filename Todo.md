@@ -39,12 +39,16 @@
 * [x] make `config` become member of `state`
 * [x] main-start: refactor code so that we don't need to duplicate the `program` and `vorpal` commands
 * [x] repl: for a single-user setup, save data in `.local/share/` directory
+* [x] direct all state changes through `reducer`
+* [ ] add UI variables to `state`
+* [ ] add more tests to `StateWrapperTest.js`
 * [ ] repl: allow for interactive question scoring
 	* [x] doInteractive(): update the question's score history in `state`
 	* [x] doInteractive(): pass the updated `state` to callback `cb`
 	* [ ] doInteractive(): update the question's halflife and due date in `state`
 	* [ ] move `do_review` functions to `quvault-review.js`
 	* [ ] allow the user to keep reviewing in a loop until he type 'exit' or 'quit' or Ctrl-D or something like that.
+* [ ] figure out how to keep random number generate state in the program `state`
 * [ ] figure out how to manage importing a file multiple times to ensure that UUID is stable and that questions get properly added and removed
 	* [ ] append date to filename, delete older files
 	* [ ] load from deckDirs in the proper order

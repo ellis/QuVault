@@ -1,12 +1,18 @@
 import _ from 'lodash';
 import assert from 'assert';
-import {List, Map} from 'immutable';
-import Immutable from 'immutable';
 
 import StateWrapper, {initialState} from './StateWrapper.js';
 
 const handlers = {
 	'@@redux/INIT': () => {},
+
+	loadConfig: (builder, action) => { builder.loadConfig(action.username); },
+
+	loadDecks: (builder, action) => { builder.loadDecks(); },
+
+	loadQuestions: (builder, action) => { builder.loadQuestions(); },
+
+	calcReviewOrder: (builder, action) => { builder.calcReviewOrder(); },
 
 	createDeck: (builder, action) => {
 		builder.createDeck(action.uuid, action.name, action.parent, action.after);
