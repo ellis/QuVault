@@ -42,17 +42,22 @@ answer: |
   S(e) &= e^Te \\
    &= (y - Xb)^T (y - Xb) \\
    &= y^Ty - y^TXb - (Xb)^Ty + (Xb)^T(Xb) \\
-   &= y^Ty - 2y^TXb + b^T X^T X b
+   &= y^Ty - 2b^T X^T y + b^T X^T X b
   \end{aligned}$$
 ---
 
 reference: "Lecture 2.3 on Multiple Regression: Estimation, slide 5"
-question: Minimize the expression $y^Ty - 2y^TXb + b^T X^T X b$ with respect to b.
+question: Minimize the expression $S(b) = y^Ty - 2b^T X^T y + b^T X^T X b$ with respect to $b$.
 answer: |
+  $$\begin{aligned}
+  \frac{\partial S(b)}{\partial b} &= -2 X^T y + 2 X^T X b = 0 \\
+  X^T X b &= X^T y \\
+  b &= (X^T X)^{-1} X^T y
+  \end{aligned}$$
   CONTINUE: lookup matrix derivatives
 ---
 
-reference: Lecture 2.3 on Multiple Regression: Estimation
+reference: "Lecture 2.3 on Multiple Regression: Estimation, slide 5"
 question: Prove that rank(X) = k implies that X'X is invertible (where X has k columns).
 answer: >
   X'X is a symmetric matrix.  A symmetric matrix with full rank is invertible.

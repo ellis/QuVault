@@ -591,3 +591,63 @@ answer: |
 ---
 
 CONTINUE 9:11
+
+---
+
+reference: Lesson 2.5 Financial Statements and Closing Entries
+question: What is the *adjusted trial balance*?
+answer: |
+  We add everything up after creating the adjusting entries, and make sure
+  that debits equal credits.  The balances are used to make financial statements.
+---
+
+reference: Lesson 2.5 Financial Statements and Closing Entries
+question: In what order are financial statements prepared?
+answer: |
+  * After creating adjusting entries and the adjusted trial balance,
+      the Income Statement is prepared first.
+  * Then Net Income is used to update Retained Earnings and prepare the
+      Balance Sheet.
+  * Finally, the Statement of Cash Flows and Statement are Stockholder's
+      Equity are completed.
+---
+
+reference: Lesson 2.5 Financial Statements and Closing Entries
+question: What is the typical format of an income statement?
+answer: |
+  * A) Revenues or sales from the core business
+  * B) Cost of goods sold
+  * C) Gross profit (A - B)
+  * D) Operating (SG&A) expense
+  * E) Operating income (C - D)
+  * F) Interest, gains, and losses
+  * G) Pre-tax income (E - F)
+  * H) Income tax expense
+  * I) Net income (G - H)
+
+  SG&A stands for "selling, general and administrative" -- these are all the
+  general period costs.
+
+  Operating income tells us something about the profitability of the core
+  business -- whether they priced their products high enough to cover costs.
+
+  Gains and losses are like revenues and expenses, except that the don't come
+  from the core business.
+
+  Net income is also called "earning" and "net profit".
+  CONTINUE 3:00
+---
+
+reference: Lesson 2.5 Financial Statements and Closing Entries
+question:
+answer:
+---
+
+reference: Lesson 2.5 Financial Statements and Closing Entries
+question:
+answer:
+---
+
+reference: Lesson 2.5 Financial Statements and Closing Entries
+question:
+answer:
