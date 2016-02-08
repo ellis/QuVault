@@ -590,8 +590,139 @@ answer: |
   *Amortization* is the term used for abstract assets such as acquired trademarks.
 ---
 
-CONTINUE 9:11
+reference: Lesson 2.3.1 Adjusting Entries I
+question: How is depreciation deducted?
+answer: |
+  It is deducted from a "Contra Asset Account" (XA) called "Accumulated Depreciation".
+  This account has a credit balance and is subtracted from PP&E on the balance sheet to get the "Net Book Value".
+  Rather than credit the original account, XA is credited to explicitly keep track of
+  the amount of depreciation.
 
+---
+
+reference: Lesson 2.3.1 Adjusting Entries I
+question: What is a *contra account*?
+answer: |
+  It is an account that accumulates deductions to it's companion account.
+  Two examples are the Expenses account within the Retained Earnings
+  account, and the Accumulated Deprecation account within Assets.
+---
+
+reference: Lesson 2.3.1 Adjusting Entries I
+question: What is *straight line depreciation*?
+answer: |
+  depreciation expense = (original cost - salvage value) / useful life
+
+  The useful life is chosen by management, and salvage value should follow
+  from how long they equipment is intended to be used.
+---
+
+reference: Lesson 2.3.2 Adjusting Entries II
+question: |
+  Show the journal entries for these transactions:
+
+  * On Sep 30, BOC loaned $100,000 to an employee at a 12% interest rate.
+  * On Dec 31, no prinicpal or interest have been paid yet.
+  * On Jan 06, the employee pays 3 months of interest on the loan.
+answer: |
+  ```
+  Sep-30
+    assets:cash  -100,000
+    assets:notes receivable  100,000
+  Dec-31
+    assets:interest receivable  3000
+    revenues:interest revenues  -3000
+  Jan-06
+    assets:cash  3000
+    assets:interest receivable  -3000
+  ```
+
+  or
+
+  ```
+  Dr. Notes Receivable (+A)    100,000
+    Cr. Cash (-A)                100,000
+  Dr. Interest Receivable (+A)    3000
+    Cr. Interest Revenues (+R,+SE)  3000
+  Dr. Cash (+A)                   3000
+    Cr. Interest Receivable (-A)    3000
+  ```
+---
+
+reference: Lesson 2.3.2 Adjusting Entries II
+question: |
+  Show the journal entries for these transactions:
+
+  * On Dec 31, during December employees earned $400,000 in salaries.
+  * On Jan 02, the salaries are paid.
+answer: |
+  ```
+  Dec-31
+    liabilities:salaries payable  -400,000
+    expenses:salaries  400,000
+  Jan-02
+    assets:cash  -400,000
+    liabilities:salaries payable  400,000
+  ```
+---
+
+reference: Lesson 2.3.2 Adjusting Entries II
+question: |
+  Show the journal entries for these transactions:
+
+  * On Nov 20, BOC pays $10,000 for December's rent.
+  * On Dec 31, what adjusting entry is needed, if any?
+answer: |
+  ```
+  Nov-20
+    assets:cash  -10,000        ; Cr. Cash (-A)
+    assets:prepaid rent  10,000 ; Dr. Prepaid Rent (+A)
+  Dec-31
+    assets:prepaid rent  -10,000 ; Cr. Prepaid Rent (+A)
+    expenses:rent  400,000       ; Dr. Rent expense (+E,-SE)
+  ```
+---
+
+reference: Lesson 2.3.2 Adjusting Entries II
+question: |
+  Show the journal entries for these transactions:
+
+  * On Jun 30, a customer pays BOC $60,000 for a three-year software license.
+  * On Dec 31, what adjusting entry is needed, if any?
+answer: |
+  ```
+  Jun-30
+    assets:cash  60,000 ; Dr. Cash (+A)
+    liabilities:unearned software revenue  -60,000 ; Cr. (+L)
+  Dec-31
+    liabilities:unearned software revenue  -10,000 ; Dr. (-L)
+    revenues:software  10,000 ; Cr. (+R,+SE)
+  ```
+---
+
+reference: Lesson 2.3.2 Adjusting Entries II
+question: |
+  Show the journal entries for these transactions:
+
+  * On Jun 30, BOC purchases a building for $500,000.  The expected life of the building is 20 years and its expected salvage value is $100,000.
+  * On Dec 31, what adjusting entry is needed, if any?
+answer: |
+  depreciation = (500000 - 100000) / 20 * 0.5 = 10000
+
+  ```
+  Jun-30
+    assets:cash  -500,000 ; Cr. (-A)
+    assets:depreciable:buildings:purchase  500,000 ; Dr. (+A)
+  Dec-31
+    assets:depreciable:buildings:depreciation  -10,000 ; Cr. (+XA,-A)
+    expenses:depreciation  10,000 ; Db. (+E,-SE)
+  ```
+---
+
+CONTINUE
+reference: Lesson 2.4.1 Relic Spotter Case, Part 4a
+question:
+answer:
 ---
 
 reference: Lesson 2.5 Financial Statements and Closing Entries
