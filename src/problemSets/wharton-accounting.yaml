@@ -387,9 +387,9 @@ answer: |
   2) Journalize and post till the end of period
       * Journalize: recording each transaction as a journal entry in the *general journal*
       * Post: transfer journal entries to the T-accounts or *general ledger*
-  3) Add adjusting entries
+  3) Add adjusting entries (and make adjusted trial balance)
   4) Product the financial statements
-  5) Add closing entries
+  5) Add closing entries (and make post-closing trial balance)
 
 ---
 reference: Lesson 1.4.1 Relic Spotter Case, Part 1
@@ -765,20 +765,77 @@ answer: |
   Gains and losses are like revenues and expenses, except that the don't come
   from the core business.
 
-  Net income is also called "earning" and "net profit".
-  CONTINUE 3:00
+  Net income is also called "earnings" and "net profit".
 ---
 
 reference: Lesson 2.5 Financial Statements and Closing Entries
-question:
-answer:
+question: What is the format of a *balance sheet*?
+answer: |
+  Assets come first and are listed in the following order, from most to least liquid.
+
+  * Current assets (benefits within the next year):
+      * Cash
+      * Accounts receivable
+      * Inventory
+      * Prepaid assets
+  * Non-current assets
+      * Tangible assets (PP&E: property, plant, and equipment)
+      * Non-tangible assets (software, trademarks)
+
+  Then come liabilities (ordered by liquidity):
+
+  * Current liabilities (obligations within the next year):
+      * Bank borrowings
+      * Accounts payable and other payables
+      * Deferred revenues and other non-cash liabilities
+  * Non-current liabilities
+      * Longer-term bank barrowing and bonds
+      * Other types of liabilities (deferred taxes, pensions)
+  * Stockholder's equity
+      * Contributed capital
+      * Retained earnings
 ---
 
 reference: Lesson 2.5 Financial Statements and Closing Entries
-question:
-answer:
+question: What are *temporary accounts*?
+answer: |
+  They are accounts which accumulate the effects of transactions for a
+  single period.  In particular, these are the revenue and expense
+  accounts, which get closed out to retained earnings at the end of the period.
 ---
 
 reference: Lesson 2.5 Financial Statements and Closing Entries
+question: What are *permanent accounts*?
+answer: |
+  They are accounts which accumulate the effects of transactions over the life
+  of the business.
+  This includes balance sheet accounts (assets, liabilities, contributed
+  capital, retained earnings).
+---
+
+reference: Lesson 2.5 Financial Statements and Closing Entries
+question: What are *closing entries* and when do you use them?
+answer: |
+  Closing entries close out one reporting period and allow us to start the next period.
+
+  They are used for closing temporary accounts, which means to zero them out
+  via internal transactions.
+  In particular, we want to transfer the balances aof the Revenue and Expense
+  accounts to Retained Earnings.
+
+  They are created as the last part of the accounting cycle, after
+  the financial statements are prepared.
+---
+
+reference: Lesson 2.5 Financial Statements and Closing Entries
+question: What is the *post-closing trial balance*?
+answer: |
+  It summarizes the balances of permanent accounts after closing entires.
+  The debits should equal the credits.
+  All revenue and expense accounts should have a zero balance at the point.
+---
+
+reference: Lesson ? CONTINUE with next video
 question:
 answer:
+---
