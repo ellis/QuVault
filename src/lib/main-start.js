@@ -121,23 +121,29 @@ function do_review(state0, deckRef, cb) {
 		if (deckUuid)
 	}*/
 
-	// TODO: filter the order list according to deckRef
-
-	const order = state0.get("order", List()).filter(x => {
-		return true;
-	});
-
-	// TODO: iterate through all questions (until use enters 'quit')
-	const problemUuid = order.getIn([0, "problemUuid"]);
-	const index = order.getIn([0, "index"]);
-
-	function cb2(state1) {
-		state = reducer(state, {type: "calcReviewOrder"});
-		const uuid = problemUuid;
-		console.log({scoreStuff: state.getIn(["problems", uuid, "questions", index.toString(), "history"])})
-		cb();
+	function reviewOne() {
+		// TODO: filter the order list according to deckRef
+		const order = state.get("order", List()).filter(x => {
+			return true;
+		});
+		const problemUuid = order.getIn([0, "problemUuid"]);
+		const index = order.getIn([0, "index"]);
+		do_question(state, problemUuid, index, cb2);
 	}
-	do_question(state, problemUuid, index, cb2);
+
+	function cb2(data) {
+		if (_.isEmpty(data)) {
+			cb();
+		}
+		else {
+			// Update score history in state
+			state = reducer(state, _.merge({type: "scoreQuestion"}, data));
+			console.log({scoreStuff: state.getIn(["problems", data.problemUuid, "questions", data.index.toString(), "history"])})
+			reviewOne();
+		}
+	}
+
+	reviewOne();
 }
 
 function do_question(state, problemUuid, index, cb) {
@@ -175,10 +181,14 @@ function doInteractive(state, uuid, index, problemType, problem, cb) {
 		console.log();
 	}
 
-	const prompt1 = {type: "input", name: "response", message: "Your reponse: "};
+	const prompt1 = {type: "input", name: "response", message: "Your reponse [ENTER=continue, q=quit]: "};
 	const prompt2 = {type: "input", name: "score", message: "Your score (0=no idea, 2=wrong, 3=acceptable, 4=good, 5=easy): ", filter: (s) => parseInt(s), validate: isInteger};
 	inquirer.prompt(prompt1, ({response}) => {
-		console.log("RESPONSE: "+JSON.stringify(response));
+		if (response === "q") {
+			return cb({});
+		}
+
+		// console.log("RESPONSE: "+JSON.stringify(response));
 		console.log("ANSWER:");
 		const answer = problemType.renderFlashcardAnswer(format, problem, index, response).data;
 		console.log(answer);
@@ -188,8 +198,8 @@ function doInteractive(state, uuid, index, problemType, problem, cb) {
 			//console.log(score);
 			const dateText = moment().format();
 			// Update score history in state
-			state = state.setIn(["problems", uuid, "questions", index.toString(), "history", dateText, "score"], score);
-			console.log({path: ["problems", uuid, "questions", index.toString(), "history", dateText, "score"], score: state.getIn(["problems", uuid, "questions", index.toString(), "history", dateText, "score"])})
+			/*state = state.setIn(["problems", uuid, "questions", index.toString(), "history", dateText, "score"], score);
+			console.log({path: ["problems", uuid, "questions", index.toString(), "history", dateText, "score"], score: state.getIn(["problems", uuid, "questions", index.toString(), "history", dateText, "score"])})*/
 			// Save score
 			const response1 = (_.isEmpty(response)) ? null : response;
 			const data = [uuid, index, dateText, score, response1];
@@ -200,7 +210,7 @@ function doInteractive(state, uuid, index, problemType, problem, cb) {
 				isScoreFileOpen = true;
 			}
 			fs.appendFileSync(scoreFilename, text, "utf8", err => {});
-			cb(state);
+			cb({problemUuid: uuid, index, dateText, score});
 		});
 	});
 }

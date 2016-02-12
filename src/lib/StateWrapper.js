@@ -223,4 +223,23 @@ export default class StateWrapper {
 		});
 		return this;
 	}
+
+	scoreQuestion(problemUuid, index, dateText, score) {
+		// Add score to question's history
+		this.state = this.state.setIn(["problems", problemUuid, "questions", index.toString(), "history", dateText, "score"], score);
+
+		// Calculate the new halflife
+		const scoreData = this.state.getIn(["problems", problemUuid, "questions", index.toString()]).toJS();
+		const halflives = Scores.calcHalflives(scoreData.history);
+		//console.log({halflives});
+		if (!_.isEmpty(halflives)) {
+			scoreData.halflives = halflives;
+			scoreData.halflife = _.last(halflives);
+			scoreData.due = moment(_.max(_.keys(scoreData.history))).add(scoreData.halflife, 'days').toISOString();
+		}
+		this.state = this.state.mergeDeepIn(["problems", problemUuid, "questions", index.toString()], fromJS(scoreData));
+
+		// Update the review order
+		return this.calcReviewOrder();
+	}
 };

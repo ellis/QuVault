@@ -93,7 +93,9 @@ reference: Module 3
 question: There are factors that somewhat predict returns; what does this indicate about the principle of market efficiency?
 answer: >
   * If the factor represents risk, then its ability to predict returns doesn't
-  violate market efficiency. * It may indicate some form of market inefficiency.
+  violate market efficiency.
+
+  * It may indicate some form of market inefficiency.
 
   * It may simply be a false conclusion of data mining lots of factors.
 uuid: 328328ee-3ff2-43ff-b317-23317c1211ed

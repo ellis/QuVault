@@ -5,6 +5,11 @@ DECK:
     Introduction to Financial Accounting
     by University of Pennsylvania
     Professor Brian J Bushee
+  notes: |
+    Still need to write questions for:
+    * 2.4.1
+    * 2.4.2
+    * 2.6
 
 ---
 reference: Lesson 1.1.1 Financial Reporting Overview
@@ -835,7 +840,115 @@ answer: |
   All revenue and expense accounts should have a zero balance at the point.
 ---
 
-reference: Lesson ? CONTINUE with next video
+reference: Lesson 3.1.1 Operating, Investing, and Financial Cash Flows
+question: What is the format of the *Statement of Cash Flows*?
+answer: |
+  1) Net cash from operating activities
+  2) Net cash from investing activities
+  3) Net cash from financing activities
+  4) The total sum is the net change in cash balance
+  5) Additional required disclosures should be at the bottom of the statement or in footnotes:
+      a) Non-cash transactions (such as trading land for a building)
+      b) Cash interest paid
+      c) Cash income taxes paid
+---
+
+reference: Lesson 3.1.1 Operating, Investing, and Financial Cash Flows
+question: Which transactions are included in *operating activities* on the Cash Flow Statement?
+answer: |
+  For cash inflows:
+  * Collections from customers
+  * (US only) Receipts of interest and dividends on investments
+
+  For cash outflows:
+  * Payments to suppliers
+  * Payments to employees
+  * Payments of taxes
+  * Other operating disbursements
+  * (US only) Payments of interest
+
+  Cash outflows exclude these income statements items:
+  * Depreciation and amortization (and other noncash items)
+  * Gains or losses on disposal of PP&E
+
+  Note for the USA, FASB has some strange deviating requirements.
+  It seems strange to include investment and financing activities related to
+  interest and dividends in the Operating activities section.
+  The reasoning is that FASB decided they want to include most items from the
+  income statement within Operating Activities.
+
+---
+
+reference: Lesson 3.1.1 Operating, Investing, and Financial Cash Flows
+question: Which transactions are included in the *investing activities* on the Cash Flow Statement?
+answer: |
+  Investing activities include transactions related acquisition or disposal of
+  long-term assets.
+
+  Cash inflows:
+  * Divestitures of businesses
+  * Sale of PPE & intangibles
+  * Sale of investments
+  * (NON US) Receipts of interest and dividends
+
+  Cash outflows:
+  * Acquisition of businesses
+  * Acquisition of PPE & intangibles
+  * Purchase of investments
+---
+
+reference: Lesson 3.1.1 Operating, Investing, and Financial Cash Flows
+question: Which transactions are included in the *financing activities* on the Cash Flow Statement?
+answer: |
+  Financing activities involve transactions related to owners or creditors.
+
+  Cash inflows:
+  * Issue of new stock
+  * Reissue treasury stock
+  * Borrow money
+
+  Cash outflows:
+  * Payment of dividends
+  * Purchase of treasury stock
+  * Payment of principle on debt
+  * (NON US) Payment of interest
+---
+
+reference: Lesson 3.2.1 Operating, Investing, and Financial Cash Flows
+question: Describe the two methods for preparing the Statement of Cash Flows.
+answer: |
+  The "direct method":
+  * List cash transactions by source/use of funds
+  * Always used for investing and financing activities
+  * Not normally used for operating activity, because the "indirect" method is required here by some institutions
+
+  The "indirect method":
+  * Only used for operating activities
+  * Goal is to reconcile Net Income with cash from operations by removing
+      non-cash items and investing activities from net income and including additional cash flows
+      not in net income
+---
+
+reference: Lesson 3.1.1 Operating, Investing, and Financial Cash Flows
 question:
 answer:
 ---
+
+reference: Lesson 3.1.1 Operating, Investing, and Financial Cash Flows
+question:
+answer:
+---
+
+reference: Lesson 3.1.1 Operating, Investing, and Financial Cash Flows
+question:
+answer:
+---
+
+reference: Lesson 3.1.1 Operating, Investing, and Financial Cash Flows
+question:
+answer:
+---
+
+reference: Lesson 3.1.1 Operating, Investing, and Financial Cash Flows
+question:
+answer:

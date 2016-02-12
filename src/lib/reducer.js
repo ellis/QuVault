@@ -21,6 +21,10 @@ const handlers = {
 	addProblemsToDeck: (builder, action) => {
 		builder.addProblemsToDeck(action.problems, action.deck);
 	},
+
+	scoreQuestion: (builder, action) => {
+		builder.scoreQuestion(action.problemUuid, action.index, action.dateText, action.score);
+	}
 };
 
 export default function reducer(state = initialState, action) {
