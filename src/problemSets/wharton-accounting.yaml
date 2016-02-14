@@ -7,8 +7,6 @@ DECK:
     Professor Brian J Bushee
   notes: |
     Still need to write questions for:
-    * 2.4.1
-    * 2.4.2
     * 2.6
 
 ---
@@ -724,10 +722,36 @@ answer: |
   ```
 ---
 
-CONTINUE
 reference: Lesson 2.4.1 Relic Spotter Case, Part 4a
-question:
-answer:
+question: |
+  Show the journal entry for this transaction:
+
+  * On Dec 31, Relic Spotter had accrued mortgage interest of $4900.  What adjusting entry is needed?
+answer: |
+  ```
+  Dec-31
+    liabilities:interest payable  -4900 (+L)
+    expenses:interest  4900 ; Dr. (+E,-SE)
+  ```
+---
+
+reference: Lesson 2.4.1 Relic Spotter Case, Part 4a
+question: |
+  Show the journal entry for this transaction:
+
+  * On Dec 31, Relic Spotter should expense its 3-year software license bought on June 30 for $2100.
+answer: |
+  Since software is a non-tangible asset, we call its expensing "amortization"
+  instead of "depreciation".  Typically, we also remove the amortization directly from
+  the asset rather than accumulating the depreciation in an contra-asset
+  account.  If a company has significant intangible assets, it might choose to
+  accumulate amortization.
+
+  ```
+  Dec-31
+    assets:software  -350 (+L)
+    expenses:software amortization  350 ; Dr. (+E,-SE)
+  ```
 ---
 
 reference: Lesson 2.5 Financial Statements and Closing Entries
@@ -882,7 +906,7 @@ answer: |
 reference: Lesson 3.1.1 Operating, Investing, and Financial Cash Flows
 question: Which transactions are included in the *investing activities* on the Cash Flow Statement?
 answer: |
-  Investing activities include transactions related acquisition or disposal of
+  Investing activities include transactions related to acquisition or disposal of
   long-term assets.
 
   Cash inflows:
@@ -914,7 +938,7 @@ answer: |
   * (NON US) Payment of interest
 ---
 
-reference: Lesson 3.2.1 Operating, Investing, and Financial Cash Flows
+reference: Lesson 3.2.1 Statement of Cash Flows
 question: Describe the two methods for preparing the Statement of Cash Flows.
 answer: |
   The "direct method":
@@ -929,26 +953,7 @@ answer: |
       not in net income
 ---
 
-reference: Lesson 3.1.1 Operating, Investing, and Financial Cash Flows
+reference: Lesson 3.2.2 Relic Spotter Case, Part 6
 question:
 answer:
 ---
-
-reference: Lesson 3.1.1 Operating, Investing, and Financial Cash Flows
-question:
-answer:
----
-
-reference: Lesson 3.1.1 Operating, Investing, and Financial Cash Flows
-question:
-answer:
----
-
-reference: Lesson 3.1.1 Operating, Investing, and Financial Cash Flows
-question:
-answer:
----
-
-reference: Lesson 3.1.1 Operating, Investing, and Financial Cash Flows
-question:
-answer:
