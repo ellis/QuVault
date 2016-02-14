@@ -45,6 +45,7 @@
 	* [x] doInteractive(): pass the updated `state` to callback `cb`
 	* [x] doInteractive(): update the question's halflife and due date in `state`
 	* [x] allow the user to keep reviewing in a loop until he type 'exit' or 'quit' or Ctrl-D or something like that.
+	* [ ] import more problemSets into ~/.local/share/quvault
 	* [ ] fix so that scoring loop only creates a single file
 	* [ ] move `do_review` functions to `quvault-review.js`
 * [ ] move problem sets to repo/quvault/problemSets
