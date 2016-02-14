@@ -2,6 +2,7 @@ DECK:
   name: Algorithms I
   description: |
     Coursera 2015
+uuid: 1355a856-526f-4526-8af5-a8af28f2eccf
 
 ---
 question: 'What is the asymptotic worst-case running time of MergeSort, as a function of the input array length n?'
@@ -55,14 +56,11 @@ answer: >
 
   }
 
-
-
   for (i <- 1 until n) {
 
      for (v <- V) {
 
-        val minUsingV = E.filter(x => x._2 == v).map({ case (w, _, cwv) => A(i
-  - 1)(w) + cwv }).min
+        val minUsingV = E.filter(x => x._2 == v).map({ case (w, _, cwv) => A(i - 1)(w) + cwv }).min
 
         A(i, v) = math.min(A(i - 1, v), minUsingV)
 
@@ -83,19 +81,33 @@ answer: >
 
 
 
+
+
   ```scala
 
   for {
 
+
+
      k <- 1 to n
+
+
 
      i <- 1 to n
 
+
+
      j <- 1 to n
+
+
 
   } {
 
+
+
      A(i)(j)(k) = math.min(A(i)(j)(k-1), A(i)(k)(k-1) + A(k)(j)(k-1))
+
+
 
   }
 
