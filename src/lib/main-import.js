@@ -116,7 +116,7 @@ program
 	.parse(process.argv);
 
 //console.log(program)
-const config = loadConfig(program.user || "default");
+const config = reducer(state, {type: "loadConfig", username: program.user || "default"}).get("config").toJS();
 const configOverrides = _({username: program.user, debug: program.debug, addUuid: program.addUuid}).omitBy(_.isUndefined).value();
 const opts = _.merge({}, config, configOverrides);
 _.forEach(program.args, filename => doImport(opts, filename));

@@ -47,6 +47,7 @@
 	* [x] allow the user to keep reviewing in a loop until he type 'exit' or 'quit' or Ctrl-D or something like that.
 	* [ ] fix so that scoring loop only creates a single file
 	* [ ] move `do_review` functions to `quvault-review.js`
+* [ ] move problem sets to repo/quvault/problemSets
 * [ ] dump command: allow parameter for path in state to dump
 * [ ] redux: turn the app into a redux web app
 	* [ ] continue watching redux tutorial: https://egghead.io/lessons/javascript-redux-writing-a-todo-list-reducer-adding-a-todo
