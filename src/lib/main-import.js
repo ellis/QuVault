@@ -34,7 +34,7 @@ function doImport(config, filename) {
 			console.log(content);
 		}
 		yaml.safeLoadAll(content, doc => {
-			if (!_.isEmpty(doc))
+			if (!_.isEmpty(doc) && doc.enabled !== false)
 				documents.push(doc)
 		});
 	}

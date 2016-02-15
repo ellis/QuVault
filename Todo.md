@@ -40,15 +40,18 @@
 * [x] main-start: refactor code so that we don't need to duplicate the `program` and `vorpal` commands
 * [x] repl: for a single-user setup, save data in `.local/share/` directory
 * [x] direct all state changes through `reducer`
+* [x] move problem sets to repo/quvault/problemSets
+* [ ] import: skips questions marked with `enabled: false` (don't add UUID or create problem file), but make sure they get preserved when saving with UUIDs.
+* [ ] import more problemSets
 * [ ] repl: allow for interactive question scoring
 	* [x] doInteractive(): update the question's score history in `state`
 	* [x] doInteractive(): pass the updated `state` to callback `cb`
 	* [x] doInteractive(): update the question's halflife and due date in `state`
 	* [x] allow the user to keep reviewing in a loop until he type 'exit' or 'quit' or Ctrl-D or something like that.
-	* [ ] import more problemSets into ~/.local/share/quvault
 	* [ ] fix so that scoring loop only creates a single file
+	* [ ] let user skip a question
+	* [ ] let user review a specific deck
 	* [ ] move `do_review` functions to `quvault-review.js`
-* [ ] move problem sets to repo/quvault/problemSets
 * [ ] dump command: allow parameter for path in state to dump
 * [ ] redux: turn the app into a redux web app
 	* [ ] continue watching redux tutorial: https://egghead.io/lessons/javascript-redux-writing-a-todo-list-reducer-adding-a-todo
