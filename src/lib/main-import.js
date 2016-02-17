@@ -34,14 +34,14 @@ function doImport(config, filename) {
 			console.log(content);
 		}
 		yaml.safeLoadAll(content, doc => {
-			if (!_.isEmpty(doc) && doc.enabled !== false)
+			if (!_.isEmpty(doc))
 				documents.push(doc)
 		});
 	}
 	if (config.debug) {
 		console.log(`documents: ${JSON.stringify(documents, null, '  ')}`);
 	}
-	const documentsMissingUuid = _.filter(documents, doc => _.isEmpty(doc.uuid));
+	const documentsMissingUuid = _.filter(documents, doc => doc.enabled !== false && _.isEmpty(doc.uuid));
 	//console.log({documentsMissingUuid})
 	if (!_.isEmpty(documentsMissingUuid)) {
 		if (config.addUuid) {
@@ -94,11 +94,13 @@ function doImport(config, filename) {
 	mkdirp.sync(problemDir);
 	//console.log({problemDir})
 	for (const problem of documents) {
-		problem.deckUuid = deckUuid;
-		const filename = path.join(problemDir, problem.uuid+".json");
-		//console.log({filename})
-		const content2 = JSON.stringify(problem, null, "\t");
-		fs.writeFileSync(filename, content2, "utf8", err => {});
+		if (problem.enabled !== false) {
+			problem.deckUuid = deckUuid;
+			const filename = path.join(problemDir, problem.uuid+".json");
+			//console.log({filename})
+			const content2 = JSON.stringify(problem, null, "\t");
+			fs.writeFileSync(filename, content2, "utf8", err => {});
+		}
 	}
 }
 
