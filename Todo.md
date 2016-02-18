@@ -42,6 +42,7 @@
 * [x] direct all state changes through `reducer`
 * [x] move problem sets to repo/quvault/problemSets
 * [x] import: skips questions marked with `enabled: false` (don't add UUID or create problem file), but make sure they get preserved when saving with UUIDs.
+* [?] main-import: blank line at end of sub-documents will be a problem if the last property was a '|'-string
 * [ ] make patch of changes to js-yaml
 * [ ] import more problemSets
 * [ ] repl: allow for interactive question scoring
@@ -63,7 +64,6 @@
 * [ ] figure out how to manage importing a file multiple times to ensure that UUID is stable and that questions get properly added and removed
 	* [ ] append date to filename, delete older files
 	* [ ] load from deckDirs in the proper order
-* [ ] js-yaml: blank line at end of sub-documents will be a problem if the last property was a '|'-string
 * [ ] repl: `createDeck`: create a new deck
 * [ ] repl: `createProblem`: create a new problem
 * [ ] move Design.md and Todo.md to src/ folder

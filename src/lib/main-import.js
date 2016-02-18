@@ -53,10 +53,11 @@ function doImport(config, filename) {
 				}
 			}
 			fs.writeFileSync(filename, "", "utf8", err => {});
-			for (const problem of documents) {
-				const content2 = yaml.safeDump(problem) + "\n---\n";
+			_.forEach(documents, (problem, i) => {
+				const prefix = (i > 0) ? "---\n" : "";
+				const content2 = prefix + yaml.safeDump(problem) + "\n";
 				fs.appendFileSync(filename, content2, "utf8", err => {});
-			}
+			});
 		}
 		else {
 			console.log("These problems are missing UUIDs:");
