@@ -42,8 +42,8 @@
 * [x] direct all state changes through `reducer`
 * [x] move problem sets to repo/quvault/problemSets
 * [x] import: skips questions marked with `enabled: false` (don't add UUID or create problem file), but make sure they get preserved when saving with UUIDs.
+* [x] make patch of changes to js-yaml
 * [?] main-import: blank line at end of sub-documents will be a problem if the last property was a '|'-string
-* [ ] make patch of changes to js-yaml
 * [ ] import more problemSets
 * [ ] repl: allow for interactive question scoring
 	* [x] doInteractive(): update the question's score history in `state`
