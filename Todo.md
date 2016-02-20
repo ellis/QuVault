@@ -45,6 +45,7 @@
 * [x] make patch of changes to js-yaml
 * [?] main-import: blank line at end of sub-documents will be a problem if the last property was a '|'-string
 * [ ] import more problemSets
+	* [ ] erasmus-econometrics.yaml imports the answers all on one line!
 * [ ] repl: allow for interactive question scoring
 	* [x] doInteractive(): update the question's score history in `state`
 	* [x] doInteractive(): pass the updated `state` to callback `cb`

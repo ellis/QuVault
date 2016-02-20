@@ -54,8 +54,8 @@ function doImport(config, filename) {
 			}
 			fs.writeFileSync(filename, "", "utf8", err => {});
 			_.forEach(documents, (problem, i) => {
-				const prefix = (i > 0) ? "---\n" : "";
-				const content2 = prefix + yaml.safeDump(problem) + "\n";
+				const prefix = (i > 0) ? "---\n\n" : "";
+				const content2 = prefix + yaml.safeDump(problem);
 				fs.appendFileSync(filename, content2, "utf8", err => {});
 			});
 		}
