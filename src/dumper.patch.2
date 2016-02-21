@@ -1,0 +1,76 @@
+diff --git a/node_modules/js-yaml/lib/js-yaml/dumper_orig.js b/node_modules/js-yaml/lib/js-yaml/dumper.js
+index 26112f6..2766568 100644
+--- a/node_modules/js-yaml/lib/js-yaml/dumper_orig.js
++++ b/node_modules/js-yaml/lib/js-yaml/dumper.js
+@@ -28,6 +28,7 @@ var CHAR_GREATER_THAN         = 0x3E; /* > */
+ var CHAR_QUESTION             = 0x3F; /* ? */
+ var CHAR_COMMERCIAL_AT        = 0x40; /* @ */
+ var CHAR_LEFT_SQUARE_BRACKET  = 0x5B; /* [ */
++var CHAR_BACK_SLASH           = 0x5C; /* \ */
+ var CHAR_RIGHT_SQUARE_BRACKET = 0x5D; /* ] */
+ var CHAR_GRAVE_ACCENT         = 0x60; /* ` */
+ var CHAR_LEFT_CURLY_BRACKET   = 0x7B; /* { */
+@@ -252,7 +253,7 @@ function writeScalar(state, object, level, iskey) {
+   single = true;
+   double = new StringBuilder(object);
+ 
+-  sawLineFeed = false;
++  sawLineFeed = 0; // ELLIS: count line feeds
+   linePosition = 0;
+   longestLine = 0;
+ 
+@@ -272,6 +273,7 @@ function writeScalar(state, object, level, iskey) {
+ 
+   for (position = 0; position < object.length; position++) {
+     character = object.charCodeAt(position);
++    console.log({character: JSON.stringify(character)})
+     if (simple) {
+       // Characters that can never appear in the simple scalar
+       if (!simpleChar(character)) {
+@@ -289,6 +291,7 @@ function writeScalar(state, object, level, iskey) {
+ 
+     escapeSeq = ESCAPE_SEQUENCES[character];
+     hexEsc = needsHexEscape(character);
++    console.log({escapeSeq, hexEsc})
+ 
+     if (!escapeSeq && !hexEsc) {
+       continue;
+@@ -296,11 +299,12 @@ function writeScalar(state, object, level, iskey) {
+ 
+     if (character !== CHAR_LINE_FEED &&
+         character !== CHAR_DOUBLE_QUOTE &&
+-        character !== CHAR_SINGLE_QUOTE) {
++        character !== CHAR_SINGLE_QUOTE &&
++        character !== CHAR_BACK_SLASH) {
+       folded = false;
+       literal = false;
+     } else if (character === CHAR_LINE_FEED) {
+-      sawLineFeed = true;
++      sawLineFeed++;
+       single = false;
+       if (position > 0) {
+         previous = object.charCodeAt(position - 1);
+@@ -353,15 +357,22 @@ function writeScalar(state, object, level, iskey) {
+ 
+   // If it's literally one line, then don't bother with the literal.
+   // We may still want to do a fold, though, if it's a super long line.
+-  if (!sawLineFeed) {
++  if (sawLineFeed === 0) {
+     literal = false;
+   }
++  // ELLIS: force literal syntax in preference to folded
++  else if (literal && sawLineFeed > 1) {
++    folded = false;
++  }
++
++  console.log({object, simple, single, folded, literal, longestLine, max, sawLineFeed})
+ 
+   if (simple) {
+     state.dump = object;
+   } else if (single) {
+     state.dump = '\'' + object + '\'';
+   } else if (folded) {
++    if (sawLineFeed) {}
+     result = fold(object, max);
+     state.dump = '>' + modifier + '\n' + indentString(result, indent);
+   } else if (literal) {

@@ -43,7 +43,9 @@
 * [x] move problem sets to repo/quvault/problemSets
 * [x] import: skips questions marked with `enabled: false` (don't add UUID or create problem file), but make sure they get preserved when saving with UUIDs.
 * [x] make patch of changes to js-yaml
-* [?] main-import: blank line at end of sub-documents will be a problem if the last property was a '|'-string
+* [x] main-import: blank line at end of sub-documents will be a problem if the last property was a '|'-string
+* [ ] make new patch of changes to js-yaml that add CHAR_BACK_SLASH (from lorax, see dumper.patch.2)
+* [ ] submit pull request to js-yaml to allow folding and literals for CHAR_BACK_SLASH
 * [ ] import more problemSets
 	* [ ] erasmus-econometrics.yaml imports the answers all on one line!
 * [ ] repl: allow for interactive question scoring
@@ -55,6 +57,10 @@
 	* [ ] let user skip a question
 	* [ ] let user review a specific deck
 	* [ ] move `do_review` functions to `quvault-review.js`
+* [ ] Rename "problem sets" to "decks"?
+* [ ] Figure out a term for book/course/video/lecture/source -- the deck definition should document what it's based on
+* [ ] require a semver version on decks?
+* [ ] allow for decks to have dependencies on other decks, using semver?
 * [ ] dump command: allow parameter for path in state to dump
 * [ ] redux: turn the app into a redux web app
 	* [ ] continue watching redux tutorial: https://egghead.io/lessons/javascript-redux-writing-a-todo-list-reducer-adding-a-todo
