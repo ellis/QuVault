@@ -1,8 +1,8 @@
-diff --git a/node_modules/js-yaml/lib/js-yaml/dumper_orig.js b/node_modules/js-yaml/lib/js-yaml/dumper.js
-index 26112f6..95c085f 100644
---- a/node_modules/js-yaml/lib/js-yaml/dumper_orig.js
+diff --git a/node_modules/js-yaml/lib/js-yaml/dumper.js.orig b/node_modules/js-yaml/lib/js-yaml/dumper.js
+index 043d2bb..350232d 100644
+--- a/node_modules/js-yaml/lib/js-yaml/dumper.js.orig
 +++ b/node_modules/js-yaml/lib/js-yaml/dumper.js
-@@ -252,7 +252,7 @@ function writeScalar(state, object, level, iskey) {
+@@ -253,7 +253,7 @@ function writeScalar(state, object, level, iskey) {
    single = true;
    double = new StringBuilder(object);
  
@@ -11,7 +11,7 @@ index 26112f6..95c085f 100644
    linePosition = 0;
    longestLine = 0;
  
-@@ -300,7 +300,7 @@ function writeScalar(state, object, level, iskey) {
+@@ -297,7 +297,7 @@ function writeScalar(state, object, level, iskey) {
        folded = false;
        literal = false;
      } else if (character === CHAR_LINE_FEED) {
@@ -20,27 +20,19 @@ index 26112f6..95c085f 100644
        single = false;
        if (position > 0) {
          previous = object.charCodeAt(position - 1);
-@@ -353,15 +353,22 @@ function writeScalar(state, object, level, iskey) {
+@@ -341,7 +341,14 @@ function writeScalar(state, object, level, iskey) {
  
    // If it's literally one line, then don't bother with the literal.
    // We may still want to do a fold, though, if it's a super long line.
--  if (!sawLineFeed) {
+-  if (!sawLineFeed) literal = false;
 +  if (sawLineFeed === 0) {
-     literal = false;
-   }
++   literal = false;
++  }
 +  // ELLIS: force literal syntax in preference to folded
 +  else if (literal && sawLineFeed > 1) {
 +    folded = false;
 +  }
-+
 +  //console.log({object, simple, single, folded, literal, longestLine, max, sawLineFeed})
  
    if (simple) {
      state.dump = object;
-   } else if (single) {
-     state.dump = '\'' + object + '\'';
-   } else if (folded) {
-+    if (sawLineFeed) {}
-     result = fold(object, max);
-     state.dump = '>' + modifier + '\n' + indentString(result, indent);
-   } else if (literal) {
