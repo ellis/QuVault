@@ -157,8 +157,11 @@ export default class StateWrapper {
 				//console.log({scoreDates, json: JSON.stringify(scoreDates)})
 				let weight = 1;
 				let randWeight = 1;
-				const isNew = (scoreDates.length == 0);
-				if (scoreDates.length > 0) {
+				let status;
+				if (scoreDates.length === 0) {
+					status = "new";
+				}
+				else {
 					const lastDateText = _.max(scoreDates);
 					const lastDate = moment(lastDateText);
 					const now = moment();
@@ -166,20 +169,22 @@ export default class StateWrapper {
 					const diff = now.diff(lastDate, 'minutes') / (24*60);
 					weight = diff / halflife;
 					//console.log({lastDateText, now, halflife, diff, weight})
+					// Randomly shift the weight between 90% and 110%
 					const factor = random.real(-0.1, 0.1, true)(mt);
 					randWeight = (1 + factor) * weight;
+					status = (weight >= 1) ? "pending" : "waiting";
 				}
-				weights.push([problemUuid, index, weight, randWeight, isNew]);
+				weights.push([problemUuid, index, weight, randWeight, status]);
 			});
 		});
 		const l0 = _.sortBy(weights, x => -x[3]);
-		const l1 = l0.map(([problemUuid, index, weight, , isNew]) => { return {problemUuid, index, weight, isNew}; });
+		const l1 = l0.map(([problemUuid, index, weight, , status]) => { return {problemUuid, index, weight, status}; });
 		const deckOrders = {};
-		_.forEach(l1, ({problemUuid, index, isNew}) => {
+		_.forEach(l1, ({problemUuid, index, status}) => {
 			const decks = state.getIn(["problems", problemUuid, "decks"], Map());
 			decks.forEach((x, deckUuid) => {
 				const l2 = deckOrders[deckUuid] || [];
-				l2.push({problemUuid, index, isNew});
+				l2.push({problemUuid, index, status});
 				deckOrders[deckUuid] = l2;
 			});
 		});

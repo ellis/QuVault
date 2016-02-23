@@ -46,6 +46,7 @@
 * [x] main-import: blank line at end of sub-documents will be a problem if the last property was a '|'-string
 * [x] BUG: erasmus-econometrics.yaml imports the answers all on one line! (via patch to js-yaml)
 * [x] import more problemSets
+* [x] `decks` command: show better calculation of new/pending/total question counts
 * [ ] make new patch of changes to js-yaml that add CHAR_BACK_SLASH (from lorax, see dumper.patch.2)
 * [ ] submit pull request to js-yaml to allow folding and literals for CHAR_BACK_SLASH
 * [ ] repl: allow for interactive question scoring
@@ -53,8 +54,8 @@
 	* [x] doInteractive(): pass the updated `state` to callback `cb`
 	* [x] doInteractive(): update the question's halflife and due date in `state`
 	* [x] allow the user to keep reviewing in a loop until he type 'exit' or 'quit' or Ctrl-D or something like that.
-	* [ ] fix so that scoring loop only creates a single file
-	* [ ] let user skip a question
+	* [x] fix so that scoring loop only creates a single file
+	* [?] let user skip a question
 	* [ ] let user review a specific deck
 	* [ ] move `do_review` functions to `quvault-review.js`
 * [ ] Rename "problem sets" to "decks"?

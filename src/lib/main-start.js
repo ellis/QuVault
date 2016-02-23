@@ -89,11 +89,17 @@ function do_decks(state) {
 		const deck = state.getIn(["decks", uuid], Map());
 		//console.log({deck})
 		//console.log({order: deck.get("order")})
-		const [newCount, pendingCount] = deck.get("order", List()).reduce(
-			(acc, item) => (item.get("isNew")) ? [acc[0] + 1, acc[1]] : [acc[0], acc[1] + 1],
-			[0, 0]
-		)
-		console.log(_.padStart(index.toString(), indexPadding)+") "+_.repeat("  ", indent)+deck.get("name") + `  (${newCount}/${pendingCount})`);
+		const [newCount, pendingCount, waitingCount] = deck.get("order", List()).reduce(
+			(acc, item) => {
+				const i = ({"new": 0, "pending": 1, "waiting": 2})[item.get("status")];
+				//console.log({item})
+				//console.log({status: item.status, i, acc})
+				acc[i]++;
+				return acc;
+			},
+			[0, 0, 0]
+		);
+		console.log(_.padStart(index.toString(), indexPadding)+") "+_.repeat("  ", indent)+deck.get("name") + ` (${newCount}N ${pendingCount}P ${waitingCount}W)`);
 		// Update indexes list
 		indexes[index.toString()] = uuid;
 		index++;
@@ -148,9 +154,14 @@ function do_review(state0, deckRef, cb) {
 			cb();
 		}
 		else {
-			// Update score history in state
-			state = reducer(state, _.merge({type: "scoreQuestion"}, data));
-			console.log({scoreStuff: state.getIn(["problems", data.problemUuid, "questions", data.index.toString(), "history"])})
+			if (_.isPlainObject(data)) {
+				// Update score history in state
+				state = reducer(state, _.merge({type: "scoreQuestion"}, data));
+				console.log({scoreStuff: state.getIn(["problems", data.problemUuid, "questions", data.index.toString(), "history"])});
+			}
+			else if (data === "skip") {
+				// Do nothing
+			}
 			reviewOne();
 		}
 	}
@@ -192,7 +203,10 @@ function doInteractive(state, uuid, index, problemType, problem, cb) {
 	const prompt2 = {type: "input", name: "score", message: "Your score (0=no idea, 2=wrong, 3=acceptable, 4=good, 5=easy): ", filter: (s) => parseInt(s), validate: isInteger};
 	inquirer.prompt(prompt1, ({response}) => {
 		if (response === "q") {
-			return cb({});
+			return cb(undefined);
+		}
+		else if (response === "skip") {
+			return cb("skip");
 		}
 
 		// console.log("RESPONSE: "+JSON.stringify(response));
