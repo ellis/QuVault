@@ -149,9 +149,9 @@ export default class StateWrapper {
 		const mt = random.engines.mt19937();
 		mt.autoSeed();
 		const weights = [];
-		state.get("problems").forEach((problemData, problemUuid) => {
+		state.get("problems", Map()).forEach((problemData, problemUuid) => {
 			//console.log({problemData, problemUuid})
-			problemData.get("questions").forEach((questionData, index) => {
+			problemData.get("questions", Map()).forEach((questionData, index) => {
 				//console.log({questionData, index})
 				const scoreDates = _.keys(questionData.get("history", Map()).toJS());
 				//console.log({scoreDates, json: JSON.stringify(scoreDates)})

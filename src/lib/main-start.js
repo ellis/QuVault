@@ -120,6 +120,18 @@ function do_review(state0, deckRef, cb) {
 		const deckUuid = state.getIn(["indexes", deckIndex]);
 		if (deckUuid)
 	}*/
+	let state = state0;
+
+	state = state.updateIn(["scoreFilename"], undefined, x => {
+		if (_.isUndefined(x)) {
+			const scoreDir = state.getIn(["config", "scoreDir"]);
+			mkdirp.sync(scoreDir);
+			return path.join(scoreDir, generateSessionFilename());
+		}
+		else {
+			return x;
+		}
+	});
 
 	function reviewOne() {
 		// TODO: filter the order list according to deckRef
@@ -166,11 +178,6 @@ function do_question(state, problemUuid, index, cb) {
 
 function doInteractive(state, uuid, index, problemType, problem, cb) {
 	//console.log(`doInteractive(${uuid}, ${index})`)
-	const scoreDir = state.getIn(["config", "scoreDir"]);
-	mkdirp.sync(scoreDir);
-	const scoreFilename = path.join(scoreDir, generateSessionFilename());
-	//console.log({scoreFilename})
-	let isScoreFileOpen = false;
 
 	const format = "markdown";
 	const renderer = problemType.getQuestionFlashcardRenderer(format, problem, index, undefined, false);
@@ -204,12 +211,12 @@ function doInteractive(state, uuid, index, problemType, problem, cb) {
 			const response1 = (_.isEmpty(response)) ? null : response;
 			const data = [uuid, index, dateText, score, response1];
 			const text = JSON.stringify(data);
+			const scoreFilename = state.getIn(["scoreFilename"]);
 			//console.log(text);
-			if (!isScoreFileOpen) {
+			if (!fs.existsSync(scoreFilename)) {
 				fs.writeFileSync(scoreFilename, "", "utf8", err => {});
-				isScoreFileOpen = true;
 			}
-			fs.appendFileSync(scoreFilename, text, "utf8", err => {});
+			fs.appendFileSync(scoreFilename, text+"\n", "utf8", err => {});
 			cb({problemUuid: uuid, index, dateText, score});
 		});
 	});

@@ -44,10 +44,10 @@
 * [x] import: skips questions marked with `enabled: false` (don't add UUID or create problem file), but make sure they get preserved when saving with UUIDs.
 * [x] make patch of changes to js-yaml
 * [x] main-import: blank line at end of sub-documents will be a problem if the last property was a '|'-string
+* [x] BUG: erasmus-econometrics.yaml imports the answers all on one line! (via patch to js-yaml)
+* [x] import more problemSets
 * [ ] make new patch of changes to js-yaml that add CHAR_BACK_SLASH (from lorax, see dumper.patch.2)
 * [ ] submit pull request to js-yaml to allow folding and literals for CHAR_BACK_SLASH
-* [ ] import more problemSets
-	* [ ] erasmus-econometrics.yaml imports the answers all on one line!
 * [ ] repl: allow for interactive question scoring
 	* [x] doInteractive(): update the question's score history in `state`
 	* [x] doInteractive(): pass the updated `state` to callback `cb`
