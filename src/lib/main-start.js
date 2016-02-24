@@ -89,17 +89,7 @@ function do_decks(state) {
 		const deck = state.getIn(["decks", uuid], Map());
 		//console.log({deck})
 		//console.log({order: deck.get("order")})
-		const [newCount, pendingCount, waitingCount] = deck.get("order", List()).reduce(
-			(acc, item) => {
-				const i = ({"new": 0, "pending": 1, "waiting": 2})[item.get("status")];
-				//console.log({item})
-				//console.log({status: item.status, i, acc})
-				acc[i]++;
-				return acc;
-			},
-			[0, 0, 0]
-		);
-		console.log(_.padStart(index.toString(), indexPadding)+") "+_.repeat("  ", indent)+deck.get("name") + ` (${newCount}N ${pendingCount}P ${waitingCount}W)`);
+		console.log(_.padStart(index.toString(), indexPadding)+") "+_.repeat("  ", indent)+deck.get("name") + ` (${deck.get("new", 0)}n ${deck.get("pending", 0)}p ${deck.get("waiting", 0)}w)`);
 		// Update indexes list
 		indexes[index.toString()] = uuid;
 		index++;
@@ -121,12 +111,16 @@ function do_dump(state) {
 }
 
 function do_review(state0, deckRef, cb) {
-	/*if (deckRef) {
-		const deckIndex = parseInt(deckRef);
-		const deckUuid = state.getIn(["indexes", deckIndex]);
-		if (deckUuid)
-	}*/
 	let state = state0;
+
+	function getDeckUuid() {
+	  if (deckRef) {
+			const deckIndex = parseInt(deckRef);
+			return state.getIn(["indexes", deckIndex.toString()]);
+		}
+	}
+	const deckUuid = getDeckUuid();
+	console.log({deckRef, deckUuid})
 
 	state = state.updateIn(["scoreFilename"], undefined, x => {
 		if (_.isUndefined(x)) {
@@ -140,13 +134,20 @@ function do_review(state0, deckRef, cb) {
 	});
 
 	function reviewOne() {
-		// TODO: filter the order list according to deckRef
-		const order = state.get("order", List()).filter(x => {
-			return true;
+		// Get the next item in order
+		const orderItem = state.get("order", List()).find(x => {
+			if (!deckUuid) return true; // choose first item in order list
+			//console.log({x, path: ["problems", x.problemUuid, "decks", deckUuid], value: state.getIn(["problems", x.problemUuid, "decks", deckUuid])});
+			return state.getIn(["problems", x.get("problemUuid"), "decks", deckUuid], false) === true;
 		});
-		const problemUuid = order.getIn([0, "problemUuid"]);
-		const index = order.getIn([0, "index"]);
-		do_question(state, problemUuid, index, cb2);
+		if (!orderItem) {
+			cb();
+		}
+		else {
+			const problemUuid = orderItem.get("problemUuid");
+			const index = orderItem.get("index");
+			do_question(state, problemUuid, index, cb2);
+		}
 	}
 
 	function cb2(data) {

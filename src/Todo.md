@@ -55,8 +55,8 @@
 	* [x] doInteractive(): update the question's halflife and due date in `state`
 	* [x] allow the user to keep reviewing in a loop until he type 'exit' or 'quit' or Ctrl-D or something like that.
 	* [x] fix so that scoring loop only creates a single file
+	* [x] let user review a specific deck
 	* [?] let user skip a question
-	* [ ] let user review a specific deck
 	* [ ] move `do_review` functions to `quvault-review.js`
 * [ ] Rename "problem sets" to "decks"?
 * [ ] Figure out a term for book/course/video/lecture/source -- the deck definition should document what it's based on

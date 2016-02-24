@@ -179,18 +179,25 @@ export default class StateWrapper {
 		});
 		const l0 = _.sortBy(weights, x => -x[3]);
 		const l1 = l0.map(([problemUuid, index, weight, , status]) => { return {problemUuid, index, weight, status}; });
-		const deckOrders = {};
+		//const deckOrders = {};
+		const deckProblemCounts = {};
 		_.forEach(l1, ({problemUuid, index, status}) => {
 			const decks = state.getIn(["problems", problemUuid, "decks"], Map());
 			decks.forEach((x, deckUuid) => {
-				const l2 = deckOrders[deckUuid] || [];
+				/*const l2 = deckOrders[deckUuid] || [];
 				l2.push({problemUuid, index, status});
-				deckOrders[deckUuid] = l2;
+				deckOrders[deckUuid] = l2;*/
+				if (!deckProblemCounts.hasOwnProperty(deckUuid)) {
+					deckProblemCounts[deckUuid] = {new: 0, pending: 0, waiting: 0};
+				}
+				const path = [deckUuid, status];
+				_.set(deckProblemCounts, path, _.get(deckProblemCounts, path, 0) + 1);
 			});
 		});
-		_.forEach(deckOrders, (x, deckUuid) => {
-			state = state.setIn(["decks", deckUuid, "order"], fromJS(x));
-		});
+		/*_.forEach(deckOrders, (x, deckUuid) => {
+			state = state.setIn(["decks", deckUuid, "order"], fromJS(_.map(x, x => [x.problemUuid, x.index])));
+		});*/
+		state = state.mergeDeepIn(["decks"], fromJS(deckProblemCounts));
 		state = state.set("order", fromJS(l1));
 
 		this.state = state;
