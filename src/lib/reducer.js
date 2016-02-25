@@ -24,6 +24,10 @@ const handlers = {
 
 	scoreQuestion: (builder, action) => {
 		builder.scoreQuestion(action.problemUuid, action.index, action.dateText, action.score);
+	},
+
+	skipQuestion: (builder, action) => {
+		builder.skipQuestion(action.problemUuid, action.index);
 	}
 };
 

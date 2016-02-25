@@ -106,13 +106,15 @@ function do_decks(state) {
 	return state;
 }
 
-function do_dump(state) {
+function do_dump(state, path) {
+	if (path) {
+		path = path.split(".");
+		state = state.getIn(path);
+	}
 	console.log(JSON.stringify(state, null, '\t'));
 }
 
-function do_review(state0, deckRef, cb) {
-	let state = state0;
-
+function do_review(deckRef, cb) {
 	function getDeckUuid() {
 	  if (deckRef) {
 			const deckIndex = parseInt(deckRef);
@@ -136,6 +138,7 @@ function do_review(state0, deckRef, cb) {
 	function reviewOne() {
 		// Get the next item in order
 		const orderItem = state.get("order", List()).find(x => {
+			if (x.get("weight") < 1) return false;
 			if (!deckUuid) return true; // choose first item in order list
 			//console.log({x, path: ["problems", x.problemUuid, "decks", deckUuid], value: state.getIn(["problems", x.problemUuid, "decks", deckUuid])});
 			return state.getIn(["problems", x.get("problemUuid"), "decks", deckUuid], false) === true;
@@ -150,20 +153,17 @@ function do_review(state0, deckRef, cb) {
 		}
 	}
 
-	function cb2(data) {
-		if (_.isEmpty(data)) {
-			cb();
-		}
-		else {
-			if (_.isPlainObject(data)) {
-				// Update score history in state
-				state = reducer(state, _.merge({type: "scoreQuestion"}, data));
+	function cb2(type, data) {
+		switch (type) {
+			case "skip":
+				state = reducer(state, data);
+				return reviewOne();
+			case "score":
+				state = reducer(state, data);
 				console.log({scoreStuff: state.getIn(["problems", data.problemUuid, "questions", data.index.toString(), "history"])});
-			}
-			else if (data === "skip") {
-				// Do nothing
-			}
-			reviewOne();
+				return reviewOne();
+			default:
+				return cb();
 		}
 	}
 
@@ -188,8 +188,8 @@ function do_question(state, problemUuid, index, cb) {
 	}
 }
 
-function doInteractive(state, uuid, index, problemType, problem, cb) {
-	//console.log(`doInteractive(${uuid}, ${index})`)
+function doInteractive(state, problemUuid, index, problemType, problem, cb) {
+	//console.log(`doInteractive(${problemUuid}, ${index})`)
 
 	const format = "markdown";
 	const renderer = problemType.getQuestionFlashcardRenderer(format, problem, index, undefined, false);
@@ -204,10 +204,10 @@ function doInteractive(state, uuid, index, problemType, problem, cb) {
 	const prompt2 = {type: "input", name: "score", message: "Your score (0=no idea, 2=wrong, 3=acceptable, 4=good, 5=easy): ", filter: (s) => parseInt(s), validate: isInteger};
 	inquirer.prompt(prompt1, ({response}) => {
 		if (response === "q") {
-			return cb(undefined);
+			return cb("quit");
 		}
 		else if (response === "skip") {
-			return cb("skip");
+			return cb("skip", {type: "skipQuestion", problemUuid, index});
 		}
 
 		// console.log("RESPONSE: "+JSON.stringify(response));
@@ -220,11 +220,11 @@ function doInteractive(state, uuid, index, problemType, problem, cb) {
 			//console.log(score);
 			const dateText = moment().format();
 			// Update score history in state
-			/*state = state.setIn(["problems", uuid, "questions", index.toString(), "history", dateText, "score"], score);
-			console.log({path: ["problems", uuid, "questions", index.toString(), "history", dateText, "score"], score: state.getIn(["problems", uuid, "questions", index.toString(), "history", dateText, "score"])})*/
+			/*state = state.setIn(["problems", problemUuid, "questions", index.toString(), "history", dateText, "score"], score);
+			console.log({path: ["problems", problemUuid, "questions", index.toString(), "history", dateText, "score"], score: state.getIn(["problems", problemUuid, "questions", index.toString(), "history", dateText, "score"])})*/
 			// Save score
 			const response1 = (_.isEmpty(response)) ? null : response;
-			const data = [uuid, index, dateText, score, response1];
+			const data = [problemUuid, index, dateText, score, response1];
 			const text = JSON.stringify(data);
 			const scoreFilename = state.getIn(["scoreFilename"]);
 			//console.log(text);
@@ -232,7 +232,7 @@ function doInteractive(state, uuid, index, problemType, problem, cb) {
 				fs.writeFileSync(scoreFilename, "", "utf8", err => {});
 			}
 			fs.appendFileSync(scoreFilename, text+"\n", "utf8", err => {});
-			cb({problemUuid: uuid, index, dateText, score});
+			cb("score", {type: "scoreQuestion", problemUuid, index, dateText, score});
 		});
 	});
 }
@@ -265,13 +265,13 @@ function repl(args) {
 		.description("List active decks")
 		.action((args, cb) => { state = do_decks(state); cb(); });
 	vorpal
-		.command("dump")
+		.command("dump [path]")
 		.description("Dump the program state to the console in JSON format")
-		.action((args, cb) => { do_dump(state); cb(); });
+		.action((args, cb) => { do_dump(state, args.path); cb(); });
 	vorpal
 		.command("review [deck]")
 		.description("Start review (optionally for a given deck).")
-		.action((args, cb) => { do_review(state, args.deck, cb); });
+		.action((args, cb) => { do_review(args.deck, cb); });
 
 	if (_.isEmpty(args) || args.length < 2) {
 		vorpal

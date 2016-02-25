@@ -47,8 +47,7 @@
 * [x] BUG: erasmus-econometrics.yaml imports the answers all on one line! (via patch to js-yaml)
 * [x] import more problemSets
 * [x] `decks` command: show better calculation of new/pending/total question counts
-* [ ] make new patch of changes to js-yaml that add CHAR_BACK_SLASH (from lorax, see dumper.patch.2)
-* [ ] submit pull request to js-yaml to allow folding and literals for CHAR_BACK_SLASH
+* [x] dump command: allow parameter for path in state to dump
 * [ ] repl: allow for interactive question scoring
 	* [x] doInteractive(): update the question's score history in `state`
 	* [x] doInteractive(): pass the updated `state` to callback `cb`
@@ -56,13 +55,14 @@
 	* [x] allow the user to keep reviewing in a loop until he type 'exit' or 'quit' or Ctrl-D or something like that.
 	* [x] fix so that scoring loop only creates a single file
 	* [x] let user review a specific deck
-	* [?] let user skip a question
+	* [x] let user skip a question
 	* [ ] move `do_review` functions to `quvault-review.js`
+* [ ] make new patch of changes to js-yaml that add CHAR_BACK_SLASH (from lorax, see dumper.patch.2)
+* [ ] submit pull request to js-yaml to allow folding and literals for CHAR_BACK_SLASH
 * [ ] Rename "problem sets" to "decks"?
 * [ ] Figure out a term for book/course/video/lecture/source -- the deck definition should document what it's based on
 * [ ] require a semver version on decks?
 * [ ] allow for decks to have dependencies on other decks, using semver?
-* [ ] dump command: allow parameter for path in state to dump
 * [ ] redux: turn the app into a redux web app
 	* [ ] continue watching redux tutorial: https://egghead.io/lessons/javascript-redux-writing-a-todo-list-reducer-adding-a-todo
 	* [ ] do all functions called by reducer need to be pure, including the initializing functions that read from disk?

@@ -158,8 +158,15 @@ export default class StateWrapper {
 				let weight = 1;
 				let randWeight = 1;
 				let status;
+				// If the question is new:
 				if (scoreDates.length === 0) {
 					status = "new";
+				}
+				// If the question is on the skip list:
+				else if (state.getIn(["skipList", problemUuid, index.toString()], false)) {
+					weight = 0;
+					randWeight = 0;
+					status = "waiting";
 				}
 				else {
 					const lastDateText = _.max(scoreDates);
@@ -251,6 +258,14 @@ export default class StateWrapper {
 		}
 		this.state = this.state.mergeDeepIn(["problems", problemUuid, "questions", index.toString()], fromJS(scoreData));
 
+		// Update the review order
+		return this.calcReviewOrder();
+	}
+
+	skipQuestion(problemUuid, index) {
+		// Add question to skipList
+		this.state = this.state.setIn(["skipList", problemUuid, index.toString()], true);
+		console.log("skipList", this.state.getIn(["skipList"]));
 		// Update the review order
 		return this.calcReviewOrder();
 	}
