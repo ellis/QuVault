@@ -6,56 +6,21 @@ import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import reducer from './reducer';
 import App from './components/App';
-import {DesignContainer} from './components/Design';
+//import {DesignContainer} from './components/Design';
 import Results from './components/Results';
+import {ReviewContainer} from './components/Review';
 import {VotingContainer} from './components/Voting';
 
 const store = createStore(reducer);
 store.dispatch({
-	type: 'SET_STATE',
+	type: 'setState',
 	state: {
-		vote: {
-			pair: [ 'Sunshine', '28 Days Later' ],
-			tally: { Sunshine: 2 }
-		},
-		design: {
-			"conditions": {
-				"strainSource": "strain1",
-				"mediaSource": "media1",
-				"cultureNum*=range": {
-					"till": 96
-				},
-				"cultureWell=range": {
-					"till": 96,
-					"random": true
-				},
-				"syringe=range": {
-					"till": 8,
-					"random": true,
-					"rotateValues": true
-				}
-			},
-			"actions": []
-		},
-		designText: `{
-			"conditions": {
-				"strainSource": "strain1",
-				"mediaSource": "media1",
-				"cultureNum*=range": {
-					"till": 96
-				},
-				"cultureWell=range": {
-					"till": 96,
-					"random": true
-				},
-				"syringe=range": {
-					"till": 8,
-					"random": true,
-					"rotateValues": true
-				}
-			},
-			"actions": []
-		}`,
+		ui: {
+			review: {
+				questionText: "What's my name?",
+				doShowAnswer: false
+			}
+		}
 	}
 });
 
@@ -75,10 +40,7 @@ const router = (
 const router = (
 	<Router>
 		<Route component={App}>
-			<Route path="/results" component={Results}/>
-			<Route path="/design" component={DesignContainer}/>
-			<Route path="/" component={VotingContainer}/>
-			// <Route path="results" component={Results}/>
+			<Route path="/" component={ReviewContainer}/>
 		</Route>
 	</Router>
 );
