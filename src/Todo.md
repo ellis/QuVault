@@ -48,6 +48,7 @@
 * [x] import more problemSets
 * [x] `decks` command: show better calculation of new/pending/total question counts
 * [x] dump command: allow parameter for path in state to dump
+* [x] move Design.md and Todo.md to src/ folder
 * [ ] repl: allow for interactive question scoring
 	* [x] doInteractive(): update the question's score history in `state`
 	* [x] doInteractive(): pass the updated `state` to callback `cb`
@@ -57,15 +58,15 @@
 	* [x] let user review a specific deck
 	* [x] let user skip a question
 	* [ ] move `do_review` functions to `quvault-review.js`
+* [ ] redux: turn the app into a redux web app
+	* [ ] continue watching redux tutorial: https://egghead.io/lessons/javascript-redux-writing-a-todo-list-reducer-adding-a-todo
+	* [ ] do all functions called by reducer need to be pure, including the initializing functions that read from disk?
 * [ ] make new patch of changes to js-yaml that add CHAR_BACK_SLASH (from lorax, see dumper.patch.2)
 * [ ] submit pull request to js-yaml to allow folding and literals for CHAR_BACK_SLASH
 * [ ] Rename "problem sets" to "decks"?
 * [ ] Figure out a term for book/course/video/lecture/source -- the deck definition should document what it's based on
-* [ ] require a semver version on decks?
+* [ ] support having a semver version on decks
 * [ ] allow for decks to have dependencies on other decks, using semver?
-* [ ] redux: turn the app into a redux web app
-	* [ ] continue watching redux tutorial: https://egghead.io/lessons/javascript-redux-writing-a-todo-list-reducer-adding-a-todo
-	* [ ] do all functions called by reducer need to be pure, including the initializing functions that read from disk?
 * [ ] add UI variables to `state`
 * [ ] add more tests to `StateWrapperTest.js`
 * [ ] figure out how to keep random number generate state in the program `state`
@@ -74,7 +75,6 @@
 	* [ ] load from deckDirs in the proper order
 * [ ] repl: `createDeck`: create a new deck
 * [ ] repl: `createProblem`: create a new problem
-* [ ] move Design.md and Todo.md to src/ folder
 * [ ] delete old cli.js
 * [ ] cli: read configuration information from .config/quvault/quvault.yaml, with directory information
 * [ ] start a `medley-data` library?  Merge functions would never automatically create arrays, even if a number was in the path; lists could be extracted from maps
