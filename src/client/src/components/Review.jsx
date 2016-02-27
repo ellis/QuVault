@@ -14,7 +14,7 @@ export const ReviewQuestion = React.createClass({
 			return <div>
 				{questionDOM}
 				<div>
-					<button onClick={() => this.props.showAnswer()}>
+					<button onClick={() => this.props.reviewShowAnswer()}>
 						Show Answer
 					</button>
 				</div>
@@ -32,8 +32,8 @@ const mapStateToProps = (state) => ({
 });
 
 const actions = {
-	showAnswer: () => {
-		return {type: "showAnswer"};
+	reviewShowAnswer: () => {
+		return {type: "reviewShowAnswer"};
 	}
 };
 

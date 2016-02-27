@@ -9,7 +9,7 @@ export default function(state = Map(), action) {
 	switch (action.type) {
 		case 'setState':
 			return setState(state, action.state);
-		case 'showAnswer':
+		case 'reviewShowAnswer':
 			state = state.setIn(["ui", "review", "doShowAnswer"], true);
 			console.log("state: "+JSON.stringify(state, null, '\t'))
 			return state;
