@@ -21,7 +21,11 @@ export const ReviewQuestion = React.createClass({
 			</div>;
 		}
 		else {
-			return <div>No yet implemented</div>
+			return <div>
+				{questionDOM}
+				<h1>Answer</h1>
+				Not yet implemented, says karina
+			</div>;
 		}
 	},
 });

@@ -49,7 +49,7 @@
 * [x] `decks` command: show better calculation of new/pending/total question counts
 * [x] dump command: allow parameter for path in state to dump
 * [x] move Design.md and Todo.md to src/ folder
-* [ ] repl: allow for interactive question scoring
+* [x] repl: allow for interactive question scoring
 	* [x] doInteractive(): update the question's score history in `state`
 	* [x] doInteractive(): pass the updated `state` to callback `cb`
 	* [x] doInteractive(): update the question's halflife and due date in `state`
@@ -57,10 +57,10 @@
 	* [x] fix so that scoring loop only creates a single file
 	* [x] let user review a specific deck
 	* [x] let user skip a question
-	* [ ] move `do_review` functions to `quvault-review.js`
 * [ ] redux: turn the app into a redux web app
 	* [ ] continue watching redux tutorial: https://egghead.io/lessons/javascript-redux-writing-a-todo-list-reducer-adding-a-todo
 	* [ ] do all functions called by reducer need to be pure, including the initializing functions that read from disk?
+* [ ] move `do_review` functions to `quvault-review.js`
 * [ ] make new patch of changes to js-yaml that add CHAR_BACK_SLASH (from lorax, see dumper.patch.2)
 * [ ] submit pull request to js-yaml to allow folding and literals for CHAR_BACK_SLASH
 * [ ] Rename "problem sets" to "decks"?
