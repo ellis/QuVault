@@ -58,6 +58,7 @@
 	* [x] let user review a specific deck
 	* [x] let user skip a question
 * [ ] redux: turn the app into a redux web app
+	* [ ] try https://github.com/reactjs/react-router-redux
 	* [ ] continue watching redux tutorial: https://egghead.io/lessons/javascript-redux-writing-a-todo-list-reducer-adding-a-todo
 	* [ ] do all functions called by reducer need to be pure, including the initializing functions that read from disk?
 * [ ] move `do_review` functions to `quvault-review.js`
