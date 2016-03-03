@@ -1,21 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 //import {IndexRoute, Route, Router, browserHistory} from 'react-router';
-import {Route, Router} from 'react-router';
-import {createStore} from 'redux';
+import {applyMiddleware, createStore} from 'redux';
 import {Provider} from 'react-redux';
+import { Router, Route, browserHistory } from 'react-router';
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
+
 import reducer from './reducer';
 import App from './components/App';
-//import {DesignContainer} from './components/Design';
 import {DecksContainer} from './components/Decks';
-import Results from './components/Results';
 import {ReviewContainer} from './components/Review';
-import {VotingContainer} from './components/Voting';
+
+
 
 const store = createStore(reducer);
 store.dispatch({
 	type: 'setState',
 	state: {
+		routing: { },
 		data: {
 			decks: {
 				"1355a856-526f-4526-8af5-a8af28f2eccf": {
@@ -66,9 +68,9 @@ store.dispatch({
 	}
 });
 
+/*
 const pair = ['Trainspotting', '28 Days Later'];
 
-/*
 const router = (
 	<Router>
 		<Route path="/" component={App}>
@@ -79,13 +81,25 @@ const router = (
 	</Router>
 );
 */
-const router = (
-	<Router>
-		<Route component={App}>
-			<Route path="/review" component={ReviewContainer}/>
-			<Route path="/" component={DecksContainer}/>
-		</Route>
-	</Router>
-);
 
-ReactDOM.render(<Provider store={store}>{router}</Provider>, document.getElementById('app'));
+// Create an enhanced history that syncs navigation events with the store
+const selectLocationState = (state) => {
+	console.log({state: state.toJS()});
+	const routing = state.get("routing");
+	return routing.toJS();
+};
+const history = syncHistoryWithStore(browserHistory, store, {selectLocationState})
+
+ReactDOM.render(
+  <Provider store={store}>
+    { /* Tell the Router to use our enhanced history */ }
+    <Router history={history}>
+      <Route path="/" component={App}>
+				<Route path="review" component={ReviewContainer}/>
+				<Route path="decks" component={DecksContainer}/>
+				<Route path="*" component={DecksContainer}/>
+      </Route>
+    </Router>
+  </Provider>,
+  document.getElementById('app')
+);
