@@ -8,15 +8,17 @@ const Table = ({
 }) => {
 	return <table>
 		<thead>
-			<tr><th align="left">Decks</th><th>New</th><th>Pending</th><th>Waiting</th></tr>
+			<tr><th style={{textAlign: "left"}}>Decks</th><th>Due</th><th>New</th><th>Wait</th></tr>
 		</thead>
 		<tbody>
-			{_.map(decks.toJS(), (deck, deckUuid) => <tr key={"deck_"+deckUuid}>
-				<td>{deck.name}</td>
-				<td style={{textAlign: "right"}}>{deck.new}</td>
-				<td align="right">{deck.pending}</td>
-				<td align="right">{deck.waiting}</td>
-			</tr>)}
+			{(decks) ?
+				_.map(decks.toJS(), (deck, deckUuid) => <tr key={"deck_"+deckUuid}>
+					<td>{deck.name}</td>
+					<td style={{textAlign: "right"}}>{deck.pending}</td>
+					<td style={{textAlign: "right"}}>{deck.new}</td>
+					<td style={{textAlign: "right"}}>{deck.waiting}</td>
+				</tr>)
+			: undefined}
 		</tbody>
 	</table>;
 };

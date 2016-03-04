@@ -9,8 +9,7 @@ import {setClientId, setState, setConnectionState} from './action_creators';
 import remoteActionMiddleware from './remote_action_middleware';
 import getClientId from './client_id';
 import App from './components/App';
-import {VotingContainer} from './components/Voting';
-import {ResultsContainer} from './components/Results';
+import {DecksContainer} from './components/Decks';
 
 require('./style.css');
 
@@ -37,8 +36,7 @@ const store = createStoreWithMiddleware(reducer);
 store.dispatch(setClientId(getClientId()));
 
 const routes = <Route component={App}>
-  <Route path="/" component={VotingContainer} />
-  <Route path="/results" component={ResultsContainer} />
+  <Route path="/" component={DecksContainer} />
 </Route>;
 
 ReactDOM.render(

@@ -19,6 +19,7 @@
     "mocha": "2.4.5"
   },
   "dependencies": {
+    "express": "^4.13.4",
     "immutable": "3.7.6",
     "lodash": "^4.6.1",
     "redux": "3.3.1",
