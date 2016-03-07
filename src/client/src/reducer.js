@@ -23,8 +23,12 @@ export default function(state = Map(), action) {
     return setConnectionState(state, action.state, action.connected);
   case 'SET_STATE':
     return setState(state, action.state);
-	case "setQuesitonText":
-		return state.setIn(["ui", "review"], Map({questionText: action.questionText}));
+	case "setQuestionText":
+		const x = {format: action.format, questionText: action.data};
+		state = state.setIn(["ui", "review"], Map(x));
+		// console.log({x})
+		// console.log("ui.review: "+JSON.stringify(state.getIn(["ui", "review"])));
+		return state;
   }
   console.log({state})
   return state;

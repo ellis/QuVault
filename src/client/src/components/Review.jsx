@@ -32,7 +32,7 @@ export const ReviewQuestion = React.createClass({
 
 const mapStateToProps = (state) => ({
 	questionText: state.getIn(["ui", "review", "questionText"]),
-	doShowAnswer: state.getIn(["ui", "review", "doShowAnswer"]),
+	doShowAnswer: state.getIn(["ui", "review", "doShowAnswer"], false),
 });
 
 const actions = {

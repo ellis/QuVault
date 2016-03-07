@@ -20,7 +20,7 @@ const createStoreWithMiddleware = applyMiddleware(remoteActionMiddleware(socket)
 const store = createStoreWithMiddleware(reducer);
 store.dispatch(setClientId(getClientId()));
 
-const socket = io(`${location.protocol}//${location.hostname}:8090`);
+const socket = io(`${location.protocol}//${location.hostname}:12346`);
 socket.on('state', state => store.dispatch(setState(state)));
 socket.on("question", result => {
 	store.dispatch({type: "setQuestionText", format: result.format, data: result.data});
