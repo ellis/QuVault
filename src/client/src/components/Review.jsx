@@ -9,7 +9,8 @@ export const ReviewQuestion = React.createClass({
 		const questionDOM = <div>
 			<h1>Question</h1>
 			<div>{this.props.questionText}</div>
-		</div>
+		</div>;
+		
 		if (!this.props.doShowAnswer) {
 			return <div>
 				{questionDOM}
