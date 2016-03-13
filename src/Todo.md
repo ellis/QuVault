@@ -57,6 +57,13 @@
 	* [x] fix so that scoring loop only creates a single file
 	* [x] let user review a specific deck
 	* [x] let user skip a question
+* [ ] REST API:
+	* [x] /api/decks, prototype
+	* [ ] /api/user/$user/decks: require username to list decks
+	* [ ] /api/user/$user/order: list order of questions
+	* [ ] /api/user/$user/order/$deckUUID: list order of questions
+	* [ ] /api/user/$user/ask/$problemUUID/$index/
+	* how to render the HTML view?
 * [ ] redux: turn the app into a redux web app
 	* [ ] try https://github.com/reactjs/react-router-redux
 	* [ ] continue watching redux tutorial: https://egghead.io/lessons/javascript-redux-writing-a-todo-list-reducer-adding-a-todo
