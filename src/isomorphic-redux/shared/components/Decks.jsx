@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React, { PropTypes } from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {connect} from 'react-redux';
+import * as Actions from '../actions/Actions.js';
 
 const Table = ({
 	decks
@@ -29,7 +30,7 @@ class Decks extends React.Component {
 		dispatch: PropTypes.func.isRequired
 	};
 
-	//static needs = [TodoActions.getTodos];
+	static needs = [Actions.getDecks];
 
 	constructor(props) {
 		super(props);
@@ -37,7 +38,7 @@ class Decks extends React.Component {
 	}
 
 	render() {
-		//console.log("table: "+JSON.stringify(table))
+		console.log("table: "+JSON.stringify(table))
 		return <div>
 			<h1>Decks</h1>
 			<Table decks={this.props.decks}/>

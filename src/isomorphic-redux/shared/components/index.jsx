@@ -6,6 +6,7 @@ export default class MainView extends React.Component {
   };
 
   render() {
+	  console.log(this.props.children)
     return (
       <div id="main-view">
         <h1>Todos</h1>

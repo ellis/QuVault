@@ -1,4 +1,5 @@
 import express from 'express';
+import {fromJS} from 'immutable';
 import React from 'react';
 import {renderToString} from 'react-dom/server'
 import {RoutingContext, match} from 'react-router';
