@@ -59,10 +59,10 @@
 	* [x] let user skip a question
 * [ ] REST API:
 	* [x] /api/decks, prototype
-	* [ ] /api/user/$user/decks: require username to list decks
-	* [ ] /api/user/$user/order: list order of questions
-	* [ ] /api/user/$user/order/$deckUUID: list order of questions
-	* [ ] /api/user/$user/ask/$problemUUID/$index/
+	* [x] /api/u/:username/decks: require username to list decks
+	* [ ] /api/u/:username/order: list order of questions
+	* [ ] /api/u/:username/order/$deckUUID: list order of questions
+	* [ ] /api/u/:username/ask/$problemUUID/$index/
 	* how to render the HTML view?
 * [ ] redux: turn the app into a redux web app
 	* [ ] try https://github.com/reactjs/react-router-redux

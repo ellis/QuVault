@@ -38,6 +38,18 @@ router.route('/decks')
 		res.json(state.getIn(["decks"], Map()).toJS());
 	});
 
+router.route('/u/:username/decks')
+	.get((req, res) => {
+		var reducer = require('../lib/reducer.js').default;
+		const actions = [
+			{type: "loadConfig", username: req.params.username},
+			{type: "loadDecks"}
+		];
+		const state = actions.reduce(reducer, Map());
+		//console.log(JSON.stringify(state.toJS(), null, '\t'))
+		res.json(state.getIn(["decks"], Map()).toJS());
+	});
+
 // more routes for our API will happen here
 
 // REGISTER OUR ROUTES -------------------------------
