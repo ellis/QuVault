@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Immutable from 'immutable';
 import React, { PropTypes } from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {connect} from 'react-redux';
@@ -38,7 +39,7 @@ class Decks extends React.Component {
 	}
 
 	render() {
-		console.log("table: "+JSON.stringify(table))
+		//console.log("table: "+JSON.stringify(table))
 		return <div>
 			<h1>Decks</h1>
 			<Table decks={this.props.decks}/>
@@ -47,14 +48,22 @@ class Decks extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps0 = (state) => ({
 	// decks: state.getIn(["data", "decks"])
 	decks: state.data.getIn(["decks"])
 });
+const mapStateToProps = (state) => {
+	console.log(`mapStateToProps:`)
+	console.log(state);
+	return {
+		decks: (state.quvault || Immutable.Map()).getIn(["data", "decks"])
+	};
+};
 
 const actions = {
 	//decksReview: (deckUuid) => ({type: "decksReview", deckUuid}),
 	//review: () => ({type: "decksReview", deckUuid})
 };
 
-export const DecksContainer = connect(mapStateToProps, actions)(Decks);
+// export const DecksContainer = connect(mapStateToProps, actions)(Decks);
+export default connect(mapStateToProps)(Decks);

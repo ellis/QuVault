@@ -23,23 +23,27 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use((req, res) => {
 	const location = createLocation(req.url);
 	const reducer = combineReducers(reducers);
-	const map0 = fromJS({"decks": {
-                "1355a856-526f-4526-8af5-a8af28f2eccf": {
-                        "name": "Algorithms I",
-                        "description": "Coursera 2015\n",
-                        "new": 6,
-                        "pending": 1,
-                        "waiting": 3
-                },
-                "638454be-b564-4b56-ab66-16b6c855ec05": {
-                        "name": "Econometrics: Methods and Applications",
-                        "description": "Coursera 2016\nEconometrics: Methods and Applications\nby Erasmus University Rotterdam\n",
-                        "new": 6,
-                        "pending": 0,
-                        "waiting": 0
-                }
-			}});
-	const store = applyMiddleware(promiseMiddleware)(createStore)(reducer, map0);
+	const map0 = fromJS({
+		quvault: {
+			"decks": {
+				"1355a856 - 526 f - 4526 - 8 af5 - a8af28f2eccf ": {
+				 "name" : "Algorithms I",
+				"description" : "Coursera 2015\n",
+				"new" : 6,
+				"pending" : 1,
+				"waiting" : 3
+				},
+				"638454be-b564-4b56-ab66-16b6c855ec05" : {
+				"name": "Econometrics: Methods and Applications",
+				"description": "Coursera 2016\nEconometrics: Methods and Applications\nby Erasmus University Rotterdam\n",
+				"new": 6,
+				"pending": 0,
+				"waiting": 0
+				}
+			}
+		}
+	});
+	const store = createStore(reducer, map0, applyMiddleware(promiseMiddleware));
 
 	match({
 		routes,
