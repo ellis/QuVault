@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use((req, res) => {
 	const location = createLocation(req.url);
 	const reducer = combineReducers(reducers);
-	const map0 = fromJS({
+	/*const map0 = fromJS({
 		quvault: {
 			"decks": {
 				"1355a856 - 526 f - 4526 - 8 af5 - a8af28f2eccf ": {
@@ -42,8 +42,9 @@ app.use((req, res) => {
 				}
 			}
 		}
-	});
-	const store = createStore(reducer, map0, applyMiddleware(promiseMiddleware));
+	});*/
+	// const store = createStore(reducer, map0, applyMiddleware(promiseMiddleware));
+	const store = createStore(reducer, applyMiddleware(promiseMiddleware));
 
 	match({
 		routes,

@@ -43,7 +43,9 @@ router.route('/u/:username/decks')
 		var reducer = require('../lib/reducer.js').default;
 		const actions = [
 			{type: "loadConfig", username: req.params.username},
-			{type: "loadDecks"}
+			{type: "loadDecks"},
+			{type: "loadQuestions"},
+			{type: "calcReviewOrder"}
 		];
 		const state = actions.reduce(reducer, Map());
 		//console.log(JSON.stringify(state.toJS(), null, '\t'))
