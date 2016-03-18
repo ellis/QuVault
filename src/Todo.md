@@ -62,7 +62,7 @@
 	* [x] /api/u/:username/decks: require username to list decks
 	* [ ] /api/u/:username/order: list order of questions
 	* [ ] /api/u/:username/order/$deckUUID: list order of questions
-	* [ ] /api/u/:username/ask/$problemUUID/$index/
+	* [ ] /api/u/:username/problem/$problemUUID/$index/
 	* how to render the HTML view?
 * [ ] redux: turn the app into a redux web app
 	* [ ] try https://github.com/reactjs/react-router-redux

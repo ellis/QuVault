@@ -2,7 +2,9 @@
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
-import {Map} from 'immutable';
+import {List, Map} from 'immutable';
+
+import {getQuestion} from './apiProblem.js';
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -40,7 +42,7 @@ router.route('/decks')
 
 router.route('/u/:username/decks')
 	.get((req, res) => {
-		var reducer = require('../lib/reducer.js').default;
+		const reducer = require('../lib/reducer.js').default;
 		const actions = [
 			{type: "loadConfig", username: req.params.username},
 			{type: "loadDecks"},
@@ -52,6 +54,8 @@ router.route('/u/:username/decks')
 		res.json(state.getIn(["decks"], Map()).toJS());
 	});
 
+router.route('/u/:username/problem/:problemUuid/:index')
+	.get(getQuestion);
 // more routes for our API will happen here
 
 // REGISTER OUR ROUTES -------------------------------
