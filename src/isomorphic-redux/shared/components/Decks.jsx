@@ -53,7 +53,7 @@ const mapStateToProps0 = (state) => ({
 	decks: state.data.getIn(["decks"])
 });
 const mapStateToProps = (state) => {
-	console.log(`mapStateToProps:`)
+	console.log(`Decks.mapStateToProps:`)
 	console.log(state);
 	return {
 		decks: (state.quvault || Immutable.Map()).getIn(["data", "decks"])

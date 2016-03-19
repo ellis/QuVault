@@ -58,6 +58,8 @@
 	* [x] let user review a specific deck
 	* [x] let user skip a question
 * [ ] Question component
+	* [x] initial display
+	* [ ] BUG: doesn't work to load main page then click link to question, even though reloading on question page does work
 * [ ] REST API:
 	* [x] /api/decks, prototype
 	* [x] /api/u/:username/decks: require username to list decks
