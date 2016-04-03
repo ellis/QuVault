@@ -1,4 +1,0 @@
-{
-"question": "What is the asymptotic worst-case running time of MergeSort, as a function of the input array length n?",
-"answer": "$\\Theta(n \\log n)$"
-}

@@ -57,9 +57,16 @@
 	* [x] fix so that scoring loop only creates a single file
 	* [x] let user review a specific deck
 	* [x] let user skip a question
+* [ ] new api/server/client setup
+	* [ ] setup express server that responds to '/api' path (see server2/server.js)
+	* [ ] create an API server at '/api'
+	* [ ] serve react client application from '/', along with required CSS and image files
+	* [ ] setup webpack & hotloading for client and shared files
+	* [ ] client should query/command and respond to the API server
 * [ ] Question component
 	* [x] initial display
 	* [ ] BUG: doesn't work to load main page then click link to question, even though reloading on question page does work
+	* [ ] try to use 'universal-redux' instead
 * [ ] REST API:
 	* [x] /api/decks, prototype
 	* [x] /api/u/:username/decks: require username to list decks
