@@ -58,11 +58,18 @@
 	* [x] let user review a specific deck
 	* [x] let user skip a question
 * [ ] new api/server/client setup
-	* [ ] setup express server that responds to '/api' path (see server2/server.js)
-	* [ ] create an API server at '/api'
-	* [ ] serve react client application from '/', along with required CSS and image files
+	* [x] setup express server that responds to '/api' path (see server2/server.js)
+	* [x] create an API server at '/api'
+	* [x] serve react client application from '/'
+	* [x] work through webpack tutorial
 	* [ ] setup webpack & hotloading for client and shared files
+		* [ ] it's not reloading properly for client/app/index.jsx -- i think it is a path problem
+		* [ ] make sure server serves required CSS and image files, in addition to index.html
 	* [ ] client should query/command and respond to the API server
+	* [ ] setup socket.io client/server for live updates on client
+	* [ ] client: make my own hash router
+	* [ ] client: Decks
+	* [ ] client: Question
 * [ ] Question component
 	* [x] initial display
 	* [ ] BUG: doesn't work to load main page then click link to question, even though reloading on question page does work
