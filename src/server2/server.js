@@ -1,37 +1,27 @@
-var app = require('express')();
+const express = require('express');
+const bodyParser = require('body-parser');
 var http = require('http').Server(app);
-import Server from 'socket.io';
 
-CONTINUE
+const app = express();
+const router = express.Router();
 
-export function startServerUi(store) {
-	app.get('/', function(req, res){
-	  res.sendFile(__dirname + '/index.html');
-	});
+const port = process.env.PORT || 8080;
 
-	http.listen(12345, function(){
-	  console.log('listening on *:12345');
-	});
+// configure app to use bodyParser()
+// this will let us get the data from a POST
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-	const io = new Server(http);
+router.get('/', function(req, res) {
+	res.json({ message: 'hooray! welcome to our api!' });
+});
 
-	store.subscribe(
-		() => {
-			console.log(store.getState());
-			io.emit('state', store.getState().toJS());
-		}
-	);
+// all of our routes will be prefixed with /api
+app.use('/api', router);
 
-	io.on('connection', (socket) => {
-		console.log({id: socket.id});
-		socket.on('disconnect', function(){
-			console.log('user disconnected');
-		});
-		// socket.on('chat message', function(msg){
-		// 	console.log('message: ' + msg);
-		// 	io.emit('chat message', msg);
-		// });
-		socket.emit('state', store.getState().toJS());
-		socket.on('action', store.dispatch.bind(store));
-	});
-}
+app.get('/', function(req, res){
+	res.sendFile(__dirname + '/index.html');
+});
+
+app.listen(port);
+console.log("Listening on port "+port);

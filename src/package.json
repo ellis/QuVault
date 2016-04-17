@@ -38,12 +38,13 @@
   },
   "scripts": {
     "build": "webpack -p",
-		"cli": "babel-node -- lib/cli.js",
-		"dev": "webpack -d --watch",
+    "cli": "babel-node -- lib/cli.js",
+    "dev": "webpack -d --watch",
     "import": "babel-node -- lib/main-import.js",
+		"server": "babel-node -- server2/server.js",
     "start": "babel-node -- lib/main-start.js",
-		"test": "mocha --compilers js:babel-core/register --recursive tests/",
-		"webpack-dev-server": "webpack-dev-server --content-base client/"
+    "test": "mocha --compilers js:babel-core/register --recursive tests/",
+    "webpack-dev-server": "webpack-dev-server --content-base client/"
   },
   "author": "Ellis Whitehead",
   "license": "GPL-3.0"

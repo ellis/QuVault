@@ -62,10 +62,11 @@
 	* [x] create an API server at '/api'
 	* [x] serve react client application from '/'
 	* [x] work through webpack tutorial
-	* [ ] setup webpack & hotloading for client and shared files
+	* [x] setup webpack & hotloading for client and shared files
 		* [x] it's not reloading properly for client/app/index.jsx -- i think it is a path problem
-		* [ ] make sure server serves required CSS and image files, in addition to index.html
+		* [x] make sure server serves required CSS and image files, in addition to index.html
 	* [ ] figure out how to use express to run webpack hotloading alongside API server
+		* [ ] see http://nikolay.rocks/2016-01-13-connect-webpack-to-backend
 	* [ ] client should query/command and respond to the API server
 	* [ ] setup socket.io client/server for live updates on client
 	* [ ] client: make my own hash router
